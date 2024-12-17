@@ -10,15 +10,18 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+    session_start();
+    ?>
     <nav id="sidebar">
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
-        <a href="text" class="nav-item">
+        <a href="index.php" class="nav-item">
             <span class="icon">📄</span>
             <span class="text">Home</span>
         </a>
-        <a href="text" class="nav-item">
+        <a href="wpisy.php" class="nav-item">
             <span class="icon">📄</span>
             <span class="text">Wpisy</span>
         </a>
@@ -38,7 +41,7 @@
             <span class="icon">📄</span>
             <span class="text">Alergie</span>
         </a>
-        <button id="logoutButton" class="nav-item">
+        <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
