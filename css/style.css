@@ -1,0 +1,166 @@
+:root{
+    --background-colour: #fff;
+    --accent-colour: #32d8ae;
+    --accent-colour-hover: #10b68c;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", serif;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient( #fff, #fff, #b2ffec);
+    display: flex;
+    flex-direction: row;
+}
+
+nav{
+    color: #000;
+    background-color: var(--accent-colour);
+    height: 100vh;
+    border-right: var(--accent-colour) solid 1px;
+    width: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transition: width 0.3s ease;
+    width: 4.25rem;
+}
+
+nav.expanded {
+    width: 15rem;
+}
+
+.button{
+    background-color: var(--accent-colour);
+    color: #fff;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all .1s ease-in-out;
+}
+
+.button:hover{
+    background-color: var(--accent-colour-hover);
+    cursor: pointer;
+}
+
+#toggleButton {
+    margin: 1rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.nav-item:hover {
+    background-color: var(--accent-colour-hover);
+}
+
+.icon {
+    font-size: 1.5rem;
+}
+
+.text {
+    margin-left: 1rem;
+    display: none;
+}
+
+nav.expanded .text {
+    display: inline;
+}
+
+#nav-right{
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-element{
+    padding: 1rem 2rem;
+    transition: all .1s ease-in-out;
+}
+
+.nav-element:hover{
+    background-color: var(--accent-colour);
+    color: #fff;
+    cursor: pointer;
+}
+
+#loginButton{
+    margin-right: 1rem;
+}
+
+a{
+    text-decoration: none;
+}
+
+nav img{
+    height: 2rem;
+}
+
+#logoutButton {
+    margin-top: auto; /* Push the button to the bottom */
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#logoutButton:hover {
+    background-color: var(--accent-colour-hover);
+}
+
+
+main {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 1rem;
+}
+
+.referral-list {
+    width: 30%;
+    border-right: 1px solid var(--accent-colour);
+    padding: 1rem;
+}
+
+.referral-details {
+    width: 70%;
+    padding: 1rem;
+}
+
+.referral-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.referral-list li {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.referral-list li:hover {
+    background-color: var(--accent-colour-hover);
+    color: #fff;
+}

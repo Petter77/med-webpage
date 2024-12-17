@@ -1,0 +1,95 @@
+:root {
+    --background-colour: #fff;
+    --accent-colour: #32d8ae;
+    --accent-colour-hover: #10b68c;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(#fff, #fff, #b2ffec);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Add this to position the staff login button */
+}
+
+form {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    border-radius: 1rem;
+    justify-content: center;
+    align-items: center;
+    border: var(--accent-colour) 1px solid;
+    background-color: var(--background-colour);
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form input {
+    width: 80%;
+    padding: 0.5rem;
+    border: 1px solid var(--accent-colour);
+    border-radius: 0.5rem;
+}
+
+form label {
+    align-self: flex-start;
+    margin-left: 10%;
+}
+
+form .button {
+    background-color: var(--accent-colour);
+    color: #fff;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    border: none;
+    width: 80%;
+    margin-top: 1rem;
+}
+
+form .button:hover {
+    background-color: var(--accent-colour-hover);
+}
+
+form * {
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+#staffLoginButton {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: var(--accent-colour);
+    color: #fff;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    border: none;
+}
+
+#staffLoginButton:hover {
+    background-color: var(--accent-colour-hover);
+}
