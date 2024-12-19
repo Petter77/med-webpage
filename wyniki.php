@@ -7,7 +7,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Wyniki medyczne pacjenta</title>
 </head>
 <body>
     <nav id="sidebar">
@@ -44,8 +45,49 @@
         </button>
         
     </nav>
-    <main>
-        
+   <main>
+         <div id="referralList" class="referral-list">
+            <h2>Lista Wyników</h2>
+            <ul>
+            <?php
+            $host = 'localhost';
+$db = 'baza-danych-medycznych';
+$user = 'pacjent';
+$pass = 'haslo';
+$port = '5432';
+
+$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+if (!$conn) {
+    echo "An error occurred while connecting to the database.";
+    exit;
+}
+	            #$id = $_GET['id'];
+	            #$pesel = $_SESSION['pesel'];
+                $query = 'SELECT 
+                    Wyniki.id AS wyniki_id, 
+                    Wyniki."dataWyniku" as wyniki_data,  
+                    personel.imie AS personel_imie, 
+                    personel.nazwisko AS personel_nazwisko
+                FROM 
+                    "WynikibadanDiagnostycznych" as Wyniki
+                JOIN 
+                    "PersonelMedyczny" as personel
+                ON 
+                    Wyniki."idPersonelu" = personel."id" WHERE Wyniki."peselPacjenta" = 22222222222 ORDER BY wyniki_data DESC';
+	            #$dbconn = $_GET['dbconn'];
+				$result = pg_query($conn, $query);
+	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
+                    echo "<li onclick='handleClickWyniki(" . $line['wyniki_id'] . ", \"wynik\")'>Wpis nr: {$line['wyniki_id']}, data: {$line['wyniki_data']}, Personel wykonujący badanie: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+                }
+
+                ?>
+             
+            </ul>
+        </div>
+        <div id="referralDetails" class="referral-details">
+            <h2>Szczegóły Wyniku</h2>
+            <p>Wybierz wynik z listy, aby zobaczyć szczegóły.</p>
+        </div>
     </main>
     <script src="js/script.js"></script>
 </body>

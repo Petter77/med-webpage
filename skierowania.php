@@ -77,7 +77,7 @@ if (!$conn) {
 	            #$dbconn = $_GET['dbconn'];
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
-                    echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ")'>Skierowanie nr: {$line['skierowanie_id']}, data: {$line['skierowanie_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+                    echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ", \"skierowanie\")'>Skierowanie nr: {$line['skierowanie_id']}, data: {$line['skierowanie_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
                 }
 
                 ?>

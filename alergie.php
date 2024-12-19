@@ -44,8 +44,8 @@
         </button>
         
     </nav>
-    <main>
-        
+   <main>
+       
     </main>
     <script src="js/script.js"></script>
 </body>
