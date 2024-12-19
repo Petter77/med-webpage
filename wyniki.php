@@ -39,7 +39,7 @@
             <span class="icon">📄</span>
             <span class="text">Alergie</span>
         </a>
-        <button id="logoutButton" class="nav-item">
+       <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
@@ -50,7 +50,18 @@
             <h2>Lista Wyników</h2>
             <ul>
             <?php
-	            $pesel = $_SESSION['pesel'];
+                $host = 'localhost';
+                $db = 'BazaMedyczna';
+                $user = 'pacjent';
+                $pass = 'haslo';
+                $port = '5432';
+
+                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+                session_start(); // Start the session
+                $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
+                if (!$pesel) {
+                die("Error: Pesel not found in session.");
+                }
                 $query = 'SELECT 
                     Wyniki.id AS wyniki_id, 
                     Wyniki."dataWyniku" as wyniki_data,  
@@ -61,13 +72,12 @@
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Wyniki."idPersonelu" = personel."id" WHERE Wyniki."peselPacjenta" = $pesel ORDER BY wyniki_data DESC';
-	            $conn = $_SESSION['conn'];
-				$result = pg_query($conn, $query);
+                    Wyniki."idPersonelu" = personel."id" WHERE Wyniki."peselPacjenta" = $1 ORDER BY wyniki_data DESC';
+				$result = pg_query_params($conn, $query, [$pesel]);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClickWyniki(" . $line['wyniki_id'] . ", \"wynik\")'>Wpis nr: {$line['wyniki_id']}, data: {$line['wyniki_data']}, Personel wykonujący badanie: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
                 }
-
+                pg_close($conn);
                 ?>
              
             </ul>

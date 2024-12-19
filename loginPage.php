@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel']) && isset($_PO
         // Start a session and store the PESEL in it
         session_start();
         $_SESSION['pesel'] = $pesel;
-        $_SESSION['conn'] = $conn;
+        pg_close($conn);
         // Credentials are valid, redirect to index.php
         header("Location: index.php");
         exit;

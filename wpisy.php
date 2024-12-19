@@ -56,7 +56,18 @@
             <ul>
             <?php
 
-	            $pesel = $_SESSION['pesel'];
+                $host = 'localhost';
+                $db = 'BazaMedyczna';
+                $user = 'pacjent';
+                $pass = 'haslo';
+                $port = '5432';
+
+                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+                session_start(); // Start the session
+                $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
+                if (!$pesel) {
+                die("Error: Pesel not found in session.");
+                }
                 $query = 'SELECT 
                     Wpisy.id AS wpisy_id, 
                     Wpisy."dataWpisu" as wpisy_data,  
@@ -67,9 +78,9 @@
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Wpisy."idPersonelu" = personel."id" WHERE Wpisy."peselPacjenta" = $pesel ORDER BY wpisy_data DESC';
-	            $conn = $_SESSION['conn'];
-				$result = pg_query($conn, $query);
+                    Wpisy."idPersonelu" = personel."id" WHERE Wpisy."peselPacjenta" = $1 ORDER BY wpisy_data DESC';
+
+				$result = pg_query_params($conn, $query, [$pesel]);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClick(" . $line['wpisy_id'] . ", \"wpis\")'>Wpis nr: {$line['wpisy_id']}, data: {$line['wpisy_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
                 }

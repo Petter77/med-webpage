@@ -39,7 +39,7 @@
             <span class="icon">📄</span>
             <span class="text">Alergie</span>
         </a>
-        <button id="logoutButton" class="nav-item">
+        <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
@@ -50,10 +50,18 @@
             <h2>Lista Recept</h2>
             <ul>
             <?php
+	             $host = 'localhost';
+                $db = 'BazaMedyczna';
+                $user = 'pacjent';
+                $pass = 'haslo';
+                $port = '5432';
 
-}
-
-	            $pesel = $_SESSION['pesel'];
+                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+                session_start(); // Start the session
+                $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
+                if (!$pesel) {
+                die("Error: Pesel not found in session.");
+                }
                 $query = 'SELECT 
                     Recepty.id AS Recepty_id, 
                     Recepty."dataWystawienia" as Recepty_dataWystawienia, 
@@ -65,9 +73,8 @@
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = $pesel ORDER BY Recepty_dataWystawienia DESC';
-	            $conn = $_SESSION['conn'];
-				$result = pg_query($conn, $query);
+                    Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = $1 ORDER BY Recepty_dataWystawienia DESC';
+				$result = pg_query_params($conn, $query, [$pesel]);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClickRecepty(" . $line['Recepty_id'] . ", \"recepta\")'>Recepta nr: {$line['Recepty_id']}, data wystawienia: {$line['Recepty_dataWystawienia']}, data ważności:{$line['Recepty_dataWaznosci']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
                 }
