@@ -139,11 +139,13 @@ main {
     position: relative; /* Add this to position the add button */
 }
 
+
 .element-list {
     width: 30%;
     border-right: 1px solid var(--accent-colour);
     padding: 1rem;
 }
+
 
 .element-details {
     width: 70%;
@@ -154,6 +156,7 @@ main {
     list-style-type: none;
     padding: 0;
 }
+
 
 .element-list li {
     padding: 0.5rem;
