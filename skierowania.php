@@ -10,7 +10,7 @@
     <title>Skierowania</title>
 </head>
 <body>
-<nav id="sidebar">
+    <nav id="sidebar">
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
@@ -57,6 +57,7 @@
             <h2>Szczegóły skierowania</h2>
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
+        <button id="addReferralButton" class="button">Dodaj skierowanie</button>
     </main>
     <script src="js/script.js"></script>
 </body>
