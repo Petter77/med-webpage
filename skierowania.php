@@ -10,7 +10,7 @@
     <title>Skierowania</title>
 </head>
 <body>
-    <nav id="sidebar">
+<nav id="sidebar">
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
@@ -45,19 +45,18 @@
         
     </nav>
     <main>
-        <div id="referralList" class="referral-list">
+        <div id="elementList" class="element-list">
             <h2>Lista skierowań</h2>
             <ul>
-                <li onclick="showDetails('referral1')">Skierowanie 1</li>
-                <li onclick="showDetails('referral2')">Skierowanie 2</li>
-                <li onclick="showDetails('referral3')">Skierowanie 3</li>
+                <li onclick="showDetails('element1')">Skierowanie 1</li>
+                <li onclick="showDetails('element2')">Skierowanie 2</li>
+                <li onclick="showDetails('element3')">Skierowanie 3</li>
             </ul>
         </div>
-        <div id="referralDetails" class="referral-details">
+        <div id="elementDetails" class="element-details">
             <h2>Szczegóły skierowania</h2>
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
-        <button id="addReferralButton" class="button">Dodaj skierowanie</button>
     </main>
     <script src="js/script.js"></script>
 </body>

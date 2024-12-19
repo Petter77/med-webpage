@@ -139,33 +139,33 @@ main {
     position: relative; /* Add this to position the add button */
 }
 
-.referral-list {
+.element-list {
     width: 30%;
     border-right: 1px solid var(--accent-colour);
     padding: 1rem;
 }
 
-.referral-details {
+.element-details {
     width: 70%;
     padding: 1rem;
 }
 
-.referral-list ul {
+.element-list ul {
     list-style-type: none;
     padding: 0;
 }
 
-.referral-list li {
+.element-list li {
     padding: 0.5rem;
     cursor: pointer;
 }
 
-.referral-list li:hover, .referral-list li.selected {
+.element-list li:hover, .element-list li.selected {
     background-color: var(--accent-colour-hover);
     color: #fff;
 }
 
-#addReferralButton {
+#addelementButton {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
@@ -182,7 +182,7 @@ main {
     border: none;
 }
 
-#addReferralButton:hover {
+#addelementButton:hover {
     background-color: var(--accent-colour-hover);
 }
 
