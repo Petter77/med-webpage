@@ -15,8 +15,8 @@ function showDetails(elementId) {
     `;
 }
 
-document.getElementById('addReferralButton').addEventListener('click', function() {
-    document.getElementById('referralDetails').innerHTML = `
+document.getElementById('addElementButton').addEventListener('click', function() {
+    document.getElementById('elementDetails').innerHTML = `
         <h2>Dodaj nowe skierowanie</h2>
         <form>
             <label for="referralName">Nazwa skierowania:</label>

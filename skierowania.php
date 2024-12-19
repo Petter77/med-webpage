@@ -57,6 +57,7 @@
             <h2>Szczegóły skierowania</h2>
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
+        <button id="addElementButton" class="button">Dodaj skierowanie</button>
     </main>
     <script src="js/script.js"></script>
 </body>

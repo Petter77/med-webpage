@@ -168,7 +168,7 @@ main {
     color: #fff;
 }
 
-#addelementButton {
+#addElementButton {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
@@ -185,7 +185,7 @@ main {
     border: none;
 }
 
-#addelementButton:hover {
+#addElementButton:hover {
     background-color: var(--accent-colour-hover);
 }
 

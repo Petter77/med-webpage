@@ -45,7 +45,7 @@
         
     </nav>
     <main>
-        <div id="recordsList" class="record-list">
+        <div id="elementsList" class="element-list">
             <h2>Lista wpisów</h2>
             <ul>
                 <li onclick="showDetails('element1')">wpis 1</li>
