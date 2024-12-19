@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Wpisy medyczne pacjenta</title>
@@ -23,7 +24,9 @@
             <span class="icon">📄</span>
             <span class="text">Wpisy</span>
         </a>
+
         <a href="recepty.php" class="nav-item">
+
             <span class="icon">📄</span>
             <span class="text">Recepty</span>
         </a>
@@ -31,6 +34,7 @@
             <span class="icon">📄</span>
             <span class="text">Skierowania</span>
         </a>
+
         <a href="wyniki.php" class="nav-item">
             <span class="icon">📄</span>
             <span class="text">Wyniki badań</span>
@@ -39,7 +43,8 @@
             <span class="icon">📄</span>
             <span class="text">Alergie</span>
         </a>
-        <button id="logoutButton" class="nav-item">
+
+        <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
@@ -76,6 +81,7 @@
         <div id="referralDetails" class="referral-details">
             <h2>Szczegóły Wpisu</h2>
             <p>Wybierz wpis z listy, aby zobaczyć szczegóły.</p>
+
         </div>
     </main>
     <script src="js/script.js"></script>
