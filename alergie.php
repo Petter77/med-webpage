@@ -10,9 +10,6 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-    session_start();
-    ?>
     <nav id="sidebar">
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
@@ -41,14 +38,14 @@
             <span class="icon">📄</span>
             <span class="text">Alergie</span>
         </a>
-        <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
+        <button id="logoutButton" class="nav-item">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
         
     </nav>
-    <main>
-        
+   <main>
+       
     </main>
     <script src="js/script.js"></script>
 </body>
