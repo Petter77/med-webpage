@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -13,6 +12,7 @@
 </head>
 <body>
     <nav id="sidebar">
+
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
@@ -51,6 +51,7 @@
         
     </nav>
     <main>
+
          <div id="referralList" class="referral-list">
             <h2>Lista Wpisów</h2>
             <ul>
@@ -93,6 +94,8 @@
             <h2>Szczegóły Wpisu</h2>
             <p>Wybierz wpis z listy, aby zobaczyć szczegóły.</p>
 
+
+       
         </div>
     </main>
     <script src="js/script.js"></script>

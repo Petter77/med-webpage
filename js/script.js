@@ -66,3 +66,19 @@ function handleClick(id, rodzaj) {
             });
 
     }
+
+
+
+document.getElementById('addElementButton').addEventListener('click', function() {
+    document.getElementById('elementDetails').innerHTML = `
+        <h2>Dodaj nowe skierowanie</h2>
+        <form>
+            <label for="referralName">Nazwa skierowania:</label>
+            <input type="text" id="referralName" name="referralName">
+            <label for="referralDetails">Szczegóły:</label>
+            <textarea id="referralDetails" name="referralDetails"></textarea>
+            <button type="submit" class="button">Dodaj</button>
+        </form>
+    `;
+});
+

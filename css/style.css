@@ -131,36 +131,95 @@ nav img{
     background-color: var(--accent-colour-hover);
 }
 
-
 main {
     display: flex;
     flex-direction: row;
     width: 100%;
     padding: 1rem;
+    position: relative; /* Add this to position the add button */
 }
 
-.referral-list {
+
+.element-list {
     width: 30%;
     border-right: 1px solid var(--accent-colour);
     padding: 1rem;
 }
 
-.referral-details {
+
+.element-details {
     width: 70%;
     padding: 1rem;
 }
 
-.referral-list ul {
+.element-list ul {
     list-style-type: none;
     padding: 0;
 }
 
-.referral-list li {
+
+.element-list li {
     padding: 0.5rem;
     cursor: pointer;
 }
 
-.referral-list li:hover {
+.element-list li:hover, .element-list li.selected {
     background-color: var(--accent-colour-hover);
     color: #fff;
+}
+
+#addElementButton {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: var(--accent-colour);
+    color: #fff;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    border: none;
+}
+
+#addElementButton:hover {
+    background-color: var(--accent-colour-hover);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+form label, form input, form textarea, form button {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+form input, form textarea {
+    padding: 0.5rem;
+    border: 1px solid var(--accent-colour);
+    border-radius: 0.5rem;
+}
+
+form button {
+    background-color: var(--accent-colour);
+    color: #fff;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    border: none;
+}
+
+form button:hover {
+    background-color: var(--accent-colour-hover);
 }

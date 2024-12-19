@@ -46,9 +46,10 @@
         
     </nav>
     <main>
-        <div id="referralList" class="referral-list">
+        <div id="elementList" class="element-list">
             <h2>Lista skierowań</h2>
             <ul>
+
             <?php
 	            $host = 'localhost';
                 $db = 'BazaMedyczna';
@@ -83,10 +84,11 @@
              
             </ul>
         </div>
-        <div id="referralDetails" class="referral-details">
+        <div id="elementDetails" class="element-details">
             <h2>Szczegóły skierowania</h2>
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
+        <button id="addElementButton" class="button">Dodaj skierowanie</button>
     </main>
      <script src="js/script.js"></script>
 </body>
