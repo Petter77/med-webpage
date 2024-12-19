@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel']) && isset($_PO
         session_start();
         $_SESSION['pesel'] = $row['id'];
         $_SESSION['rola'] = $row['rola'];
-
+        $_SESSION['conn'] = $conn;
         // Credentials are valid, redirect to index.php
         header("Location: index.php");
         exit;
