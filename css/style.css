@@ -139,28 +139,28 @@ main {
     padding: 1rem;
 }
 
-.referral-list {
+.element-list, .record-list {
     width: 30%;
     border-right: 1px solid var(--accent-colour);
     padding: 1rem;
 }
 
-.referral-details {
+.element-details, .record-details {
     width: 70%;
     padding: 1rem;
 }
 
-.referral-list ul {
+.element-list ul, .record-list ul {
     list-style-type: none;
     padding: 0;
 }
 
-.referral-list li {
+.element-list li, .record-list li {
     padding: 0.5rem;
     cursor: pointer;
 }
 
-.referral-list li:hover {
+.element-list li:hover, .record-list li:hover {
     background-color: var(--accent-colour-hover);
     color: #fff;
 }
