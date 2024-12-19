@@ -34,34 +34,34 @@ function handleClick(id, rodzaj) {
                     try {
                         // Handle response based on rodzaj
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
                         <p>${response.skierowanie}</p>
                     `;
                         } else if (rodzaj === 'recepta' && response && response.recepta) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
                         <p>${response.recepta}</p>
                     `;
                         } else if (rodzaj === 'wynik' && response && response.wynik) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Wynik:</h3>
                         <p>${response.wynik}</p>
                     `;
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
                         <p>${response.wpis}</p>
                     `;
                         }
                     } catch (e) {
-                        document.getElementById('referralDetails').innerHTML = `<p>Invalid response from server</p>`;
+                        document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
                     }
                 },
 
                 error: function (xhr, status, error) {
                     console.log("AJAX error:", error); // Log any AJAX errors
-                    document.getElementById('referralDetails').innerHTML = `<p>Error: ${error}</p>`;
+                    document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
             });
 
@@ -73,10 +73,10 @@ document.getElementById('addElementButton').addEventListener('click', function()
     document.getElementById('elementDetails').innerHTML = `
         <h2>Dodaj nowe skierowanie</h2>
         <form>
-            <label for="referralName">Nazwa skierowania:</label>
-            <input type="text" id="referralName" name="referralName">
-            <label for="referralDetails">Szczegóły:</label>
-            <textarea id="referralDetails" name="referralDetails"></textarea>
+            <label for="elementName">Nazwa skierowania:</label>
+            <input type="text" id="elementName" name="elementName">
+            <label for="elementDetails">Szczegóły:</label>
+            <textarea id="elementDetails" name="elementDetails"></textarea>
             <button type="submit" class="button">Dodaj</button>
         </form>
     `;
