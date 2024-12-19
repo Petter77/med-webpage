@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Skierowania</title>
 </head>
 <body>
@@ -72,15 +73,12 @@ if (!$conn) {
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Skierowania."idPersonelu" = personel."id" WHERE Skierowania."peselPacjenta" = 22222222222';
+                    Skierowania."idPersonelu" = personel."id" WHERE Skierowania."peselPacjenta" = 22222222222 ORDER BY skierowanie_data DESC';
 	            #$dbconn = $_GET['dbconn'];
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ")'>Skierowanie nr: {$line['skierowanie_id']}, data: {$line['skierowanie_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
                 }
-
-
-
 
                 ?>
              
@@ -91,6 +89,6 @@ if (!$conn) {
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
     </main>
-    <script src="js/script.js"></script>
+     <script src="js/script.js"></script>
 </body>
 </html>
