@@ -2,15 +2,36 @@ document.getElementById('toggleButton').addEventListener('click', function() {
     document.getElementById('sidebar').classList.toggle('expanded');
 });
 
-function showDetails(referralId) {
-    const details = {
-        referral1: 'Szczegóły skierowania 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-        referral2: 'Szczegóły skierowania 2: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        referral3: 'Szczegóły skierowania 3: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-    };
 
-    document.getElementById('referralDetails').innerHTML = `
-        <h2>Szczegóły skierowania</h2>
-        <p>${details[referralId]}</p>
-    `;
+
+function handleClick(id) {
+    
+    $.ajax({
+        url: 'fetch_data_skierowanie.php', // PHP file that fetches the data
+        type: 'GET',
+        data: { id: id }, // Send the ID as a parameter
+
+        success: function (response) {
+            console.log("Server response:", response); // Log server response
+        try {
+            const data = JSON.parse(response);
+
+            if(data.error) {
+        document.getElementById('referralDetails').innerHTML = `<p>${data.error}</p>`;
+    } else {
+        document.getElementById('referralDetails').innerHTML = `
+                        <h3>Skierowanie Data: ${data.dataSkierowania}</h3>
+                        <p>Opis: ${data.opis}</p>
+                    `;
+    }
+} catch (e) {
+    document.getElementById('referralDetails').innerHTML = `<p>Invalid response from server</p>`;
+}
+        },
+        error: function (xhr, status, error) {
+            console.log("AJAX error:", error); // Log any AJAX errors
+    document.getElementById('referralDetails').innerHTML = `<p>Error: ${error}</p>`;
+}
+    });
+
 }

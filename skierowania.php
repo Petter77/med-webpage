@@ -48,9 +48,42 @@
         <div id="referralList" class="referral-list">
             <h2>Lista skierowań</h2>
             <ul>
-                <li onclick="showDetails('referral1')">Skierowanie 1</li>
-                <li onclick="showDetails('referral2')">Skierowanie 2</li>
-                <li onclick="showDetails('referral3')">Skierowanie 3</li>
+            <?php
+            $host = 'localhost';
+$db = 'baza-danych-medycznych';
+$user = 'pacjent';
+$pass = 'haslo';
+$port = '5432';
+
+$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+if (!$conn) {
+    echo "An error occurred while connecting to the database.";
+    exit;
+}
+	            #$id = $_GET['id'];
+	            #$pesel = $_SESSION['pesel'];
+                $query = 'SELECT 
+                    Skierowania.id AS skierowanie_id, 
+                    Skierowania."dataSkierowania" as skierowanie_data,  
+                    personel.imie AS personel_imie, 
+                    personel.nazwisko AS personel_nazwisko
+                FROM 
+                    "Skierowania" as Skierowania
+                JOIN 
+                    "PersonelMedyczny" as personel
+                ON 
+                    Skierowania."idPersonelu" = personel."id" WHERE Skierowania."peselPacjenta" = 22222222222';
+	            #$dbconn = $_GET['dbconn'];
+				$result = pg_query($conn, $query);
+	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
+                    echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ")'>Skierowanie nr: {$line['skierowanie_id']}, data: {$line['skierowanie_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+                }
+
+
+
+
+                ?>
+             
             </ul>
         </div>
         <div id="referralDetails" class="referral-details">
