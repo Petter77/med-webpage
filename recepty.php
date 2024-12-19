@@ -50,19 +50,10 @@
             <h2>Lista Recept</h2>
             <ul>
             <?php
-            $host = 'localhost';
-$db = 'baza-danych-medycznych';
-$user = 'pacjent';
-$pass = 'haslo';
-$port = '5432';
 
-$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-if (!$conn) {
-    echo "An error occurred while connecting to the database.";
-    exit;
 }
-	            #$id = $_GET['id'];
-	            #$pesel = $_SESSION['pesel'];
+
+	            $pesel = $_SESSION['pesel'];
                 $query = 'SELECT 
                     Recepty.id AS Recepty_id, 
                     Recepty."dataWystawienia" as Recepty_dataWystawienia, 
@@ -74,8 +65,8 @@ if (!$conn) {
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = 22222222222 ORDER BY Recepty_dataWystawienia DESC';
-	            #$dbconn = $_GET['dbconn'];
+                    Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = $pesel ORDER BY Recepty_dataWystawienia DESC';
+	            $conn = $_SESSION['conn'];
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClickRecepty(" . $line['Recepty_id'] . ", \"recepta\")'>Recepta nr: {$line['Recepty_id']}, data wystawienia: {$line['Recepty_dataWystawienia']}, data ważności:{$line['Recepty_dataWaznosci']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";

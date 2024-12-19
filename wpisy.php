@@ -50,18 +50,8 @@
             <h2>Lista Wpisów</h2>
             <ul>
             <?php
-            $host = 'localhost';
-$db = 'baza-danych-medycznych';
-$user = 'pacjent';
-$pass = 'haslo';
-$port = '5432';
 
-$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-if (!$conn) {
-    echo "An error occurred while connecting to the database.";
-    exit;
-}
-	            #$pesel = $_SESSION['pesel'];
+	            $pesel = $_SESSION['pesel'];
                 $query = 'SELECT 
                     Wpisy.id AS wpisy_id, 
                     Wpisy."dataWpisu" as wpisy_data,  
@@ -72,8 +62,8 @@ if (!$conn) {
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Wpisy."idPersonelu" = personel."id" WHERE Wpisy."peselPacjenta" = 22222222222 ORDER BY wpisy_data DESC';
-	            #$dbconn = $_GET['dbconn'];
+                    Wpisy."idPersonelu" = personel."id" WHERE Wpisy."peselPacjenta" = $pesel ORDER BY wpisy_data DESC';
+	            $conn = $_SESSION['conn'];
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClick(" . $line['wpisy_id'] . ", \"wpis\")'>Wpis nr: {$line['wpisy_id']}, data: {$line['wpisy_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";

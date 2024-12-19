@@ -50,19 +50,7 @@
             <h2>Lista skierowań</h2>
             <ul>
             <?php
-            $host = 'localhost';
-$db = 'baza-danych-medycznych';
-$user = 'pacjent';
-$pass = 'haslo';
-$port = '5432';
-
-$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-if (!$conn) {
-    echo "An error occurred while connecting to the database.";
-    exit;
-}
-	            #$id = $_GET['id'];
-	            #$pesel = $_SESSION['pesel'];
+	            $pesel = $_SESSION['pesel'];
                 $query = 'SELECT 
                     Skierowania.id AS skierowanie_id, 
                     Skierowania."dataSkierowania" as skierowanie_data,  
@@ -73,8 +61,8 @@ if (!$conn) {
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Skierowania."idPersonelu" = personel."id" WHERE Skierowania."peselPacjenta" = 22222222222 ORDER BY skierowanie_data DESC';
-	            #$dbconn = $_GET['dbconn'];
+                    Skierowania."idPersonelu" = personel."id" WHERE Skierowania."peselPacjenta" = $pesel ORDER BY skierowanie_data DESC';
+	            $conn = $_SESSION['conn'];
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ", \"skierowanie\")'>Skierowanie nr: {$line['skierowanie_id']}, data: {$line['skierowanie_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";

@@ -50,19 +50,7 @@
             <h2>Lista Wyników</h2>
             <ul>
             <?php
-            $host = 'localhost';
-$db = 'baza-danych-medycznych';
-$user = 'pacjent';
-$pass = 'haslo';
-$port = '5432';
-
-$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-if (!$conn) {
-    echo "An error occurred while connecting to the database.";
-    exit;
-}
-	            #$id = $_GET['id'];
-	            #$pesel = $_SESSION['pesel'];
+	            $pesel = $_SESSION['pesel'];
                 $query = 'SELECT 
                     Wyniki.id AS wyniki_id, 
                     Wyniki."dataWyniku" as wyniki_data,  
@@ -73,8 +61,8 @@ if (!$conn) {
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Wyniki."idPersonelu" = personel."id" WHERE Wyniki."peselPacjenta" = 22222222222 ORDER BY wyniki_data DESC';
-	            #$dbconn = $_GET['dbconn'];
+                    Wyniki."idPersonelu" = personel."id" WHERE Wyniki."peselPacjenta" = $pesel ORDER BY wyniki_data DESC';
+	            $conn = $_SESSION['conn'];
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClickWyniki(" . $line['wyniki_id'] . ", \"wynik\")'>Wpis nr: {$line['wyniki_id']}, data: {$line['wyniki_data']}, Personel wykonujący badanie: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
