@@ -46,7 +46,7 @@
         
     </nav>
     <main>
-        <div id="referralList" class="referral-list">
+        <div id="elementList" class="element-list">
             <h2>Lista Recept</h2>
             <ul>
             <?php
@@ -83,7 +83,7 @@
              
             </ul>
         </div>
-        <div id="referralDetails" class="referral-details">
+        <div id="elementDetails" class="element-details">
             <h2>Szczegóły Recepty</h2>
             <p>Wybierz receptę z listy, aby zobaczyć szczegóły.</p>
         </div>
