@@ -12,7 +12,7 @@ if (!$id) {
     echo json_encode(["error" => "Invalid ID"]);
     exit;
 }
-	$query = 'SELECT przypisaneLeki FROM "Recepty" WHERE id = $1';
+	$query = 'SELECT "przypisaneLeki" FROM "Recepty" WHERE id = $1';
 
     $result = pg_query_params($conn, $query, [$id]) or die('Query failed: ' . pg_last_error());
 

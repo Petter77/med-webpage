@@ -64,9 +64,9 @@ if (!$conn) {
 	            #$id = $_GET['id'];
 	            #$pesel = $_SESSION['pesel'];
                 $query = 'SELECT 
-                    Recepty.id AS Recepty_id, 
-                    Recepty."dataWystawienia" as Recepty_dataWystawienia, 
-					Recepty."dataWaznosci" as Recepty_dataWaznosci, 
+                    Recepty.id AS recepty_id, 
+                    Recepty."dataWystawienia" as recepty_dataWystawienia, 
+					Recepty."dataWaznosci" as recepty_dataWaznosci, 
                     personel.imie AS personel_imie, 
                     personel.nazwisko AS personel_nazwisko
                 FROM 
@@ -77,10 +77,9 @@ if (!$conn) {
                     Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = 22222222222 ORDER BY Recepty_dataWystawienia DESC';
 	            #$dbconn = $_GET['dbconn'];
 				$result = pg_query($conn, $query);
-	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
-                    echo "<li onclick='handleClickRecepty(" . $line['Recepty_id'] . ", \"recepta\")'>Recepta nr: {$line['Recepty_id']}, data wystawienia: {$line['Recepty_dataWystawienia']}, data ważności:{$line['Recepty_dataWaznosci']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+                while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
+                    echo "<li onclick='handleClick(" . $line['recepty_id'] . ", \"recepta\")'>Recepta nr: {$line['recepty_id']}, data wystawienia: {$line['recepty_datawystawienia']}, data ważności:{$line['recepty_datawaznosci']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
                 }
-
                 ?>
              
             </ul>
