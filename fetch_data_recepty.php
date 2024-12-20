@@ -1,18 +1,19 @@
 <?php
 $host = 'localhost';
-                $db = 'BazaMedyczna';
-                $user = 'pacjent';
-                $pass = 'admin';
-                $port = '5432';
 
-                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+$db = 'BazaMedyczna';
+$user = 'pacjent';
+$pass = 'haslo';
+$port = '5432';
+
+    $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
 	$id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 if (!$id) {
     echo json_encode(["error" => "Invalid ID"]);
     exit;
 }
-	$query = 'SELECT przypisaneLeki FROM "Recepty" WHERE id = $1';
+	$query = 'SELECT "przypisaneLeki" FROM "Recepty" WHERE id = $1';
 
     $result = pg_query_params($conn, $query, [$id]) or die('Query failed: ' . pg_last_error());
 

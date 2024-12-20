@@ -14,8 +14,8 @@ if (!$conn) {
 
 $warning = null;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel']) && isset($_POST['password'])) {
-    $pesel = $_POST['pesel'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST['password'])) {
+    $id = $_POST['id'];
     $password = $_POST['password'];
 
     // Query the database to check if the id and password are correct and retrieve the role name
@@ -25,22 +25,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel']) && isset($_PO
         JOIN \"RolePersonelu\" rp ON pm.\"idRoli\" = rp.id
         WHERE pm.id = $1 AND pm.haslo = $2
     ";
-    $result = pg_query_params($conn, $query, array($pesel, $password));
+    $result = pg_query_params($conn, $query, array($id, $password));
 
     if ($result && pg_num_rows($result) > 0) {
         // Fetch the result row
         $row = pg_fetch_assoc($result);
 
-        // Start a session and store the PESEL and role name in it
+        // Start a session and store the id and role name in it
         session_start();
-        $_SESSION['pesel'] = $row['id'];
+        $_SESSION['id'] = $row['id'];
         $_SESSION['rola'] = $row['rola'];
         $_SESSION['conn'] = $conn;
         // Credentials are valid, redirect to index.php
         header("Location: index.php");
         exit;
     } else {
-        $warning = 'Błędny Pesel lub/i Hasło.';
+        $warning = 'Błędny id lub/i Hasło.';
     }
 }
 ?>
@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel']) && isset($_PO
                 <label id="warning" for="warning"></label>
             <?php endif; ?>
         </div>
-        <label for="pesel">ID: </label>
-        <input type="text" name="pesel" id="pesel" oninput="validatePesel()">
+        <label for="id">ID: </label>
+        <input type="text" name="id" id="id" oninput="validateid()">
         <label for="password">Hasło: </label>
         <input type="password" name="password" id="password" required>
         <button type="submit" class="button">Zaloguj się</button>
