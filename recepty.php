@@ -51,7 +51,7 @@
             <ul>
             <?php
             $host = 'localhost';
-$db = 'baza-danych-medycznych';
+$db = 'BazaMedyczna';
 $user = 'pacjent';
 $pass = 'haslo';
 $port = '5432';
@@ -64,9 +64,9 @@ if (!$conn) {
 	            #$id = $_GET['id'];
 	            #$pesel = $_SESSION['pesel'];
                 $query = 'SELECT 
-                    Recepty.id AS recepty_id, 
-                    Recepty."dataWystawienia" as recepty_dataWystawienia, 
-					Recepty."dataWaznosci" as recepty_dataWaznosci, 
+                    Recepty.id AS Recepty_id, 
+                    Recepty."dataWystawienia" as Recepty_dataWystawienia, 
+					Recepty."dataWaznosci" as Recepty_dataWaznosci, lllll
                     personel.imie AS personel_imie, 
                     personel.nazwisko AS personel_nazwisko
                 FROM 
@@ -76,12 +76,13 @@ if (!$conn) {
                 ON 
                     Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = 22222222222 ORDER BY Recepty_dataWystawienia DESC';
 	            #$dbconn = $_GET['dbconn'];
-				$result = pg_query($conn, $query);
+                $result = pg_query($conn, $query);
                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClick(" . $line['recepty_id'] . ", \"recepta\")'>Recepta nr: {$line['recepty_id']}, data wystawienia: {$line['recepty_datawystawienia']}, data ważności:{$line['recepty_datawaznosci']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
                 }
                 ?>
-             
+				
+            
             </ul>
         </div>
         <div id="referralDetails" class="referral-details">

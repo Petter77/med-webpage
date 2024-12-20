@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db = 'baza-danych-medycznych';
+$db = 'BazaMedyczna';
 $user = 'lekarze';
 $pass = 'haslo';
 $port = '5432';

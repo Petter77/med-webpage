@@ -51,7 +51,7 @@
             <ul>
             <?php
             $host = 'localhost';
-$db = 'baza-danych-medycznych';
+$db = 'BazaMedyczna';
 $user = 'pacjent';
 $pass = 'haslo';
 $port = '5432';
