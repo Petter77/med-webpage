@@ -56,6 +56,7 @@
                 $pass = 'haslo';
                 $port = '5432';
 
+
                 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
                 session_start(); // Start the session
                 $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';

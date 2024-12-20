@@ -57,6 +57,7 @@
             <ul>
             <?php
 
+
                 $host = 'localhost';
                 $db = 'BazaMedyczna';
                 $user = 'pacjent';

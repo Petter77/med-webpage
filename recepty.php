@@ -76,6 +76,7 @@ if (!$conn) {
                 "PersonelMedyczny" as personel
             ON 
                 Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = 22222222222 ORDER BY Recepty_dataWystawienia DESC';
+
 	            #$dbconn = $_GET['dbconn'];
                 $result = pg_query($conn, $query);
                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){

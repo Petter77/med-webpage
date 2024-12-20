@@ -51,11 +51,13 @@
             <ul>
 
             <?php
+
 	            $host = 'localhost';
                 $db = 'BazaMedyczna';
                 $user = 'pacjent';
                 $pass = 'haslo';
                 $port = '5432';
+
 
                 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
                 session_start(); // Start the session

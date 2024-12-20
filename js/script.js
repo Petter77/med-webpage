@@ -41,6 +41,7 @@ function handleClick(id, rodzaj) {
                     `;
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
                             document.getElementById('elementDetails').innerHTML = `
+
                         <h3>Recepta:</h3>
                         <p>${response.przypisaneLeki}</p>
                         <button onclick="editData(${id}, 'recepta')">Edytuj</button>
@@ -55,6 +56,7 @@ function handleClick(id, rodzaj) {
                         <h3>Wpis:</h3>
                         <p>${response.wpis}</p>
                         <button onclick="editData(${id}, 'wpis')">Edytuj</button>             
+
                     `;
                         }
                     } catch (e) {
@@ -67,6 +69,7 @@ function handleClick(id, rodzaj) {
                     document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
             });
+}
 
 }
 
@@ -96,6 +99,7 @@ function editData(id, rodzaj) {
                     try {
                         // Handle response based on rodzaj
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
+
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
                         <input type="text" id="editInput" value="${response.skierowanie}">
@@ -119,6 +123,7 @@ function editData(id, rodzaj) {
                         }
                     } catch (e) {
                         document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
+
                     }
                 },
 
@@ -158,6 +163,7 @@ function updateData(id, rodzaj) {
             data.wpis = newData;
             break;
     }
+
 
     $.ajax({
         url: url,
