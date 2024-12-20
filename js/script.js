@@ -38,10 +38,10 @@ function handleClick(id, rodzaj) {
                         <h3>Skierowanie:</h3>
                         <p>${response.skierowanie}</p>
                     `;
-                        } else if (rodzaj === 'recepta' && response && response.recepta) {
+                        } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
-                        <p>${response.recepta}</p>
+                        <p>${response.przypisaneLeki}</p>
                     `;
                         } else if (rodzaj === 'wynik' && response && response.wynik) {
                             document.getElementById('elementDetails').innerHTML = `
