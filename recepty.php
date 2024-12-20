@@ -50,6 +50,7 @@
             <h2>Lista Recept</h2>
             <ul>
             <?php
+
             $host = 'localhost';
 $db = 'BazaMedyczna';
 $user = 'pacjent';
