@@ -2,7 +2,7 @@
 $host = 'localhost';
                 $db = 'BazaMedyczna';
                 $user = 'pacjent';
-                $pass = 'admin';
+                $pass = 'haslo';
                 $port = '5432';
 
                 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
