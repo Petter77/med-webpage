@@ -93,3 +93,8 @@ form * {
 #staffLoginButton:hover {
     background-color: var(--accent-colour-hover);
 }
+
+#warning {
+    height: 10%; /* Adjust the height as needed */
+    color: red;
+}

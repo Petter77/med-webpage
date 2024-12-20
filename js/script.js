@@ -34,39 +34,43 @@ function handleClick(id, rodzaj) {
                     try {
                         // Handle response based on rodzaj
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
                         <p>${response.skierowanie}</p>
                         <button onclick="editData(${id}, 'skierowanie')">Edytuj</button>
                     `;
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
+
                         <h3>Recepta:</h3>
                         <p>${response.przypisaneLeki}</p>
                         <button onclick="editData(${id}, 'recepta')">Edytuj</button>
                     `;
                         } else if (rodzaj === 'wynik' && response && response.wynik) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Wynik:</h3>
                         <p>${response.wynik}</p>
                     `;
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
                         <p>${response.wpis}</p>
-                        <button onclick="editData(${id}, 'wpis')">Edytuj</button>
+                        <button onclick="editData(${id}, 'wpis')">Edytuj</button>             
+
                     `;
                         }
                     } catch (e) {
-                        document.getElementById('referralDetails').innerHTML = `<p>Invalid response from server</p>`;
+                        document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
                     }
                 },
 
                 error: function (xhr, status, error) {
                     console.log("AJAX error:", error); // Log any AJAX errors
-                    document.getElementById('referralDetails').innerHTML = `<p>Error: ${error}</p>`;
+                    document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
             });
+}
+
 }
 
 function editData(id, rodzaj) {
@@ -95,38 +99,52 @@ function editData(id, rodzaj) {
                     try {
                         // Handle response based on rodzaj
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
-                            document.getElementById('referralDetails').innerHTML = `
+
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
                         <input type="text" id="editInput" value="${response.skierowanie}">
                         <button onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
+                        <button onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
                     `;
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
                         <input type="text" id="editInput" value="${response.przypisaneLeki}">
                         <button onclick="updateData(${id}, 'recepta')">Zapisz</button>
+                        <button onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
                     `;
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
-                            document.getElementById('referralDetails').innerHTML = `
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
                         <input type="text" id="editInput" value="${response.wpis}">
                         <button onclick="updateData(${id}, 'wpis')">Zapisz</button>
+                        <button onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
                     `;
                         }
                     } catch (e) {
-                        document.getElementById('referralDetails').innerHTML = `<p>Invalid response from server</p>`;
+                        document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
+
                     }
                 },
 
                 error: function (xhr, status, error) {
                     console.log("AJAX error:", error); // Log any AJAX errors
-                    document.getElementById('referralDetails').innerHTML = `<p>Error: ${error}</p>`;
+                    document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
             });
 }
 
+function cancelEdit(id, rodzaj) {
+    if (confirm("Czy na pewno chcesz przerwać edycję?")) {
+        handleClick(id, rodzaj);
+    }
+}
+
 function updateData(id, rodzaj) {
     console.log("updateData triggered with id:", id, "and rodzaj:", rodzaj);
+    if (!confirm("Czy na pewno chcesz edytować dane?")) {
+        return;
+    }
     let newData = document.getElementById('editInput').value;
     let url = '';
     let data = { id: id };
@@ -146,6 +164,7 @@ function updateData(id, rodzaj) {
             break;
     }
 
+
     $.ajax({
         url: url,
         type: 'POST',
@@ -156,7 +175,21 @@ function updateData(id, rodzaj) {
         },
         error: function (xhr, status, error) {
             console.log("AJAX error:", error);
-            document.getElementById('referralDetails').innerHTML = `<p>Error: ${error}</p>`;
+            document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
         }
     });
 }
+
+document.getElementById('addElementButton').addEventListener('click', function() {
+    document.getElementById('elementDetails').innerHTML = `
+        <h2>Dodaj nowe skierowanie</h2>
+        <form>
+            <label for="elementName">Nazwa skierowania:</label>
+            <input type="text" id="elementName" name="elementName">
+            <label for="elementDetails">Szczegóły:</label>
+            <textarea id="elementDetails" name="elementDetails"></textarea>
+            <button type="submit" class="button">Dodaj</button>
+        </form>
+    `;
+});
+

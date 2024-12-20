@@ -39,30 +39,30 @@
             <span class="icon">📄</span>
             <span class="text">Alergie</span>
         </a>
-        <button id="logoutButton" class="nav-item">
+       <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
         
     </nav>
    <main>
-         <div id="referralList" class="referral-list">
+         <div id="elementList" class="element-list">
             <h2>Lista Wyników</h2>
             <ul>
             <?php
-            $host = 'localhost';
-$db = 'BazaMedyczna';
-$user = 'pacjent';
-$pass = 'haslo';
-$port = '5432';
+                $host = 'localhost';
+                $db = 'BazaMedyczna';
+                $user = 'pacjent';
+                $pass = 'haslo';
+                $port = '5432';
 
-$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-if (!$conn) {
-    echo "An error occurred while connecting to the database.";
-    exit;
-}
-	            #$id = $_GET['id'];
-	            #$pesel = $_SESSION['pesel'];
+
+                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+                session_start(); // Start the session
+                $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
+                if (!$pesel) {
+                die("Error: Pesel not found in session.");
+                }
                 $query = 'SELECT 
                     Wyniki.id AS wyniki_id, 
                     Wyniki."dataWyniku" as wyniki_data,  
@@ -73,18 +73,17 @@ if (!$conn) {
                 JOIN 
                     "PersonelMedyczny" as personel
                 ON 
-                    Wyniki."idPersonelu" = personel."id" WHERE Wyniki."peselPacjenta" = 22222222222 ORDER BY wyniki_data DESC';
-	            #$dbconn = $_GET['dbconn'];
-				$result = pg_query($conn, $query);
+                    Wyniki."idPersonelu" = personel."id" WHERE Wyniki."peselPacjenta" = $1 ORDER BY wyniki_data DESC';
+				$result = pg_query_params($conn, $query, [$pesel]);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClickWyniki(" . $line['wyniki_id'] . ", \"wynik\")'>Wpis nr: {$line['wyniki_id']}, data: {$line['wyniki_data']}, Personel wykonujący badanie: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
                 }
-
+                pg_close($conn);
                 ?>
              
             </ul>
         </div>
-        <div id="referralDetails" class="referral-details">
+        <div id="elementDetails" class="element-details">
             <h2>Szczegóły Wyniku</h2>
             <p>Wybierz wynik z listy, aby zobaczyć szczegóły.</p>
         </div>

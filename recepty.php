@@ -46,10 +46,11 @@
         
     </nav>
     <main>
-        <div id="referralList" class="referral-list">
+        <div id="elementList" class="element-list">
             <h2>Lista Recept</h2>
             <ul>
             <?php
+
             $host = 'localhost';
 $db = 'BazaMedyczna';
 $user = 'pacjent';
@@ -64,17 +65,18 @@ if (!$conn) {
 	            #$id = $_GET['id'];
 	            #$pesel = $_SESSION['pesel'];
                 $query = 'SELECT 
-                    Recepty.id AS Recepty_id, 
-                    Recepty."dataWystawienia" as Recepty_dataWystawienia, 
-					Recepty."dataWaznosci" as Recepty_dataWaznosci, lllll
-                    personel.imie AS personel_imie, 
-                    personel.nazwisko AS personel_nazwisko
-                FROM 
-                    "Recepty" as Recepty
-                JOIN 
-                    "PersonelMedyczny" as personel
-                ON 
-                    Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = 22222222222 ORDER BY Recepty_dataWystawienia DESC';
+                Recepty.id AS Recepty_id, 
+                Recepty."dataWystawienia" as Recepty_dataWystawienia, 
+                Recepty."dataWaznosci" as Recepty_dataWaznosci,
+                personel.imie AS personel_imie, 
+                personel.nazwisko AS personel_nazwisko
+            FROM 
+                "Recepty" as Recepty
+            JOIN 
+                "PersonelMedyczny" as personel
+            ON 
+                Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = 22222222222 ORDER BY Recepty_dataWystawienia DESC';
+
 	            #$dbconn = $_GET['dbconn'];
                 $result = pg_query($conn, $query);
                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
@@ -85,7 +87,7 @@ if (!$conn) {
             
             </ul>
         </div>
-        <div id="referralDetails" class="referral-details">
+        <div id="elementDetails" class="element-details">
             <h2>Szczegóły Recepty</h2>
             <p>Wybierz receptę z listy, aby zobaczyć szczegóły.</p>
         </div>
