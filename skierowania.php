@@ -1,3 +1,19 @@
+<?php
+	$host = 'localhost';
+    $db = 'BazaMedyczna';
+    $user = 'pacjent';
+    $pass = 'haslo';
+    $port = '5432';
+    $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+    session_start(); // Start the session
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
+    $query;
+    // Query the database to check if the PESEL and password are correct
+    $result = pg_query_params($conn,);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -51,14 +67,6 @@
             <ul>
 
             <?php
-	            $host = 'localhost';
-                $db = 'BazaMedyczna';
-                $user = 'pacjent';
-                $pass = 'haslo';
-                $port = '5432';
-
-                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-                session_start(); // Start the session
                 $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
                 if (!$pesel) {
                 die("Error: Pesel not found in session.");
@@ -88,7 +96,11 @@
             <h2>Szczegóły skierowania</h2>
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
-        <button id="addElementButton" class="button">Dodaj skierowanie</button>
+        <?php
+            if(isset($_SESSION['id'])){
+                echo'<button class = "addElementButton" id="addElementButton" class="button">Dodaj skierowanie</button>';
+            }
+        ?>
     </main>
      <script src="js/script.js"></script>
 </body>

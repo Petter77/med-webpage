@@ -174,16 +174,59 @@ function updateData(id, rodzaj) {
     });
 }
 
-document.getElementById('addElementButton').addEventListener('click', function() {
-    document.getElementById('elementDetails').innerHTML = `
-        <h2>Dodaj nowe skierowanie</h2>
-        <form>
-            <label for="elementName">Nazwa skierowania:</label>
-            <input type="text" id="elementName" name="elementName">
-            <label for="elementDetails">Szczegóły:</label>
-            <textarea id="elementDetails" name="elementDetails"></textarea>
-            <button type="submit" class="button">Dodaj</button>
-        </form>
-    `;
-});
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('click', function(event) {
+        if (event.target && event.target.id === 'addDescriptionButton') {
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowy Wpis</h2>
+                <form action="" method="post">
+                    <label for="elementName">Tytuł Wpisu:</label>
+                    <input type="text" id="elementName" name="elementName">
+                    <label for="elementDetailsTextarea">Szczegóły:</label>
+                    <textarea id="elementDetailsTextarea" name="elementDetails"></textarea>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        } else if (event.target && event.target.id === 'addRecipeButton') {
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nową receptę</h2>
+                <form action="" method="post">
+                    <label for="elementName">Przypisywane Leki:</label>
+                    <input type="text" id="elementName" name="elementName">
+                    <label for="elementDetailsTextarea">Termin Recepty:</label>
+                    <input type="date" id="elementDetailsTextarea" name="RecipeEndDate" value="${today}" min="${today}">
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        } else if (event.target && event.target.id === 'addElementButton') {
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowe skierowanie</h2>
+                <form action="" method="post">
+                    <label for="elementName">Nazwa skierowania:</label>
+                    <input type="text" id="elementName" name="elementName">
+                    <label for="elementDetailsTextarea">Szczegóły:</label>
+                    <textarea id="elementDetailsTextarea" name="elementDetails"></textarea>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        }
+        else if (event.target && event.target.id === 'addPapersButton') {
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowe Wyniki</h2>
+                <form action="" method="post">
+                    <label for="elementName">Wyniki Badania:</label>
+                    <textarea id="elementDetailsTextarea" name="elementDetails"></textarea>
+                    <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
+                    <input type="date" id="elementDetailsTextarea" name="RecipeEndDate" value="${today}">
+                    <label for="fileInput">Załącz plik:</label>
+                    <input type="file" id="fileInput" name="file">
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        }
+    });
+});
