@@ -1,5 +1,7 @@
 <?php
-
+if(session_status() == PHP_SESSION_ACTIVE) {
+    header("Location: index.php");
+}
 $host = 'localhost';
 $db = 'BazaMedyczna';
 $user = 'pacjent';

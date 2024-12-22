@@ -1,3 +1,12 @@
+<?php
+    $host = 'localhost';
+    $db = 'BazaMedyczna';
+    $user = 'pacjent';
+    $pass = 'haslo';
+    $port = '5432';
+    $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+    session_start(); // Start the session
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -45,7 +54,22 @@
         
     </nav>
    <main>
-       
+   <div id="elementList" class="element-list">
+            <h2>Lista Alergi</h2>
+            <ul>
+            <?php
+
+            ?>
+            </ul>
+        </div>
+        <div id="elementDetails" class="element-details">
+            <h2>Szczegóły Alergi</h2>
+        </div>
+        <?php
+            if(isset($_SESSION['id'])){
+                echo'<button class = "addElementButton" id="addAllergiesButton" class="button">Dodaj Alergie</button>';
+            }
+        ?>
     </main>
     <script src="js/script.js"></script>
 </body>
