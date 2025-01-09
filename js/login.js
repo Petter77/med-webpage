@@ -25,6 +25,13 @@ function validatePesel() {
     // Remove any non-numeric characters
     peselInput.value = peselInput.value.replace(/\D/g, '');
 }
+function validateId() {
+    const IdInput = document.getElementById('id');
+    // Remove any non-numeric characters
+    IdInput.value = IdInput.value.replace(/\D/g, '');
+}
+
+
 
 
 

@@ -1,3 +1,13 @@
+<?php
+    $host = 'localhost';
+    $db = 'BazaMedyczna';
+    $user = 'pacjent';
+    $pass = 'haslo';
+    $port = '5432';
+    $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+    session_start(); // Start the session
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -56,10 +66,12 @@
             <h2>Lista Wpisów</h2>
             <ul>
             <?php
+
             require('configPacjent.php');
 
                 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
                 session_start(); // Start the session
+
                 $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
                 if (!$pesel) {
                 die("Error: Pesel not found in session.");
@@ -88,10 +100,12 @@
         <div id="elementDetails" class="element-details">
             <h2>Szczegóły Wpisu</h2>
             <p>Wybierz wpis z listy, aby zobaczyć szczegóły.</p>
-
-
-       
         </div>
+        <?php
+            if(isset($_SESSION['id'])){
+                echo'<button class = "addElementButton" id="addDescriptionButton" class="button">Dodaj Wpis</button>';
+            }
+        ?>
     </main>
     <script src="js/script.js"></script>
 </body>

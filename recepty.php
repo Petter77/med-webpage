@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -59,7 +62,7 @@ if (!$conn) {
     exit;
 }
 	            #$id = $_GET['id'];
-	            #$pesel = $_SESSION['pesel'];
+	            $pesel = $_SESSION['pesel'];
                 $query = 'SELECT 
                 Recepty.id AS Recepty_id, 
                 Recepty."dataWystawienia" as Recepty_dataWystawienia, 
@@ -71,7 +74,7 @@ if (!$conn) {
             JOIN 
                 "PersonelMedyczny" as personel
             ON 
-                Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = 22222222222 ORDER BY Recepty_dataWystawienia DESC';
+                Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = '.$pesel.' ORDER BY Recepty_dataWystawienia DESC';
 	            #$dbconn = $_GET['dbconn'];
                 $result = pg_query($conn, $query);
                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
@@ -86,6 +89,11 @@ if (!$conn) {
             <h2>Szczegóły Recepty</h2>
             <p>Wybierz receptę z listy, aby zobaczyć szczegóły.</p>
         </div>
+        <?php
+            if(isset($_SESSION['id'])){
+                echo'<button class = "addElementButton" id="addRecipeButton" class="button">Dodaj Recepte</button>';
+            }
+        ?>
     </main>
      <script src="js/script.js"></script>
     

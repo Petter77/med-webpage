@@ -1,5 +1,11 @@
 <?php
+
+if(session_status() == PHP_SESSION_ACTIVE) {
+    header("Location: index.php");
+}
+
 require('configPacjent.php');
+
 
 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
 

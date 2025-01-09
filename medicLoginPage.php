@@ -1,4 +1,8 @@
 <?php
+if(session_status() == PHP_SESSION_ACTIVE) {
+    header("Location: index.php");
+}
+
 require('configLekarz.php');
 
 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
@@ -21,8 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST[
         JOIN \"RolePersonelu\" rp ON pm.\"idRoli\" = rp.id
         WHERE pm.id = $1 AND pm.haslo = $2
     ";
-    $result = pg_query_params($conn, $query, array($id, $password));
-
+    $result = @pg_query_params($conn, $query, array($id, $password));
     if ($result && pg_num_rows($result) > 0) {
         // Fetch the result row
         $row = pg_fetch_assoc($result);
@@ -31,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST[
         session_start();
         $_SESSION['id'] = $row['id'];
         $_SESSION['rola'] = $row['rola'];
-        $_SESSION['conn'] = $conn;
+        $_SESSION['pesel'] = "22222222222";
         // Credentials are valid, redirect to index.php
         header("Location: index.php");
         exit;
@@ -62,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST[
             <?php endif; ?>
         </div>
         <label for="id">ID: </label>
-        <input type="text" name="id" id="id" oninput="validateid()">
+        <input type="text" name="id" id="id" oninput="validateId()">
         <label for="password">Hasło: </label>
         <input type="password" name="password" id="password" required>
         <button type="submit" class="button">Zaloguj się</button>
