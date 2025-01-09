@@ -27,6 +27,12 @@ function handleClick(id, rodzaj) {
         dataType: 'json',   // Expecting JSON response
         success: function (response) {
             console.log("Server response:", response);  // Log the response
+
+
+            
+
+
+            
             try {
                 // Handle response based on rodzaj
                 if (rodzaj === 'skierowanie' && response && response.skierowanie) {
@@ -41,26 +47,30 @@ function handleClick(id, rodzaj) {
                         <p>${response.przypisaneLeki}</p>
                         <button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>
                     `;
-                } else if (rodzaj === 'wynik' && response && response.wynik) {
+                } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
                     document.getElementById('elementDetails').innerHTML = `
-                        <h3>Wynik:</h3>
-                        <p>${response.wynik}</p>
+                        <a href="${wynikiBadania}" target="_blank">Download/View PDF</a>
+                    < iframe src ="${wynikiBadania}" width="100%" height="1200px" style="border: none;"></iframe>
+  
                     `;
+                    
                 } else if (rodzaj === 'wpis' && response && response.wpis) {
                     document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
                         <p>${response.wpis}</p>
-                        <button class="edit-button" onclick="editData(${id}, 'wpis')">Edytuj</button>             
+                             
                     `;
                 }
             } catch (e) {
                 document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
             }
         },
+        
         error: function (xhr, status, error) {
             console.log("AJAX error:", error); // Log any AJAX errors
             document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
         }
+        
     });
 }
 
@@ -76,7 +86,10 @@ function editData(id, rodzaj) {
             break;
         case 'wpis':
             url = 'fetch_data_wpisy.php';  // URL for wpisy
+        case 'wynik':
+            url = 'fetch_data_wyniki.php';
             break;
+        default: break;
     }
     console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
     $.ajax({
@@ -113,6 +126,16 @@ function editData(id, rodzaj) {
                         <div class="form-buttons">
                             <button class="save-button" onclick="updateData(${id}, 'wpis')">Zapisz</button>
                             <button class="cancel-button" onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
+                        </div>
+                    `;
+                }
+                else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
+                    document.getElementById('elementDetails').innerHTML = `
+                        <h3>Wyniki badania:</h3>
+                        <input type="text" id="editInput" value="${response.wynikiBadania}">
+                        <div class="form-buttons">
+                            <button class="save-button" onclick="updateData(${id}, 'wynik')">Zapisz</button>
+                            <button class="cancel-button" onclick="cancelEdit(${id}, 'wynik')">Anuluj</button>
                         </div>
                     `;
                 }

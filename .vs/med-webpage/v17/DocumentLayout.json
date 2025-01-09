@@ -1,0 +1,181 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\fetch_data_wyniki.php||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:fetch_data_wyniki.php||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\fetch_data_wpisy.php||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:fetch_data_wpisy.php||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\configPacjent.php||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:configPacjent.php||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\recepty.php||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:recepty.php||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\wyniki.php||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:wyniki.php||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\skierowania.php||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:skierowania.php||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\index.php||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.php||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\wpisy.php||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:wpisy.php||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "script.js",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\js\\script.js",
+              "RelativeDocumentMoniker": "js\\script.js",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\js\\script.js",
+              "RelativeToolTip": "js\\script.js",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAuwDQAAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-01-09T22:29:57.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "fetch_data_wyniki.php",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\fetch_data_wyniki.php",
+              "RelativeDocumentMoniker": "fetch_data_wyniki.php",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\fetch_data_wyniki.php",
+              "RelativeToolTip": "fetch_data_wyniki.php",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T21:24:56.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "fetch_data_wpisy.php",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\fetch_data_wpisy.php",
+              "RelativeDocumentMoniker": "fetch_data_wpisy.php",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\fetch_data_wpisy.php",
+              "RelativeToolTip": "fetch_data_wpisy.php",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T22:27:45.868Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "recepty.php",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\recepty.php",
+              "RelativeDocumentMoniker": "recepty.php",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\recepty.php",
+              "RelativeToolTip": "recepty.php",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAE0AAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T22:28:40.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "configPacjent.php",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\configPacjent.php",
+              "RelativeDocumentMoniker": "configPacjent.php",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\configPacjent.php",
+              "RelativeToolTip": "configPacjent.php",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T22:28:28.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "wpisy.php",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\wpisy.php",
+              "RelativeDocumentMoniker": "wpisy.php",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\wpisy.php",
+              "RelativeToolTip": "wpisy.php",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T22:26:42.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "wyniki.php",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\wyniki.php",
+              "RelativeDocumentMoniker": "wyniki.php",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\wyniki.php",
+              "RelativeToolTip": "wyniki.php",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAEkAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T22:02:54.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "skierowania.php",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\skierowania.php",
+              "RelativeDocumentMoniker": "skierowania.php",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\skierowania.php",
+              "RelativeToolTip": "skierowania.php",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T22:02:45.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "index.php",
+              "DocumentMoniker": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\index.php",
+              "RelativeDocumentMoniker": "index.php",
+              "ToolTip": "C:\\Users\\dinod\\Documents\\GitHub\\med-webpage\\index.php",
+              "RelativeToolTip": "index.php",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-01-09T21:34:32.192Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

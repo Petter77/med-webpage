@@ -1,5 +1,5 @@
 <?php
-    require('configPacjent.php');
+require('configPacjent.php');
 
                 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
 	$id = isset($_GET['id']) ? intval($_GET['id']) : null;
@@ -8,7 +8,7 @@ if (!$id) {
     echo json_encode(["error" => "Invalid ID"]);
     exit;
 }
-	$query = 'SELECT wynikiBadania FROM "WynikibadanDiagnostycznych" WHERE id = $1';
+	$query = 'SELECT "WynikibadanDiagnostycznych"."wynikiBadania" FROM "WynikibadanDiagnostycznych" WHERE "WynikibadanDiagnostycznych".id = $1';
 
     $result = pg_query_params($conn, $query, [$id]) or die('Query failed: ' . pg_last_error());
 
