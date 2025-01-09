@@ -7,28 +7,27 @@ function handleClick(id, rodzaj) {
     let url = '';
     switch (rodzaj) {
         case 'skierowanie':
-            url = 'fetch_data_skierowanie.php';  // URL for skierowanie
+            url = 'fetch_data_skierowanie.php';
             break;
         case 'recepta':
-            url = 'fetch_data_recepty.php';  // URL for recepta
+            url = 'fetch_data_recepty.php';
             break;
         case 'wynik':
-            url = 'fetch_data_wyniki.php';  // URL for wynik
+            url = 'fetch_data_wyniki.php';
             break;
         case 'wpis':
-            url = 'fetch_data_wpisy.php';  // URL for wpis
+            url = 'fetch_data_wpisy.php';
             break;
     }
-    console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
+    console.log("Making AJAX request to:", url, "with id:", id);
     $.ajax({
-        url: url,       // Use the dynamically set URL based on rodzaj
+        url: url,
         type: 'GET',
-        data: { id: id },  // Send the ID as a parameter
-        dataType: 'json',   // Expecting JSON response
+        data: { id: id },
+        dataType: 'json',
         success: function (response) {
-            console.log("Server response:", response);  // Log the response
+            console.log("Server response:", response);
             try {
-                // Handle response based on rodzaj
                 if (rodzaj === 'skierowanie' && response && response.skierowanie) {
                     document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
@@ -58,7 +57,7 @@ function handleClick(id, rodzaj) {
             }
         },
         error: function (xhr, status, error) {
-            console.log("AJAX error:", error); // Log any AJAX errors
+            console.log("AJAX error:", error);
             document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
         }
     });
@@ -69,25 +68,24 @@ function editData(id, rodzaj) {
     let url = '';
     switch (rodzaj) {
         case 'skierowanie':
-            url = 'fetch_data_skierowanie.php';  // URL for skierowanie
+            url = 'fetch_data_skierowanie.php';
             break;
         case 'recepta':
-            url = 'fetch_data_recepty.php';  // URL for recepty
+            url = 'fetch_data_recepty.php';
             break;
         case 'wpis':
-            url = 'fetch_data_wpisy.php';  // URL for wpisy
+            url = 'fetch_data_wpisy.php';
             break;
     }
-    console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
+    console.log("Making AJAX request to:", url, "with id:", id);
     $.ajax({
-        url: url,       // Use the dynamically set URL based on rodzaj
+        url: url,
         type: 'GET',
-        data: { id: id },  // Send the ID as a parameter
-        dataType: 'json',   // Expecting JSON response
+        data: { id: id },
+        dataType: 'json',
         success: function (response) {
-            console.log("Server response:", response);  // Log the response
+            console.log("Server response:", response);
             try {
-                // Handle response based on rodzaj
                 if (rodzaj === 'skierowanie' && response && response.skierowanie) {
                     document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
@@ -121,7 +119,7 @@ function editData(id, rodzaj) {
             }
         },
         error: function (xhr, status, error) {
-            console.log("AJAX error:", error); // Log any AJAX errors
+            console.log("AJAX error:", error);
             document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
         }
     });

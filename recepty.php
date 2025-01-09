@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -42,44 +49,49 @@
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
-        </button>
-        
+        </button>     
     </nav>
     <main>
         <div id="elementList" class="element-list">
             <h2>Lista Recept</h2>
             <ul>
             <?php
+                require('configPacjent.php');
 
-            require('configPacjent.php');
+                $pesel = $_SESSION['pesel'];
 
-$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-if (!$conn) {
-    echo "An error occurred while connecting to the database.";
-    exit;
-}
-	            #$id = $_GET['id'];
-	            #$pesel = $_SESSION['pesel'];
-                $query = 'SELECT 
-                Recepty.id AS Recepty_id, 
-                Recepty."dataWystawienia" as Recepty_dataWystawienia, 
-                Recepty."dataWaznosci" as Recepty_dataWaznosci,
-                personel.imie AS personel_imie, 
-                personel.nazwisko AS personel_nazwisko
-            FROM 
-                "Recepty" as Recepty
-            JOIN 
-                "PersonelMedyczny" as personel
-            ON 
-                Recepty."idPersonelu" = personel."id" WHERE Recepty."peselPacjenta" = 22222222222 ORDER BY Recepty_dataWystawienia DESC';
-	            #$dbconn = $_GET['dbconn'];
+                $query = '
+                    SELECT 
+                        Recepty.id AS Recepty_id, 
+                        Recepty."dataWystawienia" as Recepty_dataWystawienia, 
+                        Recepty."dataWaznosci" as Recepty_dataWaznosci,
+                        personel.imie AS personel_imie, 
+                        personel.nazwisko AS personel_nazwisko
+                    FROM 
+                        "Recepty" as Recepty
+                    JOIN 
+                        "PersonelMedyczny" as personel
+                    ON 
+                        Recepty."idPersonelu" = personel."id" 
+                    WHERE 
+                        Recepty."peselPacjenta" = ' . $pesel . ' 
+                    ORDER BY 
+                        Recepty_dataWystawienia DESC
+                ';
+
                 $result = pg_query($conn, $query);
                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
-                    echo "<li onclick='handleClick(" . $line['recepty_id'] . ", \"recepta\")'>Recepta nr: {$line['recepty_id']}, data wystawienia: {$line['recepty_datawystawienia']}, data ważności:{$line['recepty_datawaznosci']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+                    echo "<li onclick='handleClick(" . $line['recepty_id'] . ", \"recepta\")'>
+                            Recepta nr: {$line['recepty_id']}, 
+                            data wystawienia: {$line['recepty_datawystawienia']}, 
+                            data ważności:{$line['recepty_datawaznosci']}, 
+                            Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']}
+                        </li><br>
+                    ";
                 }
-                ?>
-				
-            
+                
+                pg_close($conn);
+            ?>
             </ul>
         </div>
         <div id="elementDetails" class="element-details">
@@ -87,10 +99,6 @@ if (!$conn) {
             <p>Wybierz receptę z listy, aby zobaczyć szczegóły.</p>
         </div>
     </main>
-     <script src="js/script.js"></script>
-    
-        
-
-
+    <script src="js/script.js"></script>
 </body>
 </html>
