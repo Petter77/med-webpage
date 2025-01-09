@@ -1,9 +1,5 @@
 <?php
-    $host = 'localhost';
-                $db = 'BazaMedyczna';
-                $user = 'pacjent';
-                $pass = 'haslo';
-                $port = '5432';
+    require('configPacjent.php');
 
                 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
 	$id = isset($_GET['id']) ? intval($_GET['id']) : null;

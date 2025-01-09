@@ -1,12 +1,11 @@
 <?php
+
 if(session_status() == PHP_SESSION_ACTIVE) {
     header("Location: index.php");
 }
-$host = 'localhost';
-$db = 'BazaMedyczna';
-$user = 'pacjent';
-$pass = 'haslo';
-$port = '5432';
+
+require('configPacjent.php');
+
 
 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
 

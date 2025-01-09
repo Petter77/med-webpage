@@ -306,3 +306,33 @@ main {
     background-color: var(--accent-colour);
     color: #fff;
 }
+
+/* Style for the save, cancel, and edit buttons */
+.save-button, .cancel-button, .edit-button {
+    background-color: var(--accent-colour);
+    color: #fff;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    border: none;
+    margin-top: 1rem; /* Add margin to position the button lower */
+}
+
+.save-button:hover, .cancel-button:hover, .edit-button:hover {
+    background-color: var(--accent-colour-hover);
+}
+
+/* Style for the save and cancel buttons container */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-buttons button {
+    width: 48%; /* Adjust width to fit two buttons side by side */
+}

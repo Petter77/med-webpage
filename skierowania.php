@@ -67,6 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
             <ul>
 
             <?php
+
+                require('configPacjent.php');
+
+                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+                session_start(); // Start the session
+
                 $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
                 if (!$pesel) {
                 die("Error: Pesel not found in session.");
