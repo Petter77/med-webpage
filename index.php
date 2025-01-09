@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if (empty($_SESSION)) {
+        header("Location: loginPage.php");
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -8,18 +15,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
+    <script>
+        var sessionID = <?php 
+        if(isset($_SESSION["id"]) && !empty($_SESSION["id"])) {
+            echo json_encode($_SESSION['id']); 
+        } else {
+            echo json_encode(null);
+        }
+        ?>;
+        sessionStorage.setItem("sessionID", sessionID);
+        console.log("Session ID:", sessionID); // Debugging log
+    </script>
 </head>
 <body>
     <?php
-    session_start();
-
     // Połączenie z bazą danych
     $host = 'localhost';
     $db = 'BazaMedyczna';
     $user = 'pacjent';
     $pass = 'haslo';
     $port = '5432';
-
     $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
 
     // Sprawdzanie połączenia
@@ -27,11 +42,7 @@
         die("Connection failed: " . pg_last_error());
     }
 
-    $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
-    if (!$pesel) {
-        die("Error: Pesel not found in session.");
-    }
-
+    $pesel = $_SESSION['pesel'];
     // Pobieranie ostatniego wpisu
     $query = 'SELECT 
                 Wpisy.id AS wpisy_id, 

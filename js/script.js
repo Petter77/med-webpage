@@ -7,6 +7,7 @@ document.getElementById('toggleButton').addEventListener('click', function () {
 function handleClick(id, rodzaj) {
     console.log("handleClick triggered with id:", id, "and rodzaj:", rodzaj);
     let url = '';
+    var sessionID = sessionStorage.getItem('sessionID');
     switch (rodzaj) {
         case 'skierowanie':
             url = 'fetch_data_skierowanie.php';  // URL for skierowanie
@@ -25,7 +26,7 @@ function handleClick(id, rodzaj) {
             $.ajax({
                 url: url,       // Use the dynamically set URL based on rodzaj
                 type: 'GET',
-                data: { id: id },  // Send the ID as a parameter
+                data: { id: id},  // Send the ID as a parameter
                 dataType: 'json',   // Expecting JSON response
 
                 success: function (response) {
@@ -36,15 +37,19 @@ function handleClick(id, rodzaj) {
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
-                        <p>${response.skierowanie}</p>
-                        <button onclick="editData(${id}, 'skierowanie')">Edytuj</button>
-                    `;
+                        <p>${response.skierowanie}</p>`;
+                        if(sessionID != 'null'){    
+                        document.getElementById('elementDetails').innerHTML +=
+                        `<button onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
+                        }
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
-                        <p>${response.przypisaneLeki}</p>
-                        <button onclick="editData(${id}, 'recepta')">Edytuj</button>
-                    `;
+                        <p>${response.przypisaneLeki}</p>`;
+                        if(sessionID != 'null'){    
+                        document.getElementById('elementDetails').innerHTML +=
+                        `<button onclick="editData(${id}, 'recepta')">Edytuj</button>`;
+                        };
                         } else if (rodzaj === 'wynik' && response && response.wynik) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Wynik:</h3>
@@ -53,9 +58,12 @@ function handleClick(id, rodzaj) {
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
-                        <p>${response.wpis}</p>
-                        <button onclick="editData(${id}, 'wpis')">Edytuj</button>             
-                    `;
+                        <p>${response.wpis}</p>`
+                        if(sessionID != 'null'){    
+                            document.getElementById('elementDetails').innerHTML +=
+                            `<button onclick="editData(${id}, 'wpis')">Edytuj</button>`;
+                            };            
+                    ;
                         }
                     } catch (e) {
                         document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;

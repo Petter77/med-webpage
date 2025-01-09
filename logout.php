@@ -1,3 +1,6 @@
+<script>
+    sessionStorage.removeItem("sessionID");
+</script>
 <?php
 
 

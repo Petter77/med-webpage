@@ -1,6 +1,8 @@
 <?php
-if(session_status() == PHP_SESSION_ACTIVE) {
+session_start();
+if (!empty($_SESSION)) {
     header("Location: index.php");
+    exit();
 }
 $host = 'localhost';
 $db = 'BazaMedyczna';
@@ -26,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel']) && isset($_PO
 
     if ($result && pg_num_rows($result) > 0) {
         // Start a session and store the PESEL in it
-        session_start();
         $_SESSION['pesel'] = $pesel;
         pg_close($conn);
         // Credentials are valid, redirect to index.php

@@ -1,6 +1,8 @@
 <?php
-if(session_status() == PHP_SESSION_ACTIVE) {
+session_start();
+if (!empty($_SESSION)) {
     header("Location: index.php");
+    exit();
 }
 $host = 'localhost';
 $db = 'BazaMedyczna';
@@ -34,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id']) && isset($_POST[
         $row = pg_fetch_assoc($result);
 
         // Start a session and store the id and role name in it
-        session_start();
         $_SESSION['id'] = $row['id'];
         $_SESSION['rola'] = $row['rola'];
         $_SESSION['pesel'] = "22222222222";
