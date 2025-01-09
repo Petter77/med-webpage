@@ -1,9 +1,5 @@
 <?php
-$host = 'localhost';
-$db = 'BazaMedyczna';
-$user = 'lekarze';
-$pass = 'haslo';
-$port = '5432';
+require('configLekarz.php');
 
 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
 if (!$conn) {
