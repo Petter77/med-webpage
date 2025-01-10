@@ -22,6 +22,7 @@ function handleClick(id, rodzaj) {
             url = 'fetch_data_wpisy.php';  // URL for torodzaj
             break;
     }
+
             console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
             $.ajax({
                 url: url,       // Use the dynamically set URL based on rodzaj
@@ -50,10 +51,11 @@ function handleClick(id, rodzaj) {
                         document.getElementById('elementDetails').innerHTML +=
                         `<button onclick="editData(${id}, 'recepta')">Edytuj</button>`;
                         };
-                        } else if (rodzaj === 'wynik' && response && response.wynik) {
-                            document.getElementById('elementDetails').innerHTML = `
-                        <h3>Wynik:</h3>
-                        <p>${response.wynik}</p>
+                        } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
+                        document.getElementById('elementDetails').innerHTML = `
+                        <a href="${wynikiBadania}" target="_blank">Download/View PDF</a>
+                    < iframe src ="${wynikiBadania}" width="100%" height="1200px" style="border: none;"></iframe>
+  
                     `;
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
                             document.getElementById('elementDetails').innerHTML = `
@@ -76,6 +78,7 @@ function handleClick(id, rodzaj) {
                 }
             });
 
+
 }
 
 function editData(id, rodzaj) {
@@ -90,7 +93,10 @@ function editData(id, rodzaj) {
             break;
         case 'wpis':
             url = 'fetch_data_wpisy.php';  // URL for wpisy
+        case 'wynik':
+            url = 'fetch_data_wyniki.php';
             break;
+        default: break;
     }
             console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
             $.ajax({
@@ -134,6 +140,7 @@ function editData(id, rodzaj) {
                     console.log("AJAX error:", error); // Log any AJAX errors
                     document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
+
             });
 }
 

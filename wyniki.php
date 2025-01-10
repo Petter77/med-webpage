@@ -80,12 +80,8 @@
 
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
-                    echo "<li onclick='handleClickWyniki(" . $line['wyniki_id'] . ", \"wynik\")'>
-                            Wpis nr: {$line['wyniki_id']}, 
-                            data: {$line['wyniki_data']}, 
-                            Personel wykonujący badanie: {$line['personel_imie']} {$line['personel_nazwisko']}
-                        </li><br>
-                    ";
+                    echo "<li onclick='handleClick(" . $line['wyniki_id'] . ", \"wynik\")'>Wynik nr: {$line['wyniki_id']}, data: {$line['wyniki_data']}, Personel wykonujący badanie: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+
                 }
                 
                 pg_close($conn);
