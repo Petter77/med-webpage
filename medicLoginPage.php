@@ -39,7 +39,7 @@
             $_SESSION['pesel'] = 22222222222;
 
             pg_close($conn);
-            header("Location: index.php");
+            header("Location: selectPatient.php");
             exit;
         } else {
             $warning = 'Błędny id lub/i Hasło.';

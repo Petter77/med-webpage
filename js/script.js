@@ -33,7 +33,7 @@ function handleClick(id, rodzaj) {
                 success: function (response) {
                     console.log("Server response:", response);  // Log the response
 
-                    try {
+                    /* try {
                         // Handle response based on rodzaj
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
                             document.getElementById('elementDetails').innerHTML = `
@@ -66,7 +66,44 @@ function handleClick(id, rodzaj) {
                         };
                     } catch (e) {
                         document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
-                    }
+                    } */
+                   
+                    try {
+                        // Handle response based on rodzaj
+                        if (rodzaj === 'skierowanie') {
+                            document.getElementById('elementDetails').innerHTML = `
+                            <h3>Skierowanie:</h3>
+                            <p>${response.skierowanie}</p>`;
+                            if(sessionID != 'null'){    
+                                document.getElementById('elementDetails').innerHTML +=
+                                `<button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
+                            };
+                        } else if (rodzaj === 'recepta') {
+                            document.getElementById('elementDetails').innerHTML = `
+                            <h3>Recepta:</h3>
+                            <p>${response.przypisaneLeki}</p>`;
+                            if(sessionID != 'null'){    
+                                document.getElementById('elementDetails').innerHTML +=
+                                `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
+                            };
+                        } else if (rodzaj === 'wynik') {
+                            const localPath = './uploads/sample-1.pdf';
+                            document.getElementById('elementDetails').innerHTML = `
+                            <a href="${localPath}" target="_blank">Download/View PDF</a>
+                            <iframe src ="${localPath}" width="100%" height="1200px" style="border: none;"></iframe>`;
+                        } else if (rodzaj === 'wpis') {
+                            document.getElementById('elementDetails').innerHTML = `
+                            <h3>Wpis:</h3>
+                            <p>${response.wpis}</p>`
+                            if(sessionID != 'null'){    
+                                document.getElementById('elementDetails').innerHTML +=
+                                `<button class="edit-button" onclick="editData(${id}, 'wpis')">Edytuj</button>`;
+                            };            
+                        };
+                    } catch (e) {
+                        document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
+                        }
+
                 },
 
                 error: function (xhr, status, error) {
