@@ -1,17 +1,10 @@
 <?php
-	$host = 'localhost';
-    $db = 'BazaMedyczna';
-    $user = 'pacjent';
-    $pass = 'haslo';
-    $port = '5432';
-    $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-    session_start(); // Start the session
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
-    $query;
-    // Query the database to check if the PESEL and password are correct
-    $result = pg_query_params($conn,);
-}
 
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
     <title>Skierowania</title>
 </head>
 <body>
-<nav id="sidebar">
+    <nav id="sidebar">
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
@@ -58,44 +51,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
-        </button>
-        
+        </button> 
     </nav>
     <main>
         <div id="elementList" class="element-list">
             <h2>Lista skierowań</h2>
             <ul>
-
             <?php
 
                 require('configPacjent.php');
 
-                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-                session_start(); // Start the session
 
-                $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
-                if (!$pesel) {
-                die("Error: Pesel not found in session.");
-                }
-                $query = 'SELECT 
-                    Skierowania.id AS skierowanie_id, 
-                    Skierowania."dataSkierowania" as skierowanie_data,  
-                    personel.imie AS personel_imie, 
-                    personel.nazwisko AS personel_nazwisko
-                FROM 
-                    "Skierowania" as Skierowania
-                JOIN 
-                    "PersonelMedyczny" as personel
-                ON 
-                    Skierowania."idPersonelu" = personel."id" WHERE Skierowania."peselPacjenta" = $1 ORDER BY skierowanie_data DESC';
+                $pesel = $_SESSION['pesel'];
+
+                $query = '
+                    SELECT 
+                        Skierowania.id AS skierowanie_id, 
+                        Skierowania."dataSkierowania" as skierowanie_data,  
+                        personel.imie AS personel_imie, 
+                        personel.nazwisko AS personel_nazwisko
+                    FROM 
+                        "Skierowania" as Skierowania
+                    JOIN 
+                        "PersonelMedyczny" as personel
+                    ON 
+                        Skierowania."idPersonelu" = personel."id" 
+                    WHERE 
+                        Skierowania."peselPacjenta" = ' . $pesel . '
+                    ORDER BY 
+                        skierowanie_data DESC
+                ';
+
 	            
-				$result = pg_query_params($conn, $query, [$pesel]);
+				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
-                    echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ", \"skierowanie\")'>Skierowanie nr: {$line['skierowanie_id']}, data: {$line['skierowanie_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+                    echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ", \"skierowanie\")'>
+                            Skierowanie nr: {$line['skierowanie_id']}, 
+                            data: {$line['skierowanie_data']}, 
+                            Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} 
+                        </li><br>
+                    ";
                 }
-
-                ?>
-             
+                
+                pg_close($conn);
+            ?>
             </ul>
         </div>
         <div id="elementDetails" class="element-details">
@@ -108,6 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
             }
         ?>
     </main>
-     <script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
