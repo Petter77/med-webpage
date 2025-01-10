@@ -7,6 +7,7 @@
     require('configPacjent.php');
 
 
+
     $warning = null;
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel']) && isset($_POST['password'])) {
@@ -19,6 +20,7 @@
         if ($result && pg_num_rows($result) > 0) {
             session_start();
             $_SESSION['pesel'] = $pesel;
+
 
             pg_close($conn);
             header("Location: index.php");

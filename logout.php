@@ -1,3 +1,6 @@
+<script>
+    sessionStorage.removeItem("sessionID");
+</script>
 <?php
     session_start();
     if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {

@@ -1,4 +1,5 @@
 <?php
+ 
 
     session_start();
     if (isset($_SESSION['pesel']) || isset($_SESSION['id'])) {
@@ -27,6 +28,7 @@
                 pm."id" = $1 AND pm."haslo" = $2
         ';
         $result = pg_query_params($conn, $query, array($id, $password));
+
 
 
         if ($result && pg_num_rows($result) > 0) {

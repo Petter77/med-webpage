@@ -1,8 +1,10 @@
 <?php
     session_start();
+
     if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
         header("Location: loginPage.php");
         exit;
+
     }
 ?>
 <!DOCTYPE html>
@@ -15,9 +17,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
+    <script>
+        var sessionID = <?php 
+        if(isset($_SESSION["id"]) && !empty($_SESSION["id"])) {
+            echo json_encode($_SESSION['id']); 
+        } else {
+            echo json_encode(null);
+        }
+        ?>;
+        sessionStorage.setItem("sessionID", sessionID);
+        console.log("Session ID:", sessionID); // Debugging log
+    </script>
 </head>
 <body>
     <?php
+
         require('configPacjent.php');
 
         $pesel = $_SESSION['pesel'];

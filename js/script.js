@@ -5,6 +5,7 @@ document.getElementById('toggleButton').addEventListener('click', function () {
 function handleClick(id, rodzaj) {
     console.log("handleClick triggered with id:", id, "and rodzaj:", rodzaj);
     let url = '';
+    var sessionID = sessionStorage.getItem('sessionID');
     switch (rodzaj) {
         case 'skierowanie':
             url = 'fetch_data_skierowanie.php';
@@ -19,38 +20,59 @@ function handleClick(id, rodzaj) {
             url = 'fetch_data_wpisy.php';
             break;
     }
-    console.log("Making AJAX request to:", url, "with id:", id);
-    $.ajax({
-        url: url,
-        type: 'GET',
-        data: { id: id },
-        dataType: 'json',
-        success: function (response) {
-            console.log("Server response:", response);
-            try {
-                if (rodzaj === 'skierowanie' && response && response.skierowanie) {
-                    document.getElementById('elementDetails').innerHTML = `
+            console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
+            $.ajax({
+                url: url,       // Use the dynamically set URL based on rodzaj
+                type: 'GET',
+                data: { id: id},  // Send the ID as a parameter
+                dataType: 'json',   // Expecting JSON response
+
+                success: function (response) {
+                    console.log("Server response:", response);  // Log the response
+
+                    try {
+                        // Handle response based on rodzaj
+                        if (rodzaj === 'skierowanie' && response && response.skierowanie) {
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
-                        <p>${response.skierowanie}</p>
-                        <button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>
-                    `;
-                } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
-                    document.getElementById('elementDetails').innerHTML = `
+                        <p>${response.skierowanie}</p>`;
+                        if(sessionID != 'null'){    
+                        document.getElementById('elementDetails').innerHTML +=
+                        `<button onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
+                        }
+                        } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
-                        <p>${response.przypisaneLeki}</p>
-                        <button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>
-                    `;
-                } else if (rodzaj === 'wynik' && response && response.wynik) {
-                    document.getElementById('elementDetails').innerHTML = `
+                        <p>${response.przypisaneLeki}</p>`;
+                        if(sessionID != 'null'){    
+                        document.getElementById('elementDetails').innerHTML +=
+                        `<button onclick="editData(${id}, 'recepta')">Edytuj</button>`;
+                        };
+                        } else if (rodzaj === 'wynik' && response && response.wynik) {
+                            document.getElementById('elementDetails').innerHTML = `
+
                         <h3>Wynik:</h3>
                         <p>${response.wynik}</p>
                     `;
                 } else if (rodzaj === 'wpis' && response && response.wpis) {
                     document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
-                        <p>${response.wpis}</p>
-                        <button class="edit-button" onclick="editData(${id}, 'wpis')">Edytuj</button>             
-                    `;
+                        <p>${response.wpis}</p>`
+                        if(sessionID != 'null'){    
+                            document.getElementById('elementDetails').innerHTML +=
+                            `<button onclick="editData(${id}, 'wpis')">Edytuj</button>`;
+                            };            
+                    ;
+                        }
+                    } catch (e) {
+                        document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
+                    }
+                },
+
+                error: function (xhr, status, error) {
+                    console.log("AJAX error:", error); // Log any AJAX errors
+                    document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
+
                 }
             } catch (e) {
                 document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
