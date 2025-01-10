@@ -96,6 +96,12 @@
             <h2>Szczegóły Wyniku</h2>
             <p>Wybierz wynik z listy, aby zobaczyć szczegóły.</p>
         </div>
+        <?php
+            if(isset($_SESSION['id'])){
+            echo'<button class = "addElementButton" id="addPapersButton" class="button">Dodaj Wynik</button>';
+            }
+        ?>
+            
     </main>
     <script src="js/script.js"></script>
 </body>

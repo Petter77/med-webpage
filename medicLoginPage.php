@@ -1,10 +1,12 @@
 <?php
+
     session_start();
     if (isset($_SESSION['pesel']) || isset($_SESSION['id'])) {
         header("Location: index.php");
         exit;
     }
     require('configLekarz.php');
+
 
     $warning = null;
 
@@ -25,6 +27,7 @@
                 pm."id" = $1 AND pm."haslo" = $2
         ';
         $result = pg_query_params($conn, $query, array($id, $password));
+
 
         if ($result && pg_num_rows($result) > 0) {
             $row = pg_fetch_assoc($result);
@@ -59,7 +62,7 @@
             <label id="warning" for="warning"><?php if ($warning) { echo $warning; } ?></label>
         </div>
         <label for="id">ID: </label>
-        <input type="text" name="id" id="id" oninput="validateid()">
+        <input type="text" name="id" id="id" oninput="validateId()">
         <label for="password">Hasło: </label>
         <input type="password" name="password" id="password" required>
         <button type="submit" class="button">Zaloguj się</button>

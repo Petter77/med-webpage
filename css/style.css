@@ -168,7 +168,8 @@ main {
     color: #fff;
 }
 
-#addElementButton {
+
+.addElementButton {
     position: absolute;
     bottom: 1rem;
     right: 1rem;
@@ -185,9 +186,11 @@ main {
     border: none;
 }
 
-#addElementButton:hover {
+.addElementButton:hover {
     background-color: var(--accent-colour-hover);
 }
+
+
 
 form {
     display: flex;

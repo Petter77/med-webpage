@@ -1,10 +1,12 @@
 <?php
+
     session_start();
     if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
         header("Location: loginPage.php");
         exit;
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -56,7 +58,9 @@
             <h2>Lista skierowań</h2>
             <ul>
             <?php
+
                 require('configPacjent.php');
+
 
                 $pesel = $_SESSION['pesel'];
 
@@ -77,6 +81,7 @@
                     ORDER BY 
                         skierowanie_data DESC
                 ';
+
 	            
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
@@ -96,7 +101,11 @@
             <h2>Szczegóły skierowania</h2>
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
-        <button id="addElementButton" class="button">Dodaj skierowanie</button>
+        <?php
+            if(isset($_SESSION['id'])){
+                echo'<button class = "addElementButton" id="addElementButton" class="button">Dodaj skierowanie</button>';
+            }
+        ?>
     </main>
     <script src="js/script.js"></script>
 </body>

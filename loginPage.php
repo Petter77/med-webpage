@@ -6,6 +6,7 @@
     }
     require('configPacjent.php');
 
+
     $warning = null;
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel']) && isset($_POST['password'])) {

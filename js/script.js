@@ -170,23 +170,128 @@ function updateData(id, rodzaj) {
     });
 }
 
-document.getElementById('addElementButton').addEventListener('click', function() {
-    document.getElementById('elementDetails').innerHTML = `
-        <h2>Dodaj nowe skierowanie</h2>
-        <form action="" method="POST">
-            <label for="elementDetails">Szczegóły:</label>
-            <textarea id="elementDetails" name="elementDetails"></textarea>
-            <div class="form-buttons">
-                <button type="submit" class="save-button">Dodaj</button>
-                <button type="button" class="cancel-button" onclick="cancelForm()">Anuluj</button>
-            </div>
-        </form>
-    `;
+
+function addFileInputListener() {
+    const fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener('change', function() {
+        const fileDateContainer = document.getElementById('fileDateContainer');
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+            if (!allowedExtensions.exec(file.name)) {
+                alert('Invalid file type. Only JPG, JPEG, PNG, and PDF files are allowed.');
+                fileInput.value = ''; // Clear the file input
+                fileDateContainer.innerHTML = ''; // Clear the file date container
+                return;
+            }
+            fileDateContainer.innerHTML = `
+                <label for="fileDate">Data pliku:</label>
+                <input type="date" id="fileDate" name="fileDate">
+            `;
+        } else {
+            fileDateContainer.innerHTML = '';
+        }
+    });
+}
+
+function checkAllergy() {
+    const input = document.getElementById('allergyInput').value;
+    if (input.length > 2) { // Start searching after 3 characters
+        fetch(`check_allergy.php?query=${input}`)
+            .then(response => response.json())
+            .then(data => {
+                const suggestions = document.getElementById('suggestions');
+                suggestions.innerHTML = '';
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = item.nazwa;
+                    div.onclick = () => {
+                        document.getElementById('allergyInput').value = item.nazwa;
+                        document.getElementById('allergyId').value = item.id;
+                        suggestions.innerHTML = '';
+                    };
+                    suggestions.appendChild(div);
+                });
+            });
+    }
+}
+
+function validateAllergyForm() {
+    const allergyId = document.getElementById('allergyId').value;
+    if (!allergyId) {
+        alert('Please select a valid allergy from the suggestions.');
+        return false; // Prevent form submission
+    }
+    return true; // Allow form submission
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('click', function(event) {
+        if (event.target && event.target.id === 'addDescriptionButton') {
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowy Wpis</h2>
+                <form action="insert_data_wpis.php" method="post">
+                    <label for="elementDetailsTextarea">Szczegóły:</label>
+                    <textarea id="elementDetailsTextarea" name="DescriptionInfo"></textarea>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        } else if (event.target && event.target.id === 'addRecipeButton') {
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nową receptę</h2>
+                <form action="insert_data_recepty.php" method="post">
+                    <label for="elementName">Przypisywane Leki:</label>
+                    <input type="text" id="elementName" name="RecipeInfo">
+                    <label for="elementDetailsTextarea">Termin Recepty:</label>
+                    <input type="date" id="elementDetailsTextarea" name="RecipeEndDate" value="${today}" min="${today}">
+                    <label for="optionalSelect">Recepta Jednorazowa ?:</label>
+                    <select id="optionalSelect" name="optionalSelect">
+                        <option value="yes">Tak</option>
+                        <option value="no">Nie</option>
+                    </select>
+                    <button type="submit" style="margin-top: 10px;" class="button">Dodaj</button>
+                </form>
+            `;
+        } else if (event.target && event.target.id === 'addElementButton') {
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowe skierowanie</h2>
+                <form action="insert_data_skierowanie.php" method="post">
+                    <label for="elementDetailsTextarea">Skierowanie:</label>
+                    <textarea id="elementDetailsTextarea" name="referralDetails"></textarea>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        }
+        else if (event.target && event.target.id === 'addPapersButton') {
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowe Wyniki</h2>
+                <form action="insert_data_wyniki.php" method="post" enctype="multipart/form-data">
+                    <label for="elementName">Wyniki Badania:</label>
+                    <textarea id="elementDetailsTextarea" name="examinationDetails"></textarea>
+                    <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
+                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}">
+                    <label for="fileInput">Załącz plik:</label>
+                    <input type="file" id="fileInput" name="file" accept=".jpg,.jpeg,.png,.pdf">
+                    <div id="fileDateContainer"></div>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+            addFileInputListener();
+        }
+        else if(event.target && event.target.id === 'addAllergiesButton'){
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nową Alergie</h2>
+                <form id="allergyForm" action="insert_data_alergie.php" method="post" onsubmit="return validateAllergyForm()">
+                    <label for="allergyInput">Alergia:</label>
+                    <input type="text" id="allergyInput" name="allergy" oninput="checkAllergy()">
+                    <input type="hidden" id="allergyId" name="allergyId">
+                    <div id="suggestions"></div>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        }
+    });
 });
 
-function cancelForm() {
-    document.getElementById('elementDetails').innerHTML = `
-        <h2>Szczegóły skierowania</h2>
-        <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
-    `;
-}

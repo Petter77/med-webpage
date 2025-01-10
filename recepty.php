@@ -4,6 +4,7 @@
         header("Location: loginPage.php");
         exit;
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -79,6 +80,7 @@
                         Recepty_dataWystawienia DESC
                 ';
 
+
                 $result = pg_query($conn, $query);
                 while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClick(" . $line['recepty_id'] . ", \"recepta\")'>
@@ -98,6 +100,11 @@
             <h2>Szczegóły Recepty</h2>
             <p>Wybierz receptę z listy, aby zobaczyć szczegóły.</p>
         </div>
+        <?php
+            if(isset($_SESSION['id'])){
+                echo'<button class = "addElementButton" id="addRecipeButton" class="button">Dodaj Recepte</button>';
+            }
+        ?>
     </main>
     <script src="js/script.js"></script>
 </body>

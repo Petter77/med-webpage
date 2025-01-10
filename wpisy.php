@@ -1,3 +1,4 @@
+
 <?php
     session_start();
     if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
@@ -5,6 +6,7 @@
         exit;
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -78,6 +80,7 @@
                         wpisy_data DESC
                 ';
 
+
 				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClick(" . $line['wpisy_id'] . ", \"wpis\")'>
@@ -96,6 +99,11 @@
             <h2>Szczegóły Wpisu</h2>
             <p>Wybierz wpis z listy, aby zobaczyć szczegóły.</p>
         </div>
+        <?php
+            if(isset($_SESSION['id'])){
+                echo'<button class = "addElementButton" id="addDescriptionButton" class="button">Dodaj Wpis</button>';
+            }
+        ?>
     </main>
     <script src="js/script.js"></script>
 </body>
