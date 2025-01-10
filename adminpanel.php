@@ -20,8 +20,62 @@
         
     </nav>
     <main>
-        <div class="patient-info">
-           
+        <div class="management-panel">
+           <?php
+                require('configLekarz.php');
+
+                
+                // Połączenie z PostgreSQL za pomocą pg_connect
+                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass");
+
+                // Sprawdzenie połączenia
+                if (!$conn) {
+                    die("Błąd połączenia z bazą danych: " . pg_last_error());
+                }
+
+
+
+                                // Zapytanie SQL
+                                $sql = 'SELECT 
+                                    pm.id,
+                                    pm.imie,
+                                    pm.nazwisko,
+                                    nr.nazwa AS rola
+                                FROM 
+                                    "PersonelMedyczny" pm
+                                JOIN 
+                                    "RolePersonelu" nr 
+                                ON 
+                                    pm."idRoli" = nr."id";';
+
+                                $result = pg_query($conn, $sql);
+
+                // Sprawdzenie, czy są wyniki
+                if (pg_num_rows($result) > 0) {
+                    // Wyświetlenie danych w tabeli HTML
+                    echo "<table border='1'>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                                <th>Rola</th>
+                            </tr>";
+                    while ($row = pg_fetch_assoc($result)) {
+                        echo "<tr>
+                                <td>" . $row['id'] . "</td>
+                                <td>" . $row['imie'] . "</td>
+                                <td>" . $row['nazwisko'] . "</td>
+                                <td>" . $row['rola'] . "</td>
+                              </tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo "Brak wyników.";
+                }
+
+                // Zamknięcie połączenia
+                pg_close($conn);
+                ?>
             </div>
         </div>
     </main>
