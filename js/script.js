@@ -41,7 +41,7 @@ function handleClick(id, rodzaj) {
                         <p>${response.skierowanie}</p>`;
                         if(sessionID != 'null'){    
                         document.getElementById('elementDetails').innerHTML +=
-                        `<button onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
+                        `<button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
                         }
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
                             document.getElementById('elementDetails').innerHTML = `
@@ -49,7 +49,7 @@ function handleClick(id, rodzaj) {
                         <p>${response.przypisaneLeki}</p>`;
                         if(sessionID != 'null'){    
                         document.getElementById('elementDetails').innerHTML +=
-                        `<button onclick="editData(${id}, 'recepta')">Edytuj</button>`;
+                        `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
                         };
                         } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
                         document.getElementById('elementDetails').innerHTML = `
@@ -63,7 +63,7 @@ function handleClick(id, rodzaj) {
                         <p>${response.wpis}</p>`
                         if(sessionID != 'null'){    
                             document.getElementById('elementDetails').innerHTML +=
-                            `<button onclick="editData(${id}, 'wpis')">Edytuj</button>`;
+                            `<button class="edit-button" onclick="editData(${id}, 'wpis')">Edytuj</button>`;
                             };            
                     ;
                         }
@@ -113,22 +113,28 @@ function editData(id, rodzaj) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
                         <input type="text" id="editInput" value="${response.skierowanie}">
-                        <button onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
-                        <button onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
+                        <div class="edit-buttons">
+                            <button class="save-button" onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
+                            <button class="cancel-button" onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
+                        </div>
                     `;
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
                         <input type="text" id="editInput" value="${response.przypisaneLeki}">
-                        <button onclick="updateData(${id}, 'recepta')">Zapisz</button>
-                        <button onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
+                        <div class="edit-buttons">
+                            <button class="save-button" onclick="updateData(${id}, 'recepta')">Zapisz</button>
+                            <button class="cancel-button" onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
+                        </div>
                     `;
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
                         <input type="text" id="editInput" value="${response.wpis}">
-                        <button onclick="updateData(${id}, 'wpis')">Zapisz</button>
-                        <button onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
+                        <div class="edit-buttons">
+                            <button class="save-button" onclick="updateData(${id}, 'wpis')">Zapisz</button>
+                            <button class="cancel-button" onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
+                        </div>
                     `;
                         }
                     } catch (e) {

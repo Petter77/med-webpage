@@ -5,6 +5,7 @@
 }
 
 *{
+    color:#000;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -190,8 +191,6 @@ main {
     background-color: var(--accent-colour-hover);
 }
 
-
-
 form {
     display: flex;
     flex-direction: column;
@@ -229,24 +228,32 @@ form button:hover {
 
 main {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding: 2rem;
 }
 
-.info-panel {
+.left-panel {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    width: 60%; /* Ustawienie szerokości na 60% */
+    padding: 2rem;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start; /* Ustawienie elementów na lewo */
+    width: 35%; /* Ustawienie szerokości na 35% */
     padding: 2rem;
 }
 
 .info-box {
     background-color: var(--accent-colour);
     color: #fff;
-    width: 90%;
+    width: 100%;
     height: 15rem;
     display: flex;
     flex-direction: column;
@@ -266,7 +273,9 @@ main {
 
 .info-title {
     font-size: 1.5rem;
-    margin-bottom: auto;
+    margin-bottom: 1rem; /* Dodanie odstępu między nagłówkiem a informacjami */
+    text-align: center; /* Wyśrodkowanie nagłówka */
+    width: 100%; /* Ustawienie szerokości na 100% */
 }
 
 .info-content {
@@ -276,18 +285,24 @@ main {
 }
 
 .patient-info {
-    display: flex;
-    flex-direction: column; /* Ustawienie elementów w kolumnie */
-    justify-content: flex-start; /* Ustawienie elementów na lewo */
-    align-items: flex-start; /* Ustawienie elementów na górze */
-    width: 90%; /* Ustawienie szerokości na 90% */
-    height: 15rem; /* Ustawienie wysokości na 15rem */
     background-color: var(--accent-colour);
     color: #fff;
+    width: 100%;
+    height: 15rem; /* Zmiana wysokości na 15rem */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Ustawienie elementów na lewo */
+    justify-content: flex-start;
     border-radius: 0.5rem;
     margin: 1rem;
-    padding: 1rem;
+    position: relative;
+    transition: background-color 0.3s ease;
+    padding: 1rem; /* Dodanie paddingu */
     border: 2px solid #000; /* Dodanie ramki */
+}
+
+.patient-info:hover {
+    background-color: var(--accent-colour-hover);
 }
 
 .info-button {
@@ -335,4 +350,13 @@ main {
 
 .form-buttons button {
     width: 48%; /* Adjust width to fit two buttons side by side */
+}
+
+.edit-buttons {
+    display: flex;
+    
+}
+
+.cancel-button {
+    margin-left: 1rem;;
 }

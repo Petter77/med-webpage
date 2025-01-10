@@ -1,15 +1,11 @@
 <?php
-$host = 'localhost';
-$db = 'BazaMedyczna';
-$user = 'pacjent';
-$pass = 'haslo';
-$port = '5432';
-
-$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-if (!$conn) {
-    echo json_encode([]);
-    exit;
-}
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
+    
+    require('configPacjent.php');
 
 $query = $_GET['query'];
 $result = pg_query_params($conn, "SELECT id, nazwa FROM \"Alergeny\" WHERE nazwa ILIKE $1", array("%$query%"));
