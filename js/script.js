@@ -37,36 +37,33 @@ function handleClick(id, rodzaj) {
                         // Handle response based on rodzaj
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
                             document.getElementById('elementDetails').innerHTML = `
-                        <h3>Skierowanie:</h3>
-                        <p>${response.skierowanie}</p>`;
-                        if(sessionID != 'null'){    
-                        document.getElementById('elementDetails').innerHTML +=
-                        `<button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
-                        }
+                            <h3>Skierowanie:</h3>
+                            <p>${response.skierowanie}</p>`;
+                            if(sessionID != 'null'){    
+                                document.getElementById('elementDetails').innerHTML +=
+                                `<button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
+                            };
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
                             document.getElementById('elementDetails').innerHTML = `
-                        <h3>Recepta:</h3>
-                        <p>${response.przypisaneLeki}</p>`;
-                        if(sessionID != 'null'){    
-                        document.getElementById('elementDetails').innerHTML +=
-                        `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
-                        };
+                            <h3>Recepta:</h3>
+                            <p>${response.przypisaneLeki}</p>`;
+                            if(sessionID != 'null'){    
+                                document.getElementById('elementDetails').innerHTML +=
+                                `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
+                            };
                         } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
-                        document.getElementById('elementDetails').innerHTML = `
-                        <a href="${wynikiBadania}" target="_blank">Download/View PDF</a>
-                    < iframe src ="${wynikiBadania}" width="100%" height="1200px" style="border: none;"></iframe>
-  
-                    `;
+                            document.getElementById('elementDetails').innerHTML = `
+                            <a href="${wynikiBadania}" target="_blank">Download/View PDF</a>
+                            < iframe src ="${wynikiBadania}" width="100%" height="1200px" style="border: none;"></iframe>`;
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
                             document.getElementById('elementDetails').innerHTML = `
-                        <h3>Wpis:</h3>
-                        <p>${response.wpis}</p>`
-                        if(sessionID != 'null'){    
-                            document.getElementById('elementDetails').innerHTML +=
-                            `<button class="edit-button" onclick="editData(${id}, 'wpis')">Edytuj</button>`;
+                            <h3>Wpis:</h3>
+                            <p>${response.wpis}</p>`
+                            if(sessionID != 'null'){    
+                                document.getElementById('elementDetails').innerHTML +=
+                                `<button class="edit-button" onclick="editData(${id}, 'wpis')">Edytuj</button>`;
                             };            
-                    ;
-                        }
+                        };
                     } catch (e) {
                         document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
                     }
@@ -93,6 +90,7 @@ function editData(id, rodzaj) {
             break;
         case 'wpis':
             url = 'fetch_data_wpisy.php';  // URL for wpisy
+            break;
         case 'wynik':
             url = 'fetch_data_wyniki.php';
             break;
