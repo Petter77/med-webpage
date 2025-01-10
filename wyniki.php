@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -42,46 +49,55 @@
        <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
-        </button>
-        
+        </button> 
     </nav>
-   <main>
+    <main>
          <div id="elementList" class="element-list">
             <h2>Lista Wyników</h2>
             <ul>
             <?php
                 require('configPacjent.php');
 
-                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-                session_start(); // Start the session
-                $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
-                if (!$pesel) {
-                die("Error: Pesel not found in session.");
-                }
-                $query = 'SELECT 
-                    Wyniki.id AS wyniki_id, 
-                    Wyniki."dataWyniku" as wyniki_data,  
-                    personel.imie AS personel_imie, 
-                    personel.nazwisko AS personel_nazwisko
-                FROM 
-                    "WynikibadanDiagnostycznych" as Wyniki
-                JOIN 
-                    "PersonelMedyczny" as personel
-                ON 
-                    Wyniki."idPersonelu" = personel."id" WHERE Wyniki."peselPacjenta" = $1 ORDER BY wyniki_data DESC';
-				$result = pg_query_params($conn, $query, [$pesel]);
+                $pesel = $_SESSION['pesel'];
+
+                $query = '
+                    SELECT 
+                        Wyniki.id AS wyniki_id, 
+                        Wyniki."dataWyniku" as wyniki_data,  
+                        personel.imie AS personel_imie, 
+                        personel.nazwisko AS personel_nazwisko
+                    FROM 
+                        "WynikibadanDiagnostycznych" as Wyniki
+                    JOIN 
+                        "PersonelMedyczny" as personel
+                    ON 
+                        Wyniki."idPersonelu" = personel."id" 
+                    WHERE 
+                        Wyniki."peselPacjenta" = ' . $pesel . '
+                    ORDER BY 
+                        wyniki_data DESC
+                ';
+
+				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
                     echo "<li onclick='handleClick(" . $line['wyniki_id'] . ", \"wynik\")'>Wynik nr: {$line['wyniki_id']}, data: {$line['wyniki_data']}, Personel wykonujący badanie: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+
                 }
+                
                 pg_close($conn);
-                ?>
-             
+            ?>
             </ul>
         </div>
         <div id="elementDetails" class="element-details">
             <h2>Szczegóły Wyniku</h2>
             <p>Wybierz wynik z listy, aby zobaczyć szczegóły.</p>
         </div>
+        <?php
+            if(isset($_SESSION['id'])){
+            echo'<button class = "addElementButton" id="addPapersButton" class="button">Dodaj Wynik</button>';
+            }
+        ?>
+            
     </main>
     <script src="js/script.js"></script>
 </body>

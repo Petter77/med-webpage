@@ -1,7 +1,14 @@
 <?php
-require('configPacjent.php');
 
-                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
+    
+    require('configPacjent.php');
+
+
 	$id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 if (!$id) {
@@ -10,13 +17,15 @@ if (!$id) {
 }
 	$query = 'SELECT "WynikibadanDiagnostycznych"."wynikiBadania" FROM "WynikibadanDiagnostycznych" WHERE "WynikibadanDiagnostycznych".id = $1';
 
+
     $result = pg_query_params($conn, $query, [$id]) or die('Query failed: ' . pg_last_error());
 
-    // Fetch the data as an associative array
-   $data = pg_fetch_assoc($result);
-if ($data) {
-    echo json_encode($data);
-} else {
-    echo json_encode(["error" => "No data found for this ID"]);
-}
+    $data = pg_fetch_assoc($result);
+    if ($data) {
+        echo json_encode($data);
+    } else {
+        echo json_encode(["error" => "No data found for this ID"]);
+    }
+
+    pg_close($conn);
 ?>

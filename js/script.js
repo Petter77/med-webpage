@@ -2,76 +2,83 @@ document.getElementById('toggleButton').addEventListener('click', function () {
     document.getElementById('sidebar').classList.toggle('expanded');
 });
 
+
+
 function handleClick(id, rodzaj) {
     console.log("handleClick triggered with id:", id, "and rodzaj:", rodzaj);
     let url = '';
+    var sessionID = sessionStorage.getItem('sessionID');
     switch (rodzaj) {
         case 'skierowanie':
             url = 'fetch_data_skierowanie.php';  // URL for skierowanie
             break;
         case 'recepta':
-            url = 'fetch_data_recepty.php';  // URL for recepta
+            url = 'fetch_data_recepty.php';  // URL for torodzaj
             break;
         case 'wynik':
-            url = 'fetch_data_wyniki.php';  // URL for wynik
+            url = 'fetch_data_wyniki.php';  // URL for torodzaj
             break;
         case 'wpis':
-            url = 'fetch_data_wpisy.php';  // URL for wpis
+            url = 'fetch_data_wpisy.php';  // URL for torodzaj
             break;
     }
-    console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
-    $.ajax({
-        url: url,       // Use the dynamically set URL based on rodzaj
-        type: 'GET',
-        data: { id: id },  // Send the ID as a parameter
-        dataType: 'json',   // Expecting JSON response
-        success: function (response) {
-            console.log("Server response:", response);  // Log the response
 
+            console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
+            $.ajax({
+                url: url,       // Use the dynamically set URL based on rodzaj
+                type: 'GET',
+                data: { id: id},  // Send the ID as a parameter
+                dataType: 'json',   // Expecting JSON response
 
-            
+                success: function (response) {
+                    console.log("Server response:", response);  // Log the response
 
-
-            
-            try {
-                // Handle response based on rodzaj
-                if (rodzaj === 'skierowanie' && response && response.skierowanie) {
-                    document.getElementById('elementDetails').innerHTML = `
+                    try {
+                        // Handle response based on rodzaj
+                        if (rodzaj === 'skierowanie' && response && response.skierowanie) {
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
-                        <p>${response.skierowanie}</p>
-                        <button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>
-                    `;
-                } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
-                    document.getElementById('elementDetails').innerHTML = `
+                        <p>${response.skierowanie}</p>`;
+                        if(sessionID != 'null'){    
+                        document.getElementById('elementDetails').innerHTML +=
+                        `<button onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
+                        }
+                        } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
-                        <p>${response.przypisaneLeki}</p>
-                        <button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>
-                    `;
-                } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
-                    document.getElementById('elementDetails').innerHTML = `
+                        <p>${response.przypisaneLeki}</p>`;
+                        if(sessionID != 'null'){    
+                        document.getElementById('elementDetails').innerHTML +=
+                        `<button onclick="editData(${id}, 'recepta')">Edytuj</button>`;
+                        };
+                        } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
+                        document.getElementById('elementDetails').innerHTML = `
                         <a href="${wynikiBadania}" target="_blank">Download/View PDF</a>
                     < iframe src ="${wynikiBadania}" width="100%" height="1200px" style="border: none;"></iframe>
   
                     `;
-                    
-                } else if (rodzaj === 'wpis' && response && response.wpis) {
-                    document.getElementById('elementDetails').innerHTML = `
+                        } else if (rodzaj === 'wpis' && response && response.wpis) {
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
-                        <p>${response.wpis}</p>
-                             
-                    `;
+                        <p>${response.wpis}</p>`
+                        if(sessionID != 'null'){    
+                            document.getElementById('elementDetails').innerHTML +=
+                            `<button onclick="editData(${id}, 'wpis')">Edytuj</button>`;
+                            };            
+                    ;
+                        }
+                    } catch (e) {
+                        document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
+                    }
+                },
+
+                error: function (xhr, status, error) {
+                    console.log("AJAX error:", error); // Log any AJAX errors
+                    document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
-            } catch (e) {
-                document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
-            }
-        },
-        
-        error: function (xhr, status, error) {
-            console.log("AJAX error:", error); // Log any AJAX errors
-            document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
-        }
-        
-    });
+            });
+
+
 }
 
 function editData(id, rodzaj) {
@@ -91,63 +98,50 @@ function editData(id, rodzaj) {
             break;
         default: break;
     }
-    console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
-    $.ajax({
-        url: url,       // Use the dynamically set URL based on rodzaj
-        type: 'GET',
-        data: { id: id },  // Send the ID as a parameter
-        dataType: 'json',   // Expecting JSON response
-        success: function (response) {
-            console.log("Server response:", response);  // Log the response
-            try {
-                // Handle response based on rodzaj
-                if (rodzaj === 'skierowanie' && response && response.skierowanie) {
-                    document.getElementById('elementDetails').innerHTML = `
+            console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
+            $.ajax({
+                url: url,       // Use the dynamically set URL based on rodzaj
+                type: 'GET',
+                data: { id: id },  // Send the ID as a parameter
+                dataType: 'json',   // Expecting JSON response
+                success: function (response) {
+                    console.log("Server response:", response);  // Log the response
+
+                    try {
+                        // Handle response based on rodzaj
+                        if (rodzaj === 'skierowanie' && response && response.skierowanie) {
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
                         <input type="text" id="editInput" value="${response.skierowanie}">
-                        <div class="form-buttons">
-                            <button class="save-button" onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
-                            <button class="cancel-button" onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
-                        </div>
+                        <button onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
+                        <button onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
                     `;
-                } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
-                    document.getElementById('elementDetails').innerHTML = `
+                        } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
                         <input type="text" id="editInput" value="${response.przypisaneLeki}">
-                        <div class="form-buttons">
-                            <button class="save-button" onclick="updateData(${id}, 'recepta')">Zapisz</button>
-                            <button class="cancel-button" onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
-                        </div>
+                        <button onclick="updateData(${id}, 'recepta')">Zapisz</button>
+                        <button onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
                     `;
-                } else if (rodzaj === 'wpis' && response && response.wpis) {
-                    document.getElementById('elementDetails').innerHTML = `
+                        } else if (rodzaj === 'wpis' && response && response.wpis) {
+                            document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
                         <input type="text" id="editInput" value="${response.wpis}">
-                        <div class="form-buttons">
-                            <button class="save-button" onclick="updateData(${id}, 'wpis')">Zapisz</button>
-                            <button class="cancel-button" onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
-                        </div>
+                        <button onclick="updateData(${id}, 'wpis')">Zapisz</button>
+                        <button onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
                     `;
+                        }
+                    } catch (e) {
+                        document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
+                    }
+                },
+
+                error: function (xhr, status, error) {
+                    console.log("AJAX error:", error); // Log any AJAX errors
+                    document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
-                else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
-                    document.getElementById('elementDetails').innerHTML = `
-                        <h3>Wyniki badania:</h3>
-                        <input type="text" id="editInput" value="${response.wynikiBadania}">
-                        <div class="form-buttons">
-                            <button class="save-button" onclick="updateData(${id}, 'wynik')">Zapisz</button>
-                            <button class="cancel-button" onclick="cancelEdit(${id}, 'wynik')">Anuluj</button>
-                        </div>
-                    `;
-                }
-            } catch (e) {
-                document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
-            }
-        },
-        error: function (xhr, status, error) {
-            console.log("AJAX error:", error); // Log any AJAX errors
-            document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
-        }
-    });
+
+            });
 }
 
 function cancelEdit(id, rodzaj) {
@@ -195,23 +189,127 @@ function updateData(id, rodzaj) {
     });
 }
 
-document.getElementById('addElementButton').addEventListener('click', function() {
-    document.getElementById('elementDetails').innerHTML = `
-        <h2>Dodaj nowe skierowanie</h2>
-        <form action="" method="POST">
-            <label for="elementDetails">Szczegóły:</label>
-            <textarea id="elementDetails" name="elementDetails"></textarea>
-            <div class="form-buttons">
-                <button type="submit" class="save-button">Dodaj</button>
-                <button type="button" class="cancel-button" onclick="cancelForm()">Anuluj</button>
-            </div>
-        </form>
-    `;
-});
 
-function cancelForm() {
-    document.getElementById('elementDetails').innerHTML = `
-        <h2>Szczegóły skierowania</h2>
-        <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
-    `;
+function addFileInputListener() {
+    const fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener('change', function() {
+        const fileDateContainer = document.getElementById('fileDateContainer');
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
+            if (!allowedExtensions.exec(file.name)) {
+                alert('Invalid file type. Only JPG, JPEG, PNG, and PDF files are allowed.');
+                fileInput.value = ''; // Clear the file input
+                fileDateContainer.innerHTML = ''; // Clear the file date container
+                return;
+            }
+            fileDateContainer.innerHTML = `
+                <label for="fileDate">Data pliku:</label>
+                <input type="date" id="fileDate" name="fileDate">
+            `;
+        } else {
+            fileDateContainer.innerHTML = '';
+        }
+    });
 }
+
+function checkAllergy() {
+    const input = document.getElementById('allergyInput').value;
+    if (input.length > 2) { // Start searching after 3 characters
+        fetch(`check_allergy.php?query=${input}`)
+            .then(response => response.json())
+            .then(data => {
+                const suggestions = document.getElementById('suggestions');
+                suggestions.innerHTML = '';
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = item.nazwa;
+                    div.onclick = () => {
+                        document.getElementById('allergyInput').value = item.nazwa;
+                        document.getElementById('allergyId').value = item.id;
+                        suggestions.innerHTML = '';
+                    };
+                    suggestions.appendChild(div);
+                });
+            });
+    }
+}
+
+function validateAllergyForm() {
+    const allergyId = document.getElementById('allergyId').value;
+    if (!allergyId) {
+        alert('Please select a valid allergy from the suggestions.');
+        return false; // Prevent form submission
+    }
+    return true; // Allow form submission
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('click', function(event) {
+        if (event.target && event.target.id === 'addDescriptionButton') {
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowy Wpis</h2>
+                <form action="insert_data_wpis.php" method="post">
+                    <label for="elementDetailsTextarea">Szczegóły:</label>
+                    <textarea id="elementDetailsTextarea" name="DescriptionInfo"></textarea>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        } else if (event.target && event.target.id === 'addRecipeButton') {
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nową receptę</h2>
+                <form action="insert_data_recepty.php" method="post">
+                    <label for="elementName">Przypisywane Leki:</label>
+                    <input type="text" id="elementName" name="RecipeInfo">
+                    <label for="elementDetailsTextarea">Termin Recepty:</label>
+                    <input type="date" id="elementDetailsTextarea" name="RecipeEndDate" value="${today}" min="${today}">
+                    <label for="optionalSelect">Recepta Jednorazowa ?:</label>
+                    <select id="optionalSelect" name="optionalSelect">
+                        <option value="yes">Tak</option>
+                        <option value="no">Nie</option>
+                    </select>
+                    <button type="submit" style="margin-top: 10px;" class="button">Dodaj</button>
+                </form>
+            `;
+        } else if (event.target && event.target.id === 'addElementButton') {
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowe skierowanie</h2>
+                <form action="insert_data_skierowanie.php" method="post">
+                    <label for="elementDetailsTextarea">Skierowanie:</label>
+                    <textarea id="elementDetailsTextarea" name="referralDetails"></textarea>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        }
+        else if (event.target && event.target.id === 'addPapersButton') {
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nowe Wyniki</h2>
+                <form action="insert_data_wyniki.php" method="post" enctype="multipart/form-data">
+                    <label for="elementName">Wyniki Badania:</label>
+                    <textarea id="elementDetailsTextarea" name="examinationDetails"></textarea>
+                    <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
+                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}">
+                    <label for="fileInput">Załącz plik:</label>
+                    <input type="file" id="fileInput" name="file" accept=".jpg,.jpeg,.png,.pdf">
+                    <div id="fileDateContainer"></div>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+            addFileInputListener();
+        }
+        else if(event.target && event.target.id === 'addAllergiesButton'){
+            document.getElementById('elementDetails').innerHTML = `
+                <h2>Dodaj nową Alergie</h2>
+                <form id="allergyForm" action="insert_data_alergie.php" method="post" onsubmit="return validateAllergyForm()">
+                    <label for="allergyInput">Alergia:</label>
+                    <input type="text" id="allergyInput" name="allergy" oninput="checkAllergy()">
+                    <input type="hidden" id="allergyId" name="allergyId">
+                    <div id="suggestions"></div>
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+            `;
+        }
+    });
+});

@@ -1,3 +1,12 @@
+<?php
+
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -42,10 +51,10 @@
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
-        
     </nav>
-   <main>
+    <main>
        
+
     </main>
     <script src="js/script.js"></script>
 </body>
