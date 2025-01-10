@@ -1,3 +1,12 @@
+<?php
+
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -11,7 +20,7 @@
     <title>Skierowania</title>
 </head>
 <body>
-<nav id="sidebar">
+    <nav id="sidebar">
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
@@ -42,50 +51,62 @@
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
-        </button>
-        
+        </button> 
     </nav>
     <main>
         <div id="elementList" class="element-list">
             <h2>Lista skierowań</h2>
             <ul>
-
             <?php
+
                 require('configPacjent.php');
 
-                $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-                session_start(); // Start the session
-                $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
-                if (!$pesel) {
-                die("Error: Pesel not found in session.");
-                }
-                $query = 'SELECT 
-                    Skierowania.id AS skierowanie_id, 
-                    Skierowania."dataSkierowania" as skierowanie_data,  
-                    personel.imie AS personel_imie, 
-                    personel.nazwisko AS personel_nazwisko
-                FROM 
-                    "Skierowania" as Skierowania
-                JOIN 
-                    "PersonelMedyczny" as personel
-                ON 
-                    Skierowania."idPersonelu" = personel."id" WHERE Skierowania."peselPacjenta" = $1 ORDER BY skierowanie_data DESC';
-	            
-				$result = pg_query_params($conn, $query, [$pesel]);
-	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
-                    echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ", \"skierowanie\")'>Skierowanie nr: {$line['skierowanie_id']}, data: {$line['skierowanie_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
-                }
 
-                ?>
-             
+                $pesel = $_SESSION['pesel'];
+
+                $query = '
+                    SELECT 
+                        Skierowania.id AS skierowanie_id, 
+                        Skierowania."dataSkierowania" as skierowanie_data,  
+                        personel.imie AS personel_imie, 
+                        personel.nazwisko AS personel_nazwisko
+                    FROM 
+                        "Skierowania" as Skierowania
+                    JOIN 
+                        "PersonelMedyczny" as personel
+                    ON 
+                        Skierowania."idPersonelu" = personel."id" 
+                    WHERE 
+                        Skierowania."peselPacjenta" = ' . $pesel . '
+                    ORDER BY 
+                        skierowanie_data DESC
+                ';
+
+	            
+				$result = pg_query($conn, $query);
+	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
+                    echo "<li onclick='handleClick(" . $line['skierowanie_id'] . ", \"skierowanie\")'>
+                            Skierowanie nr: {$line['skierowanie_id']}, 
+                            data: {$line['skierowanie_data']}, 
+                            Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} 
+                        </li><br>
+                    ";
+                }
+                
+                pg_close($conn);
+            ?>
             </ul>
         </div>
         <div id="elementDetails" class="element-details">
             <h2>Szczegóły skierowania</h2>
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
-        <button id="addElementButton" class="button">Dodaj skierowanie</button>
+        <?php
+            if(isset($_SESSION['id'])){
+                echo'<button class = "addElementButton" id="addElementButton" class="button">Dodaj skierowanie</button>';
+            }
+        ?>
     </main>
-     <script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
