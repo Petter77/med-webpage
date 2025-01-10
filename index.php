@@ -103,37 +103,24 @@
             <span class="icon">📄</span>
             <span class="text">Wyniki badań</span>
         </a>
-        <a href="alergie.php" class="nav-item">
-            <span class="icon">📄</span>
-            <span class="text">Alergie</span>
-        </a>
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
     </nav>
     <main>
-        <div class="patient-info">
-            <h2>Informacje o pacjencie</h2>
-            <?php 
-                echo "<p>Pesel: " . $pesel . "</p>";
-                echo "<p>Imię: " . $patient_info['imie'] . "</p>";
-                echo "<p>Nazwisko: " . $patient_info['nazwisko'] . "</p>";
-                echo "<p>Alergie: " . $patient_info['alergen'] . "</p>";
-            ?>
-        </div>
-        <div class="info-panel">
+        <div class="left-panel">
             <div class="info-box">
                 <h2 class="info-title">Wpisy</h2>
                 <div class="info-content">
-                    <?php
-                        if ($lastEntry) {
-                            echo "<p>Data: " . $lastEntry['wpisy_data'] . "</p>";
-                            echo "<p>Lekarz: " . $lastEntry['personel_imie'] . " " . $lastEntry['personel_nazwisko'] . "</p>";
-                        } else {
-                            echo "<p>Brak wpisów</p>";
-                        }
-                    ?>
+                <?php
+                    if ($lastEntry) {
+                        echo "<p>Data: " . $lastEntry['wpisy_data'] . "</p>";
+                        echo "<p>Lekarz: " . $lastEntry['personel_imie'] . " " . $lastEntry['personel_nazwisko'] . "</p>";
+                    } else {
+                        echo "<p>Brak wpisów</p>";
+                    }
+                ?>
                 </div>
                 <button class="info-button" onclick="location.href='wpisy.php'">Przejdź do wpisów</button>
             </div>
@@ -149,9 +136,18 @@
                 <h2 class="info-title">Wyniki badań</h2>
                 <button class="info-button" onclick="location.href='wyniki.php'">Przejdź do wyników badań</button>
             </div>
-            <div class="info-box">
-                <h2 class="info-title">Alergie</h2>
-                <button class="info-button" onclick="location.href='alergie.php'">Przejdź do alergii</button>
+        </div>
+        <div class="right-panel">
+            <div class="info-box patient-info">
+                <h2 class="info-title">Informacje o pacjencie</h2>
+                <div class="info-content">
+                    <?php 
+                        echo "<p>Pesel: " . $pesel . "</p>";
+                        echo "<p>Imię: " . $patient_info['imie'] . "</p>";
+                        echo "<p>Nazwisko: " . $patient_info['nazwisko'] . "</p>";
+                        echo "<p>Alergie: " . $patient_info['alergen'] . "</p>";
+                    ?>
+                </div>
             </div>
         </div>
     </main>

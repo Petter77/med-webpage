@@ -42,11 +42,7 @@
             <span class="icon">📄</span>
             <span class="text">Wyniki badań</span>
         </a>
-        <a href="alergie.php" class="nav-item">
-            <span class="icon">📄</span>
-            <span class="text">Alergie</span>
-        </a>
-       <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
+        <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button> 
