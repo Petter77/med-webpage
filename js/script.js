@@ -2,24 +2,22 @@ document.getElementById('toggleButton').addEventListener('click', function () {
     document.getElementById('sidebar').classList.toggle('expanded');
 });
 
-
-
 function handleClick(id, rodzaj) {
     console.log("handleClick triggered with id:", id, "and rodzaj:", rodzaj);
     let url = '';
     var sessionID = sessionStorage.getItem('sessionID');
     switch (rodzaj) {
         case 'skierowanie':
-            url = 'fetch_data_skierowanie.php';  // URL for skierowanie
+            url = 'fetch_data_skierowanie.php';
             break;
         case 'recepta':
-            url = 'fetch_data_recepty.php';  // URL for torodzaj
+            url = 'fetch_data_recepty.php';
             break;
         case 'wynik':
-            url = 'fetch_data_wyniki.php';  // URL for torodzaj
+            url = 'fetch_data_wyniki.php';
             break;
         case 'wpis':
-            url = 'fetch_data_wpisy.php';  // URL for torodzaj
+            url = 'fetch_data_wpisy.php';
             break;
     }
             console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
@@ -52,11 +50,12 @@ function handleClick(id, rodzaj) {
                         };
                         } else if (rodzaj === 'wynik' && response && response.wynik) {
                             document.getElementById('elementDetails').innerHTML = `
+
                         <h3>Wynik:</h3>
                         <p>${response.wynik}</p>
                     `;
-                        } else if (rodzaj === 'wpis' && response && response.wpis) {
-                            document.getElementById('elementDetails').innerHTML = `
+                } else if (rodzaj === 'wpis' && response && response.wpis) {
+                    document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
                         <p>${response.wpis}</p>`
                         if(sessionID != 'null'){    
@@ -73,9 +72,17 @@ function handleClick(id, rodzaj) {
                 error: function (xhr, status, error) {
                     console.log("AJAX error:", error); // Log any AJAX errors
                     document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
-                }
-            });
 
+                }
+            } catch (e) {
+                document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("AJAX error:", error);
+            document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
+        }
+    });
 }
 
 function editData(id, rodzaj) {
@@ -83,58 +90,61 @@ function editData(id, rodzaj) {
     let url = '';
     switch (rodzaj) {
         case 'skierowanie':
-            url = 'fetch_data_skierowanie.php';  // URL for skierowanie
+            url = 'fetch_data_skierowanie.php';
             break;
         case 'recepta':
-            url = 'fetch_data_recepty.php';  // URL for recepty
+            url = 'fetch_data_recepty.php';
             break;
         case 'wpis':
-            url = 'fetch_data_wpisy.php';  // URL for wpisy
+            url = 'fetch_data_wpisy.php';
             break;
     }
-            console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
-            $.ajax({
-                url: url,       // Use the dynamically set URL based on rodzaj
-                type: 'GET',
-                data: { id: id },  // Send the ID as a parameter
-                dataType: 'json',   // Expecting JSON response
-                success: function (response) {
-                    console.log("Server response:", response);  // Log the response
-
-                    try {
-                        // Handle response based on rodzaj
-                        if (rodzaj === 'skierowanie' && response && response.skierowanie) {
-                            document.getElementById('elementDetails').innerHTML = `
+    console.log("Making AJAX request to:", url, "with id:", id);
+    $.ajax({
+        url: url,
+        type: 'GET',
+        data: { id: id },
+        dataType: 'json',
+        success: function (response) {
+            console.log("Server response:", response);
+            try {
+                if (rodzaj === 'skierowanie' && response && response.skierowanie) {
+                    document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
                         <input type="text" id="editInput" value="${response.skierowanie}">
-                        <button onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
-                        <button onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
+                        <div class="form-buttons">
+                            <button class="save-button" onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
+                            <button class="cancel-button" onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
+                        </div>
                     `;
-                        } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
-                            document.getElementById('elementDetails').innerHTML = `
+                } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
+                    document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
                         <input type="text" id="editInput" value="${response.przypisaneLeki}">
-                        <button onclick="updateData(${id}, 'recepta')">Zapisz</button>
-                        <button onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
+                        <div class="form-buttons">
+                            <button class="save-button" onclick="updateData(${id}, 'recepta')">Zapisz</button>
+                            <button class="cancel-button" onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
+                        </div>
                     `;
-                        } else if (rodzaj === 'wpis' && response && response.wpis) {
-                            document.getElementById('elementDetails').innerHTML = `
+                } else if (rodzaj === 'wpis' && response && response.wpis) {
+                    document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
                         <input type="text" id="editInput" value="${response.wpis}">
-                        <button onclick="updateData(${id}, 'wpis')">Zapisz</button>
-                        <button onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
+                        <div class="form-buttons">
+                            <button class="save-button" onclick="updateData(${id}, 'wpis')">Zapisz</button>
+                            <button class="cancel-button" onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
+                        </div>
                     `;
-                        }
-                    } catch (e) {
-                        document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
-                    }
-                },
-
-                error: function (xhr, status, error) {
-                    console.log("AJAX error:", error); // Log any AJAX errors
-                    document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
-            });
+            } catch (e) {
+                document.getElementById('elementDetails').innerHTML = `<p>Invalid response from server</p>`;
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("AJAX error:", error);
+            document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
+        }
+    });
 }
 
 function cancelEdit(id, rodzaj) {
@@ -306,3 +316,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+

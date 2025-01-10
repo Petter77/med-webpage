@@ -1,11 +1,11 @@
 <?php
-    $host = 'localhost';
-    $db = 'BazaMedyczna';
-    $user = 'pacjent';
-    $pass = 'haslo';
-    $port = '5432';
-    $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-    session_start(); // Start the session
+
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -51,25 +51,10 @@
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
-        
     </nav>
-   <main>
-   <div id="elementList" class="element-list">
-            <h2>Lista Alergi</h2>
-            <ul>
-            <?php
+    <main>
+       
 
-            ?>
-            </ul>
-        </div>
-        <div id="elementDetails" class="element-details">
-            <h2>Szczegóły Alergi</h2>
-        </div>
-        <?php
-            if(isset($_SESSION['id'])){
-                echo'<button class = "addElementButton" id="addAllergiesButton" class="button">Dodaj Alergie</button>';
-            }
-        ?>
     </main>
     <script src="js/script.js"></script>
 </body>

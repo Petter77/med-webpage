@@ -1,11 +1,10 @@
+
 <?php
-    $host = 'localhost';
-    $db = 'BazaMedyczna';
-    $user = 'pacjent';
-    $pass = 'haslo';
-    $port = '5432';
-    $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-    session_start(); // Start the session
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +21,6 @@
 </head>
 <body>
     <nav id="sidebar">
-
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
@@ -34,9 +32,7 @@
             <span class="icon">📄</span>
             <span class="text">Wpisy</span>
         </a>
-
         <a href="recepty.php" class="nav-item">
-
             <span class="icon">📄</span>
             <span class="text">Recepty</span>
         </a>
@@ -44,7 +40,6 @@
             <span class="icon">📄</span>
             <span class="text">Skierowania</span>
         </a>
-
         <a href="wyniki.php" class="nav-item">
             <span class="icon">📄</span>
             <span class="text">Wyniki badań</span>
@@ -53,42 +48,51 @@
             <span class="icon">📄</span>
             <span class="text">Alergie</span>
         </a>
-
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
-        
     </nav>
     <main>
-
-         <div id="elementList" class="element-list">
+        <div id="elementList" class="element-list">
             <h2>Lista Wpisów</h2>
             <ul>
             <?php
-                $pesel = isset($_SESSION['pesel']) ? $_SESSION['pesel'] : 'No pesel found';
-                if (!$pesel) {
-                die("Error: Pesel not found in session.");
-                }
-                $query = 'SELECT 
-                    Wpisy.id AS wpisy_id, 
-                    Wpisy."dataWpisu" as wpisy_data,  
-                    personel.imie AS personel_imie, 
-                    personel.nazwisko AS personel_nazwisko
-                FROM 
-                    "WpisyMedyczne" as Wpisy
-                JOIN 
-                    "PersonelMedyczny" as personel
-                ON 
-                    Wpisy."idPersonelu" = personel."id" WHERE Wpisy."peselPacjenta" = $1 ORDER BY wpisy_data DESC';
+                require('configPacjent.php');
 
-				$result = pg_query_params($conn, $query, [$pesel]);
+                $pesel = $_SESSION['pesel'];
+
+                $query = '
+                    SELECT 
+                        Wpisy.id AS wpisy_id, 
+                        Wpisy."dataWpisu" as wpisy_data,  
+                        personel.imie AS personel_imie, 
+                        personel.nazwisko AS personel_nazwisko
+                    FROM 
+                        "WpisyMedyczne" as Wpisy
+                    JOIN 
+                        "PersonelMedyczny" as personel
+                    ON 
+                        Wpisy."idPersonelu" = personel."id" 
+                    WHERE 
+                        Wpisy."peselPacjenta" = ' . $pesel . ' 
+                    ORDER BY 
+                        wpisy_data DESC
+                ';
+
+
+				$result = pg_query($conn, $query);
 	            while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
-                    echo "<li onclick='handleClick(" . $line['wpisy_id'] . ", \"wpis\")'>Wpis nr: {$line['wpisy_id']}, data: {$line['wpisy_data']}, Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} </li> <br>";
+                    echo "<li onclick='handleClick(" . $line['wpisy_id'] . ", \"wpis\")'>
+                            Wpis nr: {$line['wpisy_id']}, 
+                            data: {$line['wpisy_data']}, 
+                            Lekarz: {$line['personel_imie']} {$line['personel_nazwisko']} 
+                        </li><br>
+                    ";
                 }
-
-                ?>
-             
+                
+                pg_close($conn);
+            ?>     
             </ul>
         </div>
         <div id="elementDetails" class="element-details">

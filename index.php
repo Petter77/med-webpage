@@ -1,8 +1,10 @@
 <?php
     session_start();
-    if (empty($_SESSION)) {
+
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
         header("Location: loginPage.php");
-        exit();
+        exit;
+
     }
 ?>
 <!DOCTYPE html>
@@ -29,40 +31,53 @@
 </head>
 <body>
     <?php
-    // Połączenie z bazą danych
-    $host = 'localhost';
-    $db = 'BazaMedyczna';
-    $user = 'pacjent';
-    $pass = 'haslo';
-    $port = '5432';
-    $conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
 
-    // Sprawdzanie połączenia
-    if (!$conn) {
-        die("Connection failed: " . pg_last_error());
-    }
+        require('configPacjent.php');
 
-    $pesel = $_SESSION['pesel'];
-    // Pobieranie ostatniego wpisu
-    $query = 'SELECT 
-                Wpisy.id AS wpisy_id, 
-                Wpisy."dataWpisu" as wpisy_data,  
-                personel.imie AS personel_imie, 
-                personel.nazwisko AS personel_nazwisko
-              FROM 
-                "WpisyMedyczne" as Wpisy
-              JOIN 
-                "PersonelMedyczny" as personel
-              ON 
+        $pesel = $_SESSION['pesel'];
+
+        $query = '
+            SELECT 
+                Wpisy."id" AS wpisy_id, 
+                Wpisy."dataWpisu" AS wpisy_data,  
+                personel."imie" AS personel_imie, 
+                personel."nazwisko" AS personel_nazwisko
+            FROM 
+                "WpisyMedyczne" AS Wpisy
+            JOIN 
+                "PersonelMedyczny" AS personel
+            ON 
                 Wpisy."idPersonelu" = personel."id" 
-              WHERE Wpisy."peselPacjenta" = $1 
-              ORDER BY wpisy_data DESC 
-              LIMIT 1';
+            WHERE 
+                Wpisy."peselPacjenta" = ' . $pesel . '
+            ORDER BY 
+                "wpisy_data" DESC 
+            LIMIT 1
+        ';
 
-    $result = pg_query_params($conn, $query, [$pesel]);
-    $lastEntry = pg_fetch_assoc($result);
+        $result = pg_query($conn, $query);
+        $lastEntry = pg_fetch_assoc($result);
 
-    pg_close($conn);
+        $query = '
+        SELECT 
+            "Pacjenci".imie, 
+            "Pacjenci".nazwisko, 
+            "Alergeny".nazwa AS alergen
+        FROM 
+            "Pacjenci"
+        JOIN 
+            "SpisAlergii" 
+            ON "Pacjenci".pesel = "SpisAlergii"."peselPacjenta"
+        JOIN 
+            "Alergeny" 
+            ON "SpisAlergii"."idAlergenu" = "Alergeny"."id"
+        WHERE 
+            "Pacjenci".pesel = ' . $pesel . '
+        ';
+        $result = pg_query($conn, $query);
+        $patient_info = pg_fetch_assoc($result);
+
+        pg_close($conn);
     ?>
     <nav id="sidebar">
         <button id="toggleButton">
@@ -96,24 +111,29 @@
             <span class="icon">🚪</span>
             <span class="text">Logout</span>
         </button>
-        
     </nav>
     <main>
         <div class="patient-info">
             <h2>Informacje o pacjencie</h2>
-            <p>PESEL: <?php echo $pesel; ?></p>
-            <!-- Dodaj tutaj inne informacje o pacjencie -->
+            <?php 
+                echo "<p>Pesel: " . $pesel . "</p>";
+                echo "<p>Imię: " . $patient_info['imie'] . "</p>";
+                echo "<p>Nazwisko: " . $patient_info['nazwisko'] . "</p>";
+                echo "<p>Alergie: " . $patient_info['alergen'] . "</p>";
+            ?>
         </div>
         <div class="info-panel">
             <div class="info-box">
                 <h2 class="info-title">Wpisy</h2>
                 <div class="info-content">
-                    <?php if ($lastEntry): ?>
-                        <p>Data: <?php echo $lastEntry['wpisy_data']; ?></p>
-                        <p>Lekarz: <?php echo $lastEntry['personel_imie'] . ' ' . $lastEntry['personel_nazwisko']; ?></p>
-                    <?php else: ?>
-                        <p>Brak wpisów</p>
-                    <?php endif; ?>
+                    <?php
+                        if ($lastEntry) {
+                            echo "<p>Data: " . $lastEntry['wpisy_data'] . "</p>";
+                            echo "<p>Lekarz: " . $lastEntry['personel_imie'] . " " . $lastEntry['personel_nazwisko'] . "</p>";
+                        } else {
+                            echo "<p>Brak wpisów</p>";
+                        }
+                    ?>
                 </div>
                 <button class="info-button" onclick="location.href='wpisy.php'">Przejdź do wpisów</button>
             </div>
