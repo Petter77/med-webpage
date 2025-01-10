@@ -1,16 +1,11 @@
 <?php
-session_start();
-$host = 'localhost';
-$db = 'BazaMedyczna';
-$user = 'lekarze';
-$pass = 'haslo';
-$port = '5432';
-
-$conn = pg_connect("host=$host dbname=$db user=$user password=$pass port=$port");
-if (!$conn) {
-    echo json_encode(['error' => 'An error occurred while connecting to the database.']);
-    exit;
-}
+    session_start();
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+        header("Location: loginPage.php");
+        exit;
+    }
+    
+    require('configLekarz.php');
 
 $pesel = $_SESSION['pesel'];
 $allergies = $_POST['allergyId'];
