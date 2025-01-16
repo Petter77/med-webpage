@@ -23,7 +23,7 @@
         <div class="management-panel">
            <?php
                 require('configLekarz.php');
-
+                $roles = ['Lekarz', 'Ratownik', 'Specjalista', 'Administrator'];
                 
                 // Połączenie z PostgreSQL za pomocą pg_connect
                 $conn = pg_connect("host=$host dbname=$db user=$user password=$pass");
@@ -55,18 +55,25 @@
                     // Wyświetlenie danych w tabeli HTML
                     echo "<table border='1'>
                             <tr>
-                                <th>ID</th>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>Rola</th>
-                            </tr>";
-                    while ($row = pg_fetch_assoc($result)) {
-                        echo "<tr>
-                                <td>" . $row['id'] . "</td>
-                                <td>" . $row['imie'] . "</td>
-                                <td>" . $row['nazwisko'] . "</td>
-                                <td>" . $row['rola'] . "</td>
-                              </tr>";
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Rola</th>
+                <th>Akcje</th> <!-- Column for actions -->
+            </tr>";
+    while ($row = pg_fetch_assoc($result)) {
+        echo "<tr>
+                <td contenteditable='false' data-column='id'>" . $row['id'] . "</td>
+                <td contenteditable='false' data-column='imie'>" . $row['imie'] . "</td>
+                <td contenteditable='false' data-column='nazwisko'>" . $row['nazwisko'] . "</td>
+                <td data-column='rola'>" . $row['rola'] . "</td>
+            
+                <td>
+                    <button class='edit-button' onclick='editRow(this)'>Edytuj</button>
+                    <button class='save-button' onclick='saveRow(this)' style='display: none;'>Zapisz</button>
+                    <button class='edit-button' onclick=\"deleteRow('" . $row['id'] . "')\">Usuń</button>
+                </td>
+              </tr>";
                     }
                     echo "</table>";
                 } else {

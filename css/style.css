@@ -36,8 +36,10 @@ nav{
 nav.expanded {
     width: 15rem;
 }
-
-.button{
+management-panel{
+    width: auto;
+}
+.button {
     background-color: var(--accent-colour);
     color: #fff;
     height: 2rem;
@@ -339,6 +341,7 @@ main {
 table {
     border-collapse: collapse;
     width: 100%;
+
 }
 
 th, td {

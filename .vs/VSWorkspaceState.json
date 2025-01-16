@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\css"
+    "\\css",
+    "\\js"
   ],
-  "SelectedNode": "\\css\\style.css",
+  "SelectedNode": "\\medicLoginPage.php",
   "PreviewInSolutionExplorer": false
 }

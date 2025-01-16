@@ -2,6 +2,90 @@ document.getElementById('toggleButton').addEventListener('click', function () {
     document.getElementById('sidebar').classList.toggle('expanded');
 });
 
+
+function editRow(button) {
+    const row = button.closest('tr'); // Get the table row
+    const cells = row.querySelectorAll('[contenteditable], [data-column="rola"]');
+    const predefinedRoles = ['Lekarz', 'Ratownik', 'Specjalista', 'Administrator'];
+    // Enable editing for contenteditable cells
+    cells.forEach(cell => {
+        if (cell.getAttribute('data-column') === 'rola') {
+            // Replace the text with a dropdown for "rola"
+            const currentValue = cell.textContent.trim();
+            const select = document.createElement('select');
+
+            // Add options from predefinedRoles
+            predefinedRoles.forEach(role => {
+                const option = document.createElement('option');
+                option.value = role;
+                option.textContent = role;
+                if (role === currentValue) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+
+            cell.textContent = ''; // Clear current content
+            cell.appendChild(select); // Add dropdown
+        } else {
+            cell.contentEditable = true;
+        }
+    });
+
+    // Toggle button visibility
+    button.style.display = 'none'; // Hide "Edit" button
+    row.querySelector('.save-button').style.display = 'inline'; // Show "Save" button
+}
+
+function saveRow(button) {
+    const row = button.closest('tr'); // Get the table row
+    const cells = row.querySelectorAll('[contenteditable], [data-column="rola"]');
+    const data = {};
+
+    // Collect data from the row
+    cells.forEach(cell => {
+        const column = cell.getAttribute('data-column');
+        if (column === 'rola') {
+            // Get selected value from the dropdown
+            const select = cell.querySelector('select');
+            if (select) {
+                data[column] = select.value;
+                cell.textContent = select.value; // Replace dropdown with the selected value
+            }
+        } else {
+            data[column] = cell.textContent.trim();
+            cell.contentEditable = false; // Disable editing
+        }
+    });
+
+    // Send the data to the server via AJAX
+    fetch('editAdmin.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.text())
+        .then(result => {
+            if (result === 'success') {
+                alert('Rekord został zapisany!');
+            } else {
+                alert('Błąd podczas zapisywania.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+
+    // Toggle button visibility
+    button.style.display = 'none'; // Hide "Save" button
+    row.querySelector('.edit-button').style.display = 'inline'; // Show "Edit" button
+}
+
+function deleteButton(id) {
+    const confirmDelete = confirm("Czy na pewno chcesz usunąć ID " + id + "?");
+    if (confirmDelete) {
+        // Send a request to the server to delete the record
+        alert("Rekord z ID " + id + " został usunięty.");
+    }
+}
 function handleClick(id, rodzaj) {
     console.log("handleClick triggered with id:", id, "and rodzaj:", rodzaj);
     let url = '';
