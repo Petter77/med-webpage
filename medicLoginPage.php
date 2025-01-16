@@ -37,13 +37,23 @@
             $_SESSION['id'] = $row['id'];
             $_SESSION['rola'] = $row['rola'];
             $_SESSION['pesel'] = 22222222222;
+            $aktywny = $row['aktywne'];
 
             pg_close($conn);
+            if( $_SESSION['rola'] == "Administrator" &&  $aktywny == true){
+                header("Location: adminpanel.php");
+            }else if ($aktywny == true){
+              // Credentials are valid, redirect to index.php
             header("Location: index.php");
             exit;
-        } else {
-            $warning = 'Błędny id lub/i Hasło.';
+            } else if ($aktywny == false){
+                $warning = 'Konto nieaktywne';
+            }
+            else {
+	$warning = 'Błędny id lub/i Hasło.';
+}
         }
+        
     }
 ?>
 <!DOCTYPE html>
