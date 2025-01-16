@@ -7,6 +7,8 @@ function editRow(button) {
     const row = button.closest('tr'); // Get the table row
     const cells = row.querySelectorAll('[contenteditable], [data-column="rola"]');
     const predefinedRoles = ['Lekarz', 'Ratownik', 'Specjalista', 'Administrator'];
+    const checkbox = row.querySelector('.aktywny-checkbox'); // Get the checkbox
+
     // Enable editing for contenteditable cells
     cells.forEach(cell => {
         if (cell.getAttribute('data-column') === 'rola') {
@@ -32,6 +34,9 @@ function editRow(button) {
         }
     });
 
+    // Enable the checkbox
+    checkbox.disabled = false; // Enable the checkbox for editing
+
     // Toggle button visibility
     button.style.display = 'none'; // Hide "Edit" button
     row.querySelector('.save-button').style.display = 'inline'; // Show "Save" button
@@ -41,6 +46,7 @@ function saveRow(button) {
     const row = button.closest('tr'); // Get the table row
     const cells = row.querySelectorAll('[contenteditable], [data-column="rola"]');
     const data = {};
+    const checkbox = row.querySelector('.aktywny-checkbox'); // Get checkbox
 
     // Collect data from the row
     cells.forEach(cell => {
@@ -58,6 +64,12 @@ function saveRow(button) {
         }
     });
 
+    // Get the value of the checkbox (true/false)
+    data['aktywne'] = checkbox.checked ? true : false; // Ensure the value is correctly sent
+    data['id'] = row.querySelector('[data-column="id"]').textContent.trim(); // Add ID
+
+    console.log('Data being sent to server:', data); // Debugging: Check data being sent
+
     // Send the data to the server via AJAX
     fetch('editAdmin.php', {
         method: 'POST',
@@ -68,23 +80,25 @@ function saveRow(button) {
         .then(result => {
             if (result === 'success') {
                 alert('Rekord został zapisany!');
+                console.log('Database updated successfully');
+
+                // Update checkbox status after saving
+                checkbox.checked = data['aktywne']; // Dynamically update checkbox based on 'aktywne' value
             } else {
                 alert('Błąd podczas zapisywania.');
+                console.log('Error during saving:', result);
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
     // Toggle button visibility
     button.style.display = 'none'; // Hide "Save" button
     row.querySelector('.edit-button').style.display = 'inline'; // Show "Edit" button
-}
 
-function deleteButton(id) {
-    const confirmDelete = confirm("Czy na pewno chcesz usunąć ID " + id + "?");
-    if (confirmDelete) {
-        // Send a request to the server to delete the record
-        alert("Rekord z ID " + id + " został usunięty.");
-    }
+    // Disable the checkbox after saving
+    checkbox.disabled = true; // Disable checkbox after saving
 }
 function handleClick(id, rodzaj) {
     console.log("handleClick triggered with id:", id, "and rodzaj:", rodzaj);
