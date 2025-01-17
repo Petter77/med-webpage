@@ -199,7 +199,7 @@ function editData(id, rodzaj) {
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
-                        <input type="text" id="editInput" value="${response.skierowanie}">
+                        <textarea id="editInput">${response.skierowanie}</textarea>
                         <div class="edit-buttons">
                             <button class="save-button" onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
                             <button class="cancel-button" onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
@@ -208,7 +208,7 @@ function editData(id, rodzaj) {
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
-                        <input type="text" id="editInput" value="${response.przypisaneLeki}">
+                        <textarea id="editInput">${response.przypisaneLeki}</textarea>
                         <div class="edit-buttons">
                             <button class="save-button" onclick="updateData(${id}, 'recepta')">Zapisz</button>
                             <button class="cancel-button" onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
@@ -217,7 +217,7 @@ function editData(id, rodzaj) {
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
-                        <input type="text" id="editInput" value="${response.wpis}">
+                        <textarea id="editInput">${response.wpis}</textarea>
                         <div class="edit-buttons">
                             <button class="save-button" onclick="updateData(${id}, 'wpis')">Zapisz</button>
                             <button class="cancel-button" onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
