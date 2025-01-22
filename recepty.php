@@ -52,6 +52,7 @@
         <div id="elementList" class="element-list">
             <h2>Lista Recept</h2>
             <ul>
+            <div class="scrollable-list">
             <?php
                 require('configPacjent.php');
 
@@ -91,6 +92,7 @@
                 pg_close($conn);
             ?>
             </ul>
+            </div>
         </div>
         <div id="elementDetails" class="element-details">
             <h2>Szczegóły Recepty</h2>
