@@ -365,6 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <button type="submit" style="margin-top: 10px;" class="button">Dodaj</button>
                 </form>
             `;
+        
         } else if (event.target && event.target.id === 'addElementButton') {
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nowe skierowanie</h2>
@@ -406,3 +407,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
