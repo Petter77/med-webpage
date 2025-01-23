@@ -1,5 +1,6 @@
 <?php
     session_start();
+
     if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
         header("Location: loginPage.php");
         exit;
@@ -17,7 +18,7 @@
     <title>Document</title>
     <script>
         var sessionID = <?php 
-        if(isset($_SESSION["id"]) && !empty($_SESSION["id"])) {
+        if (isset($_SESSION["id"]) && !empty($_SESSION["id"])) {
             echo json_encode($_SESSION['id']); 
         } else {
             echo json_encode(null);
@@ -29,15 +30,16 @@
 </head>
 <body>
     <?php
-
         require('configPacjent.php');
 
         $pesel = $_SESSION['pesel'];
 
-        $query = '
+        // Query for WpisyMedyczne
+        $queryWpisy = '
             SELECT 
                 Wpisy."id" AS wpisy_id, 
                 Wpisy."dataWpisu" AS wpisy_data,  
+                Wpisy."wpis" AS wpisy_tresc,
                 personel."imie" AS personel_imie, 
                 personel."nazwisko" AS personel_nazwisko
             FROM 
@@ -47,33 +49,88 @@
             ON 
                 Wpisy."idPersonelu" = personel."id" 
             WHERE 
-                Wpisy."peselPacjenta" = ' . $pesel . '
+                Wpisy."peselPacjenta" = \'' . $pesel . '\'
             ORDER BY 
                 "wpisy_data" DESC 
             LIMIT 1
         ';
+        $resultWpisy = pg_query($conn, $queryWpisy);
+        $lastWpis = pg_fetch_assoc($resultWpisy);
 
-        $result = pg_query($conn, $query);
-        $lastEntry = pg_fetch_assoc($result);
+        // Query for Recepty
+        $queryRecepty = '
+            SELECT 
+                "Recepty"."id" AS recepty_id, 
+                "Recepty"."dataWystawienia" AS recepty_data_wystawienia,  
+                "Recepty"."dataWaznosci" AS recepty_data_waznosci,  
+                "Recepty"."przypisaneLeki" AS recepty_tresc,  
+                "PersonelMedyczny"."imie" AS personel_imie, 
+                "PersonelMedyczny"."nazwisko" AS personel_nazwisko
+            FROM 
+                "Recepty"
+            JOIN 
+                "PersonelMedyczny"
+            ON 
+                "Recepty"."idPersonelu" = "PersonelMedyczny"."id"
+            WHERE 
+                "Recepty"."peselPacjenta" = \'' . $pesel . '\'
+            ORDER BY 
+                "dataWystawienia" DESC 
+            LIMIT 1
+        ';      
+        $resultRecepty = pg_query($conn, $queryRecepty);
+        $lastRecepta = pg_fetch_assoc($resultRecepty);
 
-        $query = '
+        $querySkierowania = '
         SELECT 
-            "Pacjenci".imie, 
-            "Pacjenci".nazwisko, 
-            "Alergeny".nazwa AS alergen
+            "id", 
+            "dataSkierowania", 
+            "skierowanie"
         FROM 
-            "Pacjenci"
-        JOIN 
-            "SpisAlergii" 
-            ON "Pacjenci".pesel = "SpisAlergii"."peselPacjenta"
-        JOIN 
-            "Alergeny" 
-            ON "SpisAlergii"."idAlergenu" = "Alergeny"."id"
+            "Skierowania"
         WHERE 
-            "Pacjenci".pesel = ' . $pesel . '
+            "peselPacjenta" = \'' . $pesel . '\'
+        ORDER BY 
+            "dataSkierowania" DESC
+        LIMIT 1
+    ';
+    $resultSkierowania = pg_query($conn, $querySkierowania);
+    $lastSkierowanie = pg_fetch_assoc($resultSkierowania);
+        // Query for Wyniki Badań
+        $queryWyniki = '
+    SELECT 
+        "id", 
+        "dataWyniku", 
+        "wynikiBadania"
+    FROM 
+        "WynikibadanDiagnostycznych"
+    WHERE 
+        "peselPacjenta" = \'' . $pesel . '\'
+    ORDER BY 
+        "dataWyniku" DESC
+    LIMIT 1
+';
+    $resultWyniki = pg_query($conn, $queryWyniki);
+    $lastWynik = pg_fetch_assoc($resultWyniki);   
+        // Query for Patient Info
+        $queryPatientInfo = '
+            SELECT 
+                "Pacjenci".imie, 
+                "Pacjenci".nazwisko, 
+                "Alergeny".nazwa AS alergen
+            FROM 
+                "Pacjenci"
+            JOIN 
+                "SpisAlergii" 
+                ON "Pacjenci".pesel = "SpisAlergii"."peselPacjenta"
+            JOIN 
+                "Alergeny" 
+                ON "SpisAlergii"."idAlergenu" = "Alergeny"."id"
+            WHERE 
+                "Pacjenci".pesel = \'' . $pesel . '\'
         ';
-        $result = pg_query($conn, $query);
-        $patient_info = pg_fetch_assoc($result);
+        $resultPatientInfo = pg_query($conn, $queryPatientInfo);
+        $patient_info = pg_fetch_assoc($resultPatientInfo);
 
         pg_close($conn);
     ?>
@@ -112,9 +169,10 @@
                 <h2 class="info-title">Wpisy</h2>
                 <div class="info-content">
                 <?php
-                    if ($lastEntry) {
-                        echo "<p>Data: " . $lastEntry['wpisy_data'] . "</p>";
-                        echo "<p>Lekarz: " . $lastEntry['personel_imie'] . " " . $lastEntry['personel_nazwisko'] . "</p>";
+                    if ($lastWpis) {
+                        echo "<p>Data: " . $lastWpis['wpisy_data'] . "</p>";
+                        echo "<p>Lekarz: " . $lastWpis['personel_imie'] . " " . $lastWpis['personel_nazwisko'] . "</p>";
+                        echo "<p>Treść: <span class='entry-content'>" . $lastWpis['wpisy_tresc'] . "</span></p>";
                     } else {
                         echo "<p>Brak wpisów</p>";
                     }
@@ -124,14 +182,47 @@
             </div>
             <div class="info-box">
                 <h2 class="info-title">Recepty</h2>
+                <div class="info-content">
+                <?php
+                    if ($lastRecepta) {
+                        echo "<p>Numer recepty: " . $lastRecepta['recepty_id'] . "</p>";
+                        echo "<p>Data wystawienia: " . $lastRecepta['recepty_data_wystawienia'] . "</p>";
+                        echo "<p>Data ważności: " . $lastRecepta['recepty_data_waznosci'] . "</p>";
+                    } else {
+                        echo "<p>Brak recept</p>";
+                    }
+                ?>
+                </div>
                 <button class="info-button" onclick="location.href='recepty.php'">Przejdź do recept</button>
             </div>
             <div class="info-box">
                 <h2 class="info-title">Skierowania</h2>
+                <div class="info-content">
+        <?php
+            if ($lastSkierowanie) {
+                echo "<p>Numer skierowania: " . $lastSkierowanie['id'] . "</p>";
+                echo "<p>Data skierowania: " . $lastSkierowanie['dataSkierowania'] . "</p>";
+                echo "<p>Treść: " . $lastSkierowanie['skierowanie'] . "</p>";
+            } else {
+                echo "<p>Brak skierowań</p>";
+            }
+        ?>
+    </div>
                 <button class="info-button" onclick="location.href='skierowania.php'">Przejdź do skierowań</button>
             </div>
             <div class="info-box">
                 <h2 class="info-title">Wyniki badań</h2>
+                <div class="info-content">
+        <?php
+            if ($lastWynik) {
+                echo "<p>Numer wyniku: " . $lastWynik['id'] . "</p>";
+                echo "<p>Data wyniku: " . $lastWynik['dataWyniku'] . "</p>";
+                echo "<p>Wynik: " . $lastWynik['wynikiBadania'] . "</p>";
+            } else {
+                echo "<p>Brak wyników badań</p>";
+            }
+        ?>
+    </div>
                 <button class="info-button" onclick="location.href='wyniki.php'">Przejdź do wyników badań</button>
             </div>
         </div>
