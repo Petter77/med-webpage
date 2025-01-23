@@ -1,0 +1,102 @@
+body {
+    height: 100vh;
+    background: linear-gradient(#fff, #fff, #b2ffec);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0.125rem solid var(--accent-colour); /* 2px to rem */
+    border-radius: 1rem;
+    padding: 2rem;
+    background-color: var(--background-colour);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px and 8px to rem */
+}
+
+.content {
+    display: flex;
+    margin-top: 1rem;
+}
+
+form {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 18.75rem; /* 300px to rem */
+    height: 26rem; /* 400px to rem */
+    border-radius: 1rem;
+    justify-content: center;
+    align-items: center;
+    border: 0.125rem solid var(--accent-colour); /* 2px to rem */
+    background-color: var(--background-colour);
+    padding: 2rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px and 8px to rem */
+}
+
+form input {
+    width: 80%;
+    padding: 0.5rem;
+    border: 0.0625rem solid var(--accent-colour); /* 1px to rem */
+    border-radius: 0.5rem;
+}
+
+form label {
+    align-self: flex-start;
+    margin-left: 10%;
+}
+
+form .button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 1rem;
+}
+
+form .button {
+    background-color: transparent; /* Makes the background transparent to fit in */
+    border: 2px solid #000; /* Adjust the color and thickness of the border */
+    border-radius: 5px; /* Adds rounded corners for a softer look */
+    color: #000; /* Ensures the text color contrasts the background */
+    padding: 8px 16px; /* Adds padding for better button size */
+    font-size: 16px; /* Adjust font size */
+    width: 48%;
+    cursor: pointer; /* Adds a pointer cursor to indicate it's clickable */
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover transition */
+}
+
+form .button::hover{
+    background-color: #000; /* Changes the background color on hover */
+    color: #fff; /* Changes the text color on hover */
+}
+#results {
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    width: 18.75rem; /* 300px to rem */
+    height: 28rem; /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    border: 0.125rem solid var(--accent-colour); /* 2px to rem */
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px and 8px to rem */
+}
+
+#results::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit browsers */
+}
+
+.patient {
+    border: 0.0625rem solid #ccc; /* 1px to rem */
+    padding: 0.625rem; /* 10px to rem */
+    margin: 0.625rem; /* 10px to rem */
+    cursor: pointer;
+}
+
+.patient.selected {
+    background-color: #e0e0e0;
+}

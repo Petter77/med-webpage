@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (isset($_SESSION['pesel']) || isset($_SESSION['id'])) {
-        header("Location: index.php");
+        header("Location: main_Panel.php");
         exit;
     }
     require('configPacjent.php');
