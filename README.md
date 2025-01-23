@@ -20,16 +20,17 @@
     - [Użytkownik](#użytkownik-1)
     - [Personel](#personel-1)
   - [Wpisy](#wpisy)
+    - [Użytkownik](#użytkownik-2)
+    - [Personel](#personel-2)
   - [Recepty](#recepty)
+    - [Użytkownik](#użytkownik-3)
+    - [Personel](#personel-3)
   - [Skierowania](#skierowania)
+    - [Użytkownik](#użytkownik-4)
+    - [Personel](#personel-4)
   - [Wyniki badań](#wyniki-badań)
-- [Specyfikacja programu pracownika](#specyfikacja-programu-pracownika)
-  - [Panel główny pracownika](#panel-główny-pracownika)
-  - [Wpisy](#wpisy-1)
-  - [Recepty](#recepty-1)
-    - [Skierowania](#skierowania-1)
-    - [Wyniki badań](#wyniki-badań-1)
-    - [Wpisy pracownik](#wpisy-pracownik)
+    - [Użytkownik](#użytkownik-5)
+    - [Personel](#personel-5)
 
  # Wprowadzenie
 
@@ -107,61 +108,65 @@ Po zalogowaniu użytkownik zobaczy panel główny, w którym znajdują się pola
 Screenshots
 
 ### Personel 
-Po zalogowaniu się pracownik zobaczy taki sam panel główny jak użytkownik. Jedynym wyjątkiem jest możliwość dodawania i usuwania wpisu, recepty lub skierowania.
+Po zalogowaniu się pracownik zobaczy taki sam panel główny jak użytkownik. Jedynym wyjątkiem jest możliwość dodawania i edytowanie wpisu, recepty lub skierowania.
 
 
 Screenshots
 
 ## Wpisy
+### Użytkownik 
 W zakładce "Wpisy" po lewej stronie użytkownik widzi pełną listę wpisów, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrany wpis użytkownik ma pełny podgląd tego wpisu po prawej stronie.
 
 Screenshots
 
+### Personel
+W zakładce "Wpisy" po lewej stronie użytkownik widzi pełną listę wpisów, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrany wpis użytkownik ma pełny podgląd tego wpisu po prawej stronie.
+
+Screenshots
+
+Zakładka "Wpisy" dla pracownika różni się od zakładki użytkownika jedynie tym, że pracownik ma dodatkową możliwość edytowania istniejących wpisów oraz dodawania własnych wpisów.\
+Dodawanie:
+Po kliknięciu przycisku w prawym dolnym rogu ekranu dodaj wpis lekarzowi wyświetli się pole do dodania go \
+![alt text](Screenshots/dodajwpis1.PNG)
+![alt text](Screenshots/dodajwpis.PNG)
+\Komunikat o dodaniu wpisu
+
+Edytowanie
+![alt text](Screenshots/edycjawpisu1.PNG)
+Po kliknięciu przycisku edytuj bedziemy mogli edytować wpis 
+![alt text](Screenshots/edycjawpisu2.PNG)
+Następnie przyciskiem zapisz możemy go zapisać lub anulowac naszą edycje.\
+![alt text](Screenshots/edycjawpisu3.PNG)\
+W zależności od naszego wyboru strona wyświetla komunikat o zapisie edycji naszego wpisu lub o przerwaniu edycji wpisu \
+![alt text](Screenshots/edycjakom1.PNG)
+![alt text](Screenshots/edycjakom2.PNG)
 ## Recepty
+### Użytkownik
 W zakładce "Recepty" po lewej stronie użytkownik widzi pełną listę recept, wraz z ich numerem, datą wystawienia i ważności oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrana receptę użytkownik ma pełny podgląd do recepty po prawej stronie.
 
 Screenshots
+
+### Personel
+W zakładce "Recepty" po lewej stronie użytkownik widzi pełną listę recept, wraz z ich numerem, datą wystawienia i ważności oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrana receptę użytkownik ma pełny podgląd do recepty po prawej stronie.
+
+Screenshtots
 
 ## Skierowania
+### Użytkownik
 W zakładce "Skierowania" po lewej stronie użytkownik widzi pełną listę skierowań, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrane skierowanie użytkownik ma pełny podgląd do jego szczegółów po prawej stronie.
 
 Screenshots
+
+### Personel
+W zakładce "Skierowania" po lewej stronie użytkownik widzi pełną listę skierowań, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrane skierowanie użytkownik ma pełny podgląd do jego szczegółów po prawej stronie.
 
 ## Wyniki badań
+### Użytkownik
 W zakładce "Wyniki badań" po lewej stronie użytkownik widzi pełną liste wyników, wraz z ich numerem, datą wykonania oraz personelu wykonujący badanie. Po kliknięciu w wynik po prawej stronie wyświetlą się szczegóły wyniku.
 
 Screenshots
 
-# Specyfikacja programu pracownika
-
-## Panel główny pracownika
-Po zalogowaniu się pracownik zobaczy taki sam panel główny jak użytkownik. Jedynym wyjątkiem jest możliwość dodawania i usuwania wpisu, recepty lub skierowania.
-
-Screenshots
-
-## Wpisy
-W zakładce "Wpisy" po lewej stronie użytkownik widzi pełną listę wpisów, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrany wpis użytkownik ma pełny podgląd tego wpisu po prawej stronie.
-
-Screenshots
-
-## Recepty
-W zakładce "Recepty" po lewej stronie użytkownik widzi pełną listę recept, wraz z ich numerem, datą wystawienia i ważności oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrana receptę użytkownik ma pełny podgląd do recepty po prawej stronie.
-
-Screenshots
-
-### Skierowania
-W zakładce "Skierowania" po lewej stronie użytkownik widzi pełną listę skierowań, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrane skierowanie użytkownik ma pełny podgląd do jego szczegółów po prawej stronie.
-
-Screenshots
-
-### Wyniki badań
+### Personel
 W zakładce "Wyniki badań" po lewej stronie użytkownik widzi pełną liste wyników, wraz z ich numerem, datą wykonania oraz personelu wykonujący badanie. Po kliknięciu w wynik po prawej stronie wyświetlą się szczegóły wyniku.
 
 Screenshots
-
-### Wpisy pracownik
-Zakładka "Wpisy" dla pracownika różni się od zakładki użytkownika jedynie tym, że pracownik ma dodatkową możliwość edytowania istniejących wpisów oraz dodawania własnych wpisów.
-
-![alt text](Screenshots/Dodajwpis.PNG)
-
-![alt text](Screenshots/Edytujwpis.PNG)
