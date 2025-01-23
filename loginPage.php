@@ -1,4 +1,5 @@
 <?php
+/*
     session_start();
     if (isset($_SESSION['pesel']) || isset($_SESSION['id'])) {
         header("Location: main_Panel.php");
@@ -29,6 +30,7 @@
             $warning = 'Błędny Pesel lub/i Hasło.';
         }
     }
+*/
 ?>
 <!DOCTYPE html>
 <html lang="pl">
