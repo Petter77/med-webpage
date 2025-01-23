@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id']) && $_SESSION['rola'] == "Administrator") {
         header("Location: loginPage.php");
         exit;
     }

@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (isset($_SESSION['pesel']) || isset($_SESSION['id'])) {
-        header("Location: index.php");
+        header("Location: main_Panel.php");
         exit;
     }
     require('configLekarz.php');
@@ -28,24 +28,24 @@
 
         if ($result && pg_num_rows($result) > 0) {
             $row = pg_fetch_assoc($result);
-
-            $_SESSION['id'] = $row['id'];
-            $_SESSION['rola'] = $row['rola'];
-            $_SESSION['pesel'] = 22222222222;
             $aktywny = $row['aktywne'];
-
-            pg_close($conn);
-
-            if ($_SESSION['rola'] == "Administrator" &&  $aktywny == 't') {
-                header("Location: adminpanel.php");
-            } else if ($aktywny == 't'){
-                header("Location: index.php");
-                exit;
-            } else if ($aktywny == 'f'){
-                $warning = 'Konto nieaktywne';
-            } else {
-	            $warning = 'Błędny id lub/i Hasło.';
+            if($aktywny == 't') {
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['rola'] = $row['rola'];
+                $_SESSION['pesel'] = 22222222222;
+                if ($_SESSION['rola'] == "Administrator" &&  $aktywny == 't') {
+                    header("Location: adminpanel.php");
+                } else if ($aktywny == 't') {
+                    header("Location: Pesel_Pickup.php");
+                } else {
+                    $warning = 'Błędny id lub/i Hasło.';
+                }
             }
+            else {
+                $warning = 'Konto nieaktywne';
+            }
+            pg_close($conn);
+            echo $aktywny;;
         } 
     }
 ?>
