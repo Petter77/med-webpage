@@ -152,7 +152,15 @@ main {
     width: 70%;
     padding: 1rem;
 }
-
+.management-panel{
+    width: 50%;
+    height: 100%
+}
+.element-details-admin {
+    width: 40%;
+    padding: 1rem;
+    float: left;
+}
 .element-list ul {
     list-style-type: none;
     padding: 0;
@@ -407,7 +415,73 @@ td.editable {
     background-color: #f9f9f9; /* Optional: Add background color */
 }
 
-    .scrollable-list li {
+.scrollable-list li {
         margin-bottom: 10px; /* Optional: Add spacing between list items */
         cursor: pointer; /* Optional: Change cursor style for interactivity */
+}
+.scrollable-table {
+    width: 100%; /* Adjust width as needed */
+    max-height: 700px; /* Set a fixed height for the container */
+    overflow-y: auto;
+    border: 1px solid #ccc; /* Optional: Add a border */
+    padding: 10px; /* Optional: Add padding */
+    background-color: #f9f9f9; /* Optional: Add background color */
+}
+table {
+    width: 100%; /* Table takes full width of the container */
+    border-collapse: collapse; /* Combine border spacing */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Add border to table cells */
+    padding: 8px; /* Add padding */
+    text-align: left; /* Align text */
+}
+
+th {
+    background-color: #f2f2f2; /* Optional: Add background color to headers */
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Optional: Zebra striping */
+}
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1000;
+}
+
+/* Modal content styling */
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+}
+
+/* Close button */
+.close-button {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #aaa;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+    .close-button:hover {
+        color: black;
     }

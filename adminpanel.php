@@ -26,7 +26,8 @@
         </button>
     </nav>
     <main>
-        <div class="management-panel">
+        <div id="management-panel" class="management-panel" width: 50%>
+            <div class="scrollable-table">
            <?php
                 require('configAdmin.php');
                 $roles = ['Lekarz', 'Ratownik', 'Specjalista', 'Administrator'];
@@ -50,7 +51,9 @@
 
                 // Check if there are rows
                 if (pg_num_rows($result) > 0) {
-                    echo "<table border='1'>
+                    echo "
+                    <div style='max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #f9f9f9;'>
+                    <table border='1'>
                             <tr>
                                 <th>ID</th>
                                 <th>Imię</th>
@@ -78,7 +81,12 @@
                                 </td>
                             </tr>";
                     }
-                    echo "</table>";
+                    echo "</table>
+                 </div>";   
+                if(isset($_SESSION['id'])){
+                 echo "<button class='addElementButton' id='addUser' onclick='addUser()' >Dodaj Użytkownika</button>";
+                }
+          
                 } else {
                     echo "Brak wyników.";
                 }
@@ -86,8 +94,15 @@
                 // Zamknięcie połączenia
                 pg_close($conn);
             ?>
+            </div>
+            
         </div>
+        </div>
+        <div id="elementDetailsAdmin" class="element-details-admin">
+           </div>
     </main>
+   
     <script src="js/script.js"></script>
+     
 </body>
 </html>
