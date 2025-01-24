@@ -26,8 +26,8 @@
         </button>
     </nav>
     <main>
-        <div class="management-panel">
-        <div class="scrollable-table">
+        <div id="management-panel" class="management-panel" width: 50%>
+            <div class="scrollable-table">
            <?php
                 require('configAdmin.php');
                 $roles = ['Lekarz', 'Ratownik', 'Specjalista', 'Administrator'];
@@ -84,7 +84,7 @@
                     echo "</table>
                  </div>";   
                 if(isset($_SESSION['id'])){
-                 echo '<button class="addElementButton" id="addUser" >Dodaj Użytkownika</button>';
+                 echo "<button class='addElementButton' id='addUser' onclick='addUser()' >Dodaj Użytkownika</button>";
                 }
           
                 } else {
@@ -94,11 +94,14 @@
                 // Zamknięcie połączenia
                 pg_close($conn);
             ?>
-              <script type="application/json" id="existing-ids"><?= json_encode($existingIds); ?></script>
             </div>
+            
         </div>
+        </div>
+        <div id="elementDetailsAdmin" class="element-details-admin">
+           </div>
     </main>
-    
+   
     <script src="js/script.js"></script>
      
 </body>

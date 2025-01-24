@@ -152,7 +152,15 @@ main {
     width: 70%;
     padding: 1rem;
 }
-
+.management-panel{
+    width: 50%;
+    height: 100%
+}
+.element-details-admin {
+    width: 40%;
+    padding: 1rem;
+    float: left;
+}
 .element-list ul {
     list-style-type: none;
     padding: 0;

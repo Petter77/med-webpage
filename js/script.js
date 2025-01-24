@@ -166,7 +166,32 @@ function handleClick(id, rodzaj) {
 
 
 }
+function addUser() {
+    document.getElementById('elementDetailsAdmin').innerHTML = `
+            <h2>Dodaj Nowego Użytkownika</h2>
+            <form action="insert_data_user.php" method="post" >
+                <label for="id">Id:</label>
+                <input type="number" id="id" name="id" required>
 
+                <label for="imie">Imię:</label>
+                <input type="text" id="imie" name="imie" required>
+
+                <label for="nazwisko">Nazwisko:</label>
+                <input type="text" id="nazwisko" name="nazwisko" required>
+
+                <label for="rola">Rola:</label>
+                <select id="rola" name="rola" required>
+                    <option value="Lekarz">Lekarz</option>
+                    <option value="Ratownik">Ratownik</option>
+                    <option value="Specjalista">Specjalista</option>
+                    <option value="Administrator">Administrator</option>
+                </select>
+
+                <button type="submit" class="button">Dodaj</button>
+            </form>
+            `;
+
+}
 function editData(id, rodzaj) {
     console.log("editData triggered with id:", id, "and rodzaj:", rodzaj);
     let url = '';
@@ -406,5 +431,8 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
     });
+ 
+
+
 });
 
