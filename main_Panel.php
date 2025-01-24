@@ -102,7 +102,7 @@
             <span class="text">Wyniki badań</span>
         </a>
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
-            <span class="icon">🚪</span>
+            <span class="icon">x</span>
             <span class="text">Logout</span>
         </button>
     </nav>
