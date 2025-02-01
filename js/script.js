@@ -170,41 +170,51 @@ function handleClick(id, rodzaj) {
 }
 function addUser() {
     document.getElementById('elementDetailsAdmin').innerHTML = `
-            <h2>Dodaj Nowego Użytkownika</h2>
-            <form action="insert_data_user.php" method="post" >
+        <h2>Dodaj Nowego Użytkownika</h2>
+        <form id="userForm">
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" name="imie" required>
 
-                <label for="imie">Imię:</label>
-                <input type="text" id="imie" name="imie" required>
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" name="nazwisko" required>
 
-                <label for="nazwisko">Nazwisko:</label>
-                <input type="text" id="nazwisko" name="nazwisko" required>
+            <label for="rola">Rola:</label>
+            <select id="rola" name="rola" required>
+                <option value="Lekarz">Lekarz</option>
+                <option value="Ratownik">Ratownik</option>
+                <option value="Specjalista">Specjalista</option>
+                <option value="Administrator">Administrator</option>
+            </select>
+            <br>
+            <button type="submit" class="button">Dodaj</button>
+        </form>
+    `;
 
-                <label for="rola">Rola:</label>
-                <select id="rola" name="rola" required>
-                    <option value="Lekarz">Lekarz</option>
-                    <option value="Ratownik">Ratownik</option>
-                    <option value="Specjalista">Specjalista</option>
-                    <option value="Administrator">Administrator</option>
-                </select>
+    document.getElementById('userForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form from reloading the page
 
-                <button type="submit" class="button">Dodaj</button>
-            </form>
-            `;
-    fetch('einsert_data_user.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.text())
-        .then(result => {
-            if (result === 'success') {
-                alert('Użytkownik został dodany!');
-            } else {
-                alert('Błąd w trakcie dodawania.');
-            }
+        const formData = new FormData(this);
+
+        fetch('insert_data_user.php', {
+            method: 'POST',
+            body: formData
         })
-        .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Użytkownik został dodany!');
+                    location.reload(); // Refresh the page to show the new user
+                } else {
+                    alert('Błąd: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas dodawania użytkownika.');
+            });
+    });
 }
+
 function editData(id, rodzaj) {
     console.log("editData triggered with id:", id, "and rodzaj:", rodzaj);
     let url = '';
