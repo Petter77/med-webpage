@@ -44,8 +44,9 @@ function editRow(button) {
 
 function saveRow(button) {
     const row = button.closest('tr'); // Get the table row
-    const cells = row.querySelectorAll('[contenteditable], [data-column="rola"]');
+    const cells = row.querySelectorAll('td');
     const data = {};
+
 
     // Collect data from the row
     cells.forEach(cell => {
@@ -87,6 +88,7 @@ function saveRow(button) {
         .catch(error => console.error('Error:', error));
 
     // Toggle button visibility
+    checkbox.disabled = true;
     button.style.display = 'none'; // Hide "Save" button
     row.querySelector('.edit-button').style.display = 'inline'; // Show "Edit" button
 }
@@ -170,8 +172,6 @@ function addUser() {
     document.getElementById('elementDetailsAdmin').innerHTML = `
             <h2>Dodaj Nowego Użytkownika</h2>
             <form action="insert_data_user.php" method="post" >
-                <label for="id">Id:</label>
-                <input type="number" id="id" name="id" required>
 
                 <label for="imie">Imię:</label>
                 <input type="text" id="imie" name="imie" required>
@@ -190,7 +190,20 @@ function addUser() {
                 <button type="submit" class="button">Dodaj</button>
             </form>
             `;
-
+    fetch('einsert_data_user.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.text())
+        .then(result => {
+            if (result === 'success') {
+                alert('Użytkownik został dodany!');
+            } else {
+                alert('Błąd w trakcie dodawania.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
 function editData(id, rodzaj) {
     console.log("editData triggered with id:", id, "and rodzaj:", rodzaj);
