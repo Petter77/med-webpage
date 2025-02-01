@@ -27,7 +27,7 @@
     </nav>
     <main>
         <div id="management-panel" class="management-panel" width: 50%>
-            <div class="scrollable-table">
+            
            <?php
                 require('configAdmin.php');
                 $roles = ['Lekarz', 'Ratownik', 'Specjalista', 'Administrator'];
@@ -44,7 +44,8 @@
                     JOIN 
                         "RolePersonelu" nr 
                     ON 
-                        pm."idRoli" = nr."id";
+                        pm."idRoli" = nr."id"
+                    ORDER BY pm.id;
                 ';
 
                 $result = pg_query($conn, $query);
@@ -52,7 +53,7 @@
                 // Check if there are rows
                 if (pg_num_rows($result) > 0) {
                     echo "
-                    <div style='max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background-color: #f9f9f9;'>
+                    <div class='scrollable-table' >
                     <table border='1'>
                             <tr>
                                 <th>ID</th>
@@ -68,7 +69,7 @@
                         $checked = ($row['aktywne'] === 't') ? 'checked' : '';  // 't' for true in PostgreSQL
 
                         echo "<tr>
-                                <td contenteditable='false' data-column='id'>" . $row['id'] . "</td>
+                                <td data-column='id'>" . $row['id'] . "</td>
                                 <td contenteditable='false' data-column='imie'>" . $row['imie'] . "</td>
                                 <td contenteditable='false' data-column='nazwisko'>" . $row['nazwisko'] . "</td>
                                 <td data-column='rola'>" . $row['rola'] . "</td>

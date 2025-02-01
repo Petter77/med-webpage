@@ -44,8 +44,9 @@ function editRow(button) {
 
 function saveRow(button) {
     const row = button.closest('tr'); // Get the table row
-    const cells = row.querySelectorAll('[contenteditable], [data-column="rola"]');
+    const cells = row.querySelectorAll('td');
     const data = {};
+
 
     // Collect data from the row
     cells.forEach(cell => {
@@ -87,6 +88,7 @@ function saveRow(button) {
         .catch(error => console.error('Error:', error));
 
     // Toggle button visibility
+    checkbox.disabled = true;
     button.style.display = 'none'; // Hide "Save" button
     row.querySelector('.edit-button').style.display = 'inline'; // Show "Edit" button
 }
@@ -132,20 +134,34 @@ function handleClick(id, rodzaj) {
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
                             };
-                        } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
+                        } else if (rodzaj === 'recepta' && response) {
                             document.getElementById('elementDetails').innerHTML = `
-                            <h3>Recepta:</h3>
-                            <p>${response.przypisaneLeki}</p>`;
+                            <h3>Data wystawienia recepty</h3>
+                            <p>${response.recepty_datawystawienia}</p>
+                            <h3>Data ważności recepty</h3>
+                            <p>${response.recepty_datawaznosci}</p>
+                            <h3>Pesel Pacjenta</h3>
+                            <p>${response.pesel}
+                            <h3>Dane Personelu</h3>
+                            <p>${response.personel_imie} ${response.personel_nazwisko} </p>
+                            <h3>Przypisane leki:</h3>
+                            <p>${response.recepty_przypisaneleki}</p>`;
                             if(sessionID != 'null'){    
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
                             };
                         } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
                             document.getElementById('elementDetails').innerHTML = `
-                            <a href="${wynikiBadania}" target="_blank">Download/View PDF</a>
+                            <a href="${wynikiBadania}" target="_blank">Pobierz wynik</a>
                             < iframe src ="${wynikiBadania}" width="100%" height="1200px" style="border: none;"></iframe>`;
-                        } else if (rodzaj === 'wpis' && response && response.wpis) {
+                        } else if (rodzaj === 'wpis' && response) {
                             document.getElementById('elementDetails').innerHTML = `
+                            <h3>Data wpisu</h3>
+                            <p>${response.wpisy_data}</p>
+                            <h3>Pesel Pacjenta</h3>
+                            <p>${response.pesel}</p>
+                            <h3>Dane Personelu</h3>
+                            <p>${response.personel_imie} ${response.personel_nazwisko} </p>
                             <h3>Wpis:</h3>
                             <p>${response.wpis}</p>`
                             if(sessionID != 'null'){    
@@ -168,30 +184,51 @@ function handleClick(id, rodzaj) {
 }
 function addUser() {
     document.getElementById('elementDetailsAdmin').innerHTML = `
-            <h2>Dodaj Nowego Użytkownika</h2>
-            <form action="insert_data_user.php" method="post" >
-                <label for="id">Id:</label>
-                <input type="number" id="id" name="id" required>
+        <h2>Dodaj Nowego Użytkownika</h2>
+        <form id="userForm">
+            <label for="imie">Imię:</label>
+            <input type="text" id="imie" name="imie" required>
 
-                <label for="imie">Imię:</label>
-                <input type="text" id="imie" name="imie" required>
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" id="nazwisko" name="nazwisko" required>
 
-                <label for="nazwisko">Nazwisko:</label>
-                <input type="text" id="nazwisko" name="nazwisko" required>
+            <label for="rola">Rola:</label>
+            <select id="rola" name="rola" required>
+                <option value="Lekarz">Lekarz</option>
+                <option value="Ratownik">Ratownik</option>
+                <option value="Specjalista">Specjalista</option>
+                <option value="Administrator">Administrator</option>
+            </select>
+            <br>
+            <button type="submit" class="button">Dodaj</button>
+        </form>
+    `;
 
-                <label for="rola">Rola:</label>
-                <select id="rola" name="rola" required>
-                    <option value="Lekarz">Lekarz</option>
-                    <option value="Ratownik">Ratownik</option>
-                    <option value="Specjalista">Specjalista</option>
-                    <option value="Administrator">Administrator</option>
-                </select>
+    document.getElementById('userForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form from reloading the page
 
-                <button type="submit" class="button">Dodaj</button>
-            </form>
-            `;
+        const formData = new FormData(this);
 
+        fetch('insert_data_user.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Użytkownik został dodany!');
+                    location.reload(); // Refresh the page to show the new user
+                } else {
+                    alert('Błąd: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Wystąpił błąd podczas dodawania użytkownika.');
+            });
+    });
 }
+
 function editData(id, rodzaj) {
     console.log("editData triggered with id:", id, "and rodzaj:", rodzaj);
     let url = '';

@@ -152,9 +152,10 @@ main {
     width: 70%;
     padding: 1rem;
 }
-.management-panel{
-    width: 50%;
-    height: 100%
+.management-panel {
+    width: 55%;
+    overflow: hidden;
+    height: 100%;
 }
 .element-details-admin {
     width: 40%;
@@ -366,11 +367,21 @@ main {
 }
 
 .cancel-button {
-    margin-left: 1rem;;
+    margin-left: 1rem;
 }
 table {
     border-collapse: collapse;
     width: 100%;
+
+}
+p {
+    overflow-x: auto;
+    overflow-y: auto;
+    word-break: break-word;
+    white-space: pre-wrap;
+    max-height: 400px;
+    max-width: 100%;
+    display: block;
 }
 
 th, td {
@@ -421,7 +432,7 @@ td.editable {
 }
 .scrollable-table {
     width: 100%; /* Adjust width as needed */
-    max-height: 700px; /* Set a fixed height for the container */
+    max-height: 800px; /* Set a fixed height for the container */
     overflow-y: auto;
     border: 1px solid #ccc; /* Optional: Add a border */
     padding: 10px; /* Optional: Add padding */

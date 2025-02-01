@@ -14,11 +14,23 @@
         exit;
     }
 
-	$query = 'SELECT "wpis" FROM "WpisyMedyczne" WHERE id = $1';
+	$query = '      SELECT 
+                        Wpisy."dataWpisu" as wpisy_data,  
+                        personel.imie AS personel_imie, 
+                        personel.nazwisko AS personel_nazwisko,
+                        Wpisy."wpis" AS wpis
+                    FROM 
+                        "WpisyMedyczne" as Wpisy
+                    JOIN 
+                        "PersonelMedyczny" as personel
+                    ON 
+                        Wpisy."idPersonelu" = personel."id" 
+                    WHERE Wpisy.id = $1;';
     $result = pg_query_params($conn, $query, [$id]) or die('Query failed: ' . pg_last_error());
 
     $data = pg_fetch_assoc($result);
     if ($data) {
+        $data['pesel'] = $_SESSION['pesel'];
         echo json_encode($data);
     } else {
         echo json_encode(["error" => "No data found for this ID"]);
