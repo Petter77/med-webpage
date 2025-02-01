@@ -134,20 +134,34 @@ function handleClick(id, rodzaj) {
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
                             };
-                        } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
+                        } else if (rodzaj === 'recepta' && response) {
                             document.getElementById('elementDetails').innerHTML = `
-                            <h3>Recepta:</h3>
-                            <p>${response.przypisaneLeki}</p>`;
+                            <h3>Data wystawienia recepty</h3>
+                            <p>${response.recepty_datawystawienia}</p>
+                            <h3>Data ważności recepty</h3>
+                            <p>${response.recepty_datawaznosci}</p>
+                            <h3>Pesel Pacjenta</h3>
+                            <p>${response.pesel}
+                            <h3>Dane Personelu</h3>
+                            <p>${response.personel_imie} ${response.personel_nazwisko} </p>
+                            <h3>Przypisane leki:</h3>
+                            <p>${response.recepty_przypisaneleki}</p>`;
                             if(sessionID != 'null'){    
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
                             };
                         } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
                             document.getElementById('elementDetails').innerHTML = `
-                            <a href="${wynikiBadania}" target="_blank">Download/View PDF</a>
+                            <a href="${wynikiBadania}" target="_blank">Pobierz wynik</a>
                             < iframe src ="${wynikiBadania}" width="100%" height="1200px" style="border: none;"></iframe>`;
-                        } else if (rodzaj === 'wpis' && response && response.wpis) {
+                        } else if (rodzaj === 'wpis' && response) {
                             document.getElementById('elementDetails').innerHTML = `
+                            <h3>Data wpisu</h3>
+                            <p>${response.wpisy_data}</p>
+                            <h3>Pesel Pacjenta</h3>
+                            <p>${response.pesel}</p>
+                            <h3>Dane Personelu</h3>
+                            <p>${response.personel_imie} ${response.personel_nazwisko} </p>
                             <h3>Wpis:</h3>
                             <p>${response.wpis}</p>`
                             if(sessionID != 'null'){    

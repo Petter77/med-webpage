@@ -374,6 +374,15 @@ table {
     width: 100%;
 
 }
+p {
+    overflow-x: auto;
+    overflow-y: auto;
+    word-break: break-word;
+    white-space: pre-wrap;
+    max-height: 400px;
+    max-width: 100%;
+    display: block;
+}
 
 th, td {
     border: 1px solid #ddd;
