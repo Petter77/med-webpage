@@ -20,6 +20,7 @@
         if ($result && pg_num_rows($result) > 0) {
             session_start();
             $_SESSION['pesel'] = $pesel;
+            $_SESSION['rola'] = "";
 
 
             pg_close($conn);

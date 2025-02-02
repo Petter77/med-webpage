@@ -20,7 +20,8 @@
                         Recepty."dataWaznosci" as Recepty_dataWaznosci,
                         Recepty."przypisaneLeki" as Recepty_przypisaneLeki,
                         personel.imie AS personel_imie, 
-                        personel.nazwisko AS personel_nazwisko
+                        personel.nazwisko AS personel_nazwisko,
+                        Recepty."idPersonelu" AS idPersonelu
                     FROM 
                         "Recepty" as Recepty
                     JOIN 

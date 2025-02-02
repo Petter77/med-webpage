@@ -19,7 +19,8 @@
                         Skierowania.skierowanie as skierowanie,
                         Skierowania."dataSkierowania" as data,  
                         personel.imie AS personel_imie, 
-                        personel.nazwisko AS personel_nazwisko
+                        personel.nazwisko AS personel_nazwisko,
+                        Skierowania."idPersonelu" AS idPersonelu
                     FROM 
                         "Skierowania" as Skierowania
                     JOIN 

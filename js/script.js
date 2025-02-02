@@ -136,7 +136,7 @@ function handleClick(id, rodzaj) {
                             <p>${response.personel_imie} ${response.personel_nazwisko} </p>
                             <h3>Skierowanie:</h3>
                             <p>${response.skierowanie}</p>`;
-                            if(sessionID != 'null'){    
+                            if(sessionID == response.idpersonelu){    
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'skierowanie')">Edytuj</button>`;
                             };
@@ -152,7 +152,7 @@ function handleClick(id, rodzaj) {
                             <p>${response.personel_imie} ${response.personel_nazwisko} </p>
                             <h3>Przypisane leki:</h3>
                             <p>${response.recepty_przypisaneleki}</p>`;
-                            if(sessionID != 'null'){    
+                            if(sessionID == response.idpersonelu){    
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
                             };
@@ -192,8 +192,8 @@ function handleClick(id, rodzaj) {
                             <h3>Dane Personelu</h3>
                             <p>${response.personel_imie} ${response.personel_nazwisko} </p>
                             <h3>Wpis:</h3>
-                            <p>${response.wpis}</p>`
-                            if(sessionID != 'null'){    
+                            <p>${response.wpis}</p>`;
+                            if(sessionID == response.idpersonelu){    
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'wpis')">Edytuj</button>`;
                             };            
