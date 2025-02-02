@@ -18,7 +18,8 @@
                         Wpisy."dataWpisu" as wpisy_data,  
                         personel.imie AS personel_imie, 
                         personel.nazwisko AS personel_nazwisko,
-                        Wpisy."wpis" AS wpis
+                        Wpisy."wpis" AS wpis,
+                        Wpisy."idPersonelu" AS idPersonelu
                     FROM 
                         "WpisyMedyczne" as Wpisy
                     JOIN 

@@ -100,7 +100,7 @@
             <p>Wybierz skierowanie z listy, aby zobaczyć szczegóły.</p>
         </div>
         <?php
-            if(isset($_SESSION['id'])){
+            if($_SESSION['rola'] == "Lekarz"){
                 echo'<button class = "addElementButton" id="addElementButton" class="button">Dodaj skierowanie</button>';
             }
         ?>

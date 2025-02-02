@@ -32,11 +32,15 @@
             if($aktywny == 't') {
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['rola'] = $row['rola'];
+
+                if ($_SESSION['rola'] == "Administrator" &&  $aktywny == 't') {
+
                 $pierwszy = $row['pierwszehaslo'];
                 if ($pierwszy == 't') {
                     header("Location: first_Login.php");
                 }
                 else if ($_SESSION['rola'] == "Administrator") {
+
                     header("Location: adminpanel.php");
                 } 
                 else{

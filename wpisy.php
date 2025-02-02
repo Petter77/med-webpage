@@ -98,7 +98,7 @@
             <p>Wybierz wpis z listy, aby zobaczyć szczegóły.</p>
         </div>
         <?php
-            if(isset($_SESSION['id'])){
+            if($_SESSION['rola'] == "Lekarz"){
                 echo'<button class = "addElementButton" id="addDescriptionButton" class="button">Dodaj Wpis</button>';
             }
         ?>
