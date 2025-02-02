@@ -5,7 +5,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['plik'])) {
     $uploadedFile = $_FILES['plik'];
     $targetFile = $targetDir . basename($uploadedFile['name']);
 
-    // Przesyłanie pliku
     if (move_uploaded_file($uploadedFile['tmp_name'], $targetFile)) {
         http_response_code(200);
         echo json_encode(['message' => 'Plik został przesłany pomyślnie.']);

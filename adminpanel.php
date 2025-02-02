@@ -50,7 +50,6 @@
 
                 $result = pg_query($conn, $query);
 
-                // Check if there are rows
                 if (pg_num_rows($result) > 0) {
                     echo "
                     <div class='scrollable-table' >
@@ -65,8 +64,7 @@
                             </tr>";
 
                     while ($row = pg_fetch_assoc($result)) {
-                        // Set the checkbox state based on the 'aktywne' value from the database
-                        $checked = ($row['aktywne'] === 't') ? 'checked' : '';  // 't' for true in PostgreSQL
+                        $checked = ($row['aktywne'] === 't') ? 'checked' : ''; 
 
                         echo "<tr>
                                 <td data-column='id'>" . $row['id'] . "</td>
@@ -91,8 +89,6 @@
                 } else {
                     echo "Brak wyników.";
                 }
-
-                // Zamknięcie połączenia
                 pg_close($conn);
             ?>
             </div>
