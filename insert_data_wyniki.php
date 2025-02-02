@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
                 echo '<script type="text/javascript">
                 alert("Pomyœlnie dodano wynik!");
-                window.location.href = "techinical_panel.php"; // Redirect after alert
+                window.location.href = "techinical_panel.php";
                 </script>';
                 exit; 
             } else {

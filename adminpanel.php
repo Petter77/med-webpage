@@ -1,9 +1,12 @@
 ﻿<?php
     session_start();
 
-    if (!isset($_SESSION['id']) && $_SESSION['rola'] != "Administrator") {
-        header("Location: logout.php");
-        exit;
+    if (!isset($_SESSION['id']) || $_SESSION['rola'] != "Administrator") {
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Nie masz dostępu do tej strony - wylogowano") . ');
+                window.location.href = "logout.php";
+                </script>';
+                exit;
     }
 ?>
 

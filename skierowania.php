@@ -2,12 +2,18 @@
 
     session_start();
     if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
-        header("Location: logout.php");
-        exit;
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Nie masz dostępu do tej strony - wylogowano") . ');
+                window.location.href = "logout.php";
+                </script>';
+                exit;
     }
     if($_SESSION['rola'] == "Specjalista"){
-        header("Location: techinical_panel.php");
-        exit;
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Nie masz dostępu do tej strony - przekierowano spowrotem") . ');
+                window.location.href = "techinical_panel.php";
+                </script>';
+                exit;
     }
 ?>
 

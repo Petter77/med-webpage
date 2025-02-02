@@ -31,7 +31,10 @@ if ($result) {
 
     if ($auditResult) {
         echo json_encode(['success' => true]);
-        header("Location: skierowania.php");
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Pomyœlnie dodano skierowanie!") . ');
+                window.location.href = "skierowania.php";
+                </script>';
         exit;
     } else {
         echo json_encode(['error' => 'An error occurred while inserting into AuditLog.']);

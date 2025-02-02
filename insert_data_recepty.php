@@ -39,7 +39,10 @@ if ($result) {
 
     if ($auditResult) {
         echo json_encode(['success' => true]);
-        header("Location: recepty.php");
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Pomyœlnie dodano receptê!") . ');
+                window.location.href = "recepty.php";
+                </script>';
         exit;
     } else {
         echo json_encode(['error' => 'An error occurred while inserting into AuditLog.']);
