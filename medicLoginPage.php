@@ -47,8 +47,9 @@
                 $warning = 'Konto nieaktywne';
             }
             pg_close($conn);
-        } 
-        else {
+        }
+        else{
+
             $warning = 'Błędny id lub/i Hasło.';
         }
     }
@@ -71,7 +72,7 @@
             <label id="warning" for="warning"><?php if ($warning) { echo $warning; } ?></label>
         </div>
         <label for="id">ID: </label>
-        <input type="text" name="id" id="id" oninput="validateId()">
+        <input type="text" name="id" id="id" oninput="validateId()" required>
         <label for="password">Hasło: </label>
         <input type="password" name="password" id="password" required>
         <button type="submit" class="button">Zaloguj się</button>

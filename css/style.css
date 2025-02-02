@@ -116,7 +116,7 @@ nav img{
 }
 
 #logoutButton {
-    margin-top: auto; /* Push the button to the bottom */
+    margin-top: auto; 
     background: none;
     border: none;
     color: #ffffff;
@@ -137,7 +137,7 @@ main {
     flex-direction: row;
     width: 100%;
     padding: 1rem;
-    position: relative; /* Add this to position the add button */
+    position: relative;
 }
 
 
@@ -152,9 +152,10 @@ main {
     width: 70%;
     padding: 1rem;
 }
-.management-panel{
-    width: 50%;
-    height: 100%
+.management-panel {
+    width: 55%;
+    overflow: hidden;
+    height: 100%;
 }
 .element-details-admin {
     width: 40%;
@@ -245,7 +246,7 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 60%; /* Ustawienie szerokości na 60% */
+    width: 60%; 
     padding: 2rem;
 }
 
@@ -253,8 +254,8 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start; /* Ustawienie elementów na lewo */
-    width: 35%; /* Ustawienie szerokości na 35% */
+    align-items: flex-start; 
+    width: 35%; 
     padding: 2rem;
 }
 
@@ -272,7 +273,7 @@ main {
     position: relative;
     transition: background-color 0.3s ease;
     padding-top: 1rem;
-    border: 2px solid #000; /* Dodanie ramki */
+    border: 2px solid #000; 
 }
 
 .info-box:hover {
@@ -281,9 +282,9 @@ main {
 
 .info-title {
     font-size: 1.5rem;
-    margin-bottom: 1rem; /* Dodanie odstępu między nagłówkiem a informacjami */
-    text-align: center; /* Wyśrodkowanie nagłówka */
-    width: 100%; /* Ustawienie szerokości na 100% */
+    margin-bottom: 1rem; 
+    text-align: center; 
+    width: 100%; 
 }
 
 .info-content {
@@ -296,17 +297,17 @@ main {
     background-color: var(--accent-colour);
     color: #fff;
     width: 100%;
-    height: 15rem; /* Zmiana wysokości na 15rem */
+    height: 15rem; 
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Ustawienie elementów na lewo */
+    align-items: flex-start; 
     justify-content: flex-start;
     border-radius: 0.5rem;
     margin: 1rem;
     position: relative;
     transition: background-color 0.3s ease;
-    padding: 1rem; /* Dodanie paddingu */
-    border: 2px solid #000; /* Dodanie ramki */
+    padding: 1rem; 
+    border: 2px solid #000; 
 }
 
 .patient-info:hover {
@@ -330,7 +331,7 @@ main {
     color: #fff;
 }
 
-/* Style for the save, cancel, and edit buttons */
+
 .save-button, .cancel-button, .edit-button {
     background-color: var(--accent-colour);
     color: #fff;
@@ -343,21 +344,21 @@ main {
     transition: all 0.1s ease-in-out;
     cursor: pointer;
     border: none;
-    margin-top: 1rem; /* Add margin to position the button lower */
+    margin-top: 1rem; 
 }
 
 .save-button:hover, .cancel-button:hover, .edit-button:hover {
     background-color: var(--accent-colour-hover);
 }
 
-/* Style for the save and cancel buttons container */
+
 .form-buttons {
     display: flex;
     justify-content: space-between;
 }
 
 .form-buttons button {
-    width: 48%; /* Adjust width to fit two buttons side by side */
+    width: 48%; 
 }
 
 .edit-buttons {
@@ -366,11 +367,21 @@ main {
 }
 
 .cancel-button {
-    margin-left: 1rem;;
+    margin-left: 1rem;
 }
 table {
     border-collapse: collapse;
     width: 100%;
+
+}
+p {
+    overflow-x: auto;
+    overflow-y: auto;
+    word-break: break-word;
+    white-space: pre-wrap;
+    max-height: 400px;
+    max-width: 100%;
+    display: block;
 }
 
 th, td {
@@ -407,57 +418,57 @@ td.editable {
     background: #ffffff;
 }
 .scrollable-list {
-    width: 100%; /* Adjust width as needed */
-    max-height: 700px; /* Set a fixed height for the container */
-    overflow-y: auto; /* Enable scrolling when content overflows */
-    border: 1px solid #ccc; /* Optional: Add a border */
-    padding: 10px; /* Optional: Add padding */
-    background-color: #f9f9f9; /* Optional: Add background color */
+    width: 100%; 
+    max-height: 700px; 
+    overflow-y: auto; 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    background-color: #f9f9f9; 
 }
 
 .scrollable-list li {
-        margin-bottom: 10px; /* Optional: Add spacing between list items */
-        cursor: pointer; /* Optional: Change cursor style for interactivity */
+        margin-bottom: 10px; 
+        cursor: pointer; 
 }
 .scrollable-table {
-    width: 100%; /* Adjust width as needed */
-    max-height: 700px; /* Set a fixed height for the container */
+    width: 100%; 
+    max-height: 800px; 
     overflow-y: auto;
-    border: 1px solid #ccc; /* Optional: Add a border */
-    padding: 10px; /* Optional: Add padding */
-    background-color: #f9f9f9; /* Optional: Add background color */
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    background-color: #f9f9f9; 
 }
 table {
-    width: 100%; /* Table takes full width of the container */
-    border-collapse: collapse; /* Combine border spacing */
+    width: 100%; 
+    border-collapse: collapse; 
 }
 
 th, td {
-    border: 1px solid #ddd; /* Add border to table cells */
-    padding: 8px; /* Add padding */
-    text-align: left; /* Align text */
+    border: 1px solid #ddd; 
+    padding: 8px; 
+    text-align: left; 
 }
 
 th {
-    background-color: #f2f2f2; /* Optional: Add background color to headers */
+    background-color: #f2f2f2; 
     font-weight: bold;
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9; /* Optional: Zebra striping */
+    background-color: #f9f9f9; 
 }
 .modal-overlay {
-    display: none; /* Hidden by default */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    background-color: rgba(0, 0, 0, 0.5); 
     z-index: 1000;
 }
 
-/* Modal content styling */
+
 .modal {
     position: absolute;
     top: 50%;
@@ -471,7 +482,7 @@ tr:nth-child(even) {
     max-width: 90%;
 }
 
-/* Close button */
+
 .close-button {
     float: right;
     font-size: 20px;

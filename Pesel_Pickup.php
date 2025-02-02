@@ -24,13 +24,13 @@ if(!isset($_SESSION['rola'])) {
     <div class = "content">
     <form action="Pesel_Pickup.php" method="POST">
         <label for="imie">Imię:</label>
-        <input type="text" id="imie" name="imie">
+        <input type="text" id="imie" name="imie" maxlength="50">
         
         <label for="nazwisko">Nazwisko:</label>
-        <input type="text" id="nazwisko" name="nazwisko">
+        <input type="text" id="nazwisko" name="nazwisko" maxlength="50">
         
         <label for="adres">Adres Zamieszkania:</label>
-        <input type="text" id="adres" name="adres">
+        <input type="text" id="adres" name="adres" maxlength="50">
         
         <label for="data_urodzenia">Data Urodzenia:</label>
         <input type="date" id="data_urodzenia" name="data_urodzenia">
@@ -60,11 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($pesel) && (empty($imie) + empty($nazwisko) + empty($adres) + empty($data_urodzenia) + empty($typ_krwi) > 3)) {
         echo "Wypełnij minimum 2 pola lub wpisz PESEL.";
     } else {
-        // Database connection
         require('configLekarz.php');
 
-        // Build query
-        // Build query with placeholders
         $query = "SELECT * FROM public.\"Pacjenci\" WHERE 1=1";
         $params = [];
         $paramTypes = [];
@@ -104,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $paramTypes[] = 'text';
         }
 
-        // Prepare and execute the query
+
         $result = pg_query_params($conn, $query, $params);
         if ($result === false) {
             echo "Query failed: " . pg_last_error($conn);

@@ -14,11 +14,25 @@
         exit;
     }
 
-	$query = 'SELECT "przypisaneLeki" FROM "Recepty" WHERE id = $1';
+	 $query = '
+                    SELECT 
+                        Recepty."dataWystawienia" as Recepty_dataWystawienia, 
+                        Recepty."dataWaznosci" as Recepty_dataWaznosci,
+                        Recepty."przypisaneLeki" as Recepty_przypisaneLeki,
+                        personel.imie AS personel_imie, 
+                        personel.nazwisko AS personel_nazwisko
+                    FROM 
+                        "Recepty" as Recepty
+                    JOIN 
+                        "PersonelMedyczny" as personel
+                    ON 
+                        Recepty."idPersonelu" = personel."id" 
+                    WHERE Recepty.id = $1;';
     $result = pg_query_params($conn, $query, [$id]) or die('Query failed: ' . pg_last_error());
 
     $data = pg_fetch_assoc($result);
     if ($data) {
+        $data['pesel'] = $_SESSION['pesel'];
         echo json_encode($data);
     } else {
         echo json_encode(["error" => "No data found for this ID"]);
