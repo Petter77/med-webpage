@@ -126,8 +126,14 @@ function handleClick(id, rodzaj) {
 
                     try {
                         // Handle response based on rodzaj
-                        if (rodzaj === 'skierowanie' && response && response.skierowanie) {
+                        if (rodzaj === 'skierowanie' && response) {
                             document.getElementById('elementDetails').innerHTML = `
+                            <h3>Data skierowania</h3>
+                            <p>${response.data}</p>
+                            <h3>Pesel Pacjenta</h3>
+                            <p>${response.pesel}</p>
+                            <h3>Dane Personelu</h3>
+                            <p>${response.personel_imie} ${response.personel_nazwisko} </p>
                             <h3>Skierowanie:</h3>
                             <p>${response.skierowanie}</p>`;
                             if(sessionID != 'null'){    
@@ -150,10 +156,33 @@ function handleClick(id, rodzaj) {
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
                             };
-                        } else if (rodzaj === 'wynik' && response && response.wynikiBadania) {
+                        } else if (rodzaj === 'wynik' && response ) {
                             document.getElementById('elementDetails').innerHTML = `
-                            <a href="${wynikiBadania}" target="_blank">Pobierz wynik</a>
-                            < iframe src ="${wynikiBadania}" width="100%" height="1200px" style="border: none;"></iframe>`;
+                            <h3>Data wyniku</h3>
+                            <p>${response.wyniki_data}</p>
+                            <h3>Pesel Pacjenta</h3>
+                            <p>${response.pesel}</p>
+                            <h3>Dane Personelu</h3>
+                            <p>${response.personel_imie} ${response.personel_nazwisko} </p>`
+                            if (response.sciezka != null) {
+                                const sciezka = response.sciezka;
+                                const fileExtension = sciezka.split('.').pop().toLowerCase();
+
+                                let fileContent = `<a href="${sciezka}" target="_blank">Pobierz wynik</a>`;
+
+                                if (["jpg", "jpeg", "png", "gif", "bmp", "webp"].includes(fileExtension)) {
+                                    fileContent += `<img src="${sciezka}" alt="Wynik" style="width: 100%; max-height: 1200px; object-fit: contain;">`;
+                                } else if (fileExtension === "pdf") {
+                                    fileContent += `<iframe src="${sciezka}" width="100%" height="1200px" style="border: none;"></iframe>`;
+                                } else {
+                                    fileContent += `<p>Nieobsługiwany format pliku.</p>`;
+                                }
+                                document.getElementById('elementDetails').innerHTML += fileContent;
+                            }
+                            else {
+                                let fileContent = `<p>Brak pliku na serwerze</p>`;
+                                document.getElementById('elementDetails').innerHTML += fileContent;
+                            }
                         } else if (rodzaj === 'wpis' && response) {
                             document.getElementById('elementDetails').innerHTML = `
                             <h3>Data wpisu</h3>
