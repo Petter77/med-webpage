@@ -187,15 +187,22 @@
             <div class="info-box">
                 <h2 class="info-title">Wpisy</h2>
                 <div class="info-content">
-                <?php
-                    if ($lastWpis) {
-                        echo "<p>Data: " . $lastWpis['wpisy_data'] . "</p>";
-                        echo "<p>Lekarz: " . $lastWpis['personel_imie'] . " " . $lastWpis['personel_nazwisko'] . "</p>";
-                        echo "<p>Treść: <span class='entry-content'>" . $lastWpis['wpisy_tresc'] . "</span></p>";
-                    } else {
-                        echo "<p>Brak wpisów</p>";
-                    }
-                ?>
+                    <?php
+                        if ($lastWpis) {
+                            echo "<p>Data: " . $lastWpis['wpisy_data'] . "</p>";
+                            echo "<p>Lekarz: " . $lastWpis['personel_imie'] . " " . $lastWpis['personel_nazwisko'] . "</p>";
+                            
+                            $tresc = $lastWpis['wpisy_tresc'];
+                            $maxDlugosc = 100;
+                            if (mb_strlen($tresc) > $maxDlugosc) {
+                                $tresc = mb_substr($tresc, 0, $maxDlugosc - 3) . '...';
+                            }
+                            
+                            echo "<p>Treść: <span class='entry-content'>" . $tresc . "</span></p>";
+                        } else {
+                            echo "<p>Brak wpisów</p>";
+                        }
+                    ?>
                 </div>
                 <button class="info-button" onclick="location.href='wpisy.php'">Przejdź do wpisów</button>
             </div>
@@ -221,7 +228,14 @@
             if ($lastSkierowanie) {
                 echo "<p>Numer skierowania: " . $lastSkierowanie['id'] . "</p>";
                 echo "<p>Data skierowania: " . $lastSkierowanie['dataSkierowania'] . "</p>";
-                echo "<p>Treść: " . $lastSkierowanie['skierowanie'] . "</p>";
+
+                $tresc = $lastSkierowanie['skierowanie'];
+                $maxDlugosc = 100;
+                if (mb_strlen($tresc) > $maxDlugosc) {
+                    $tresc = mb_substr($tresc, 0, $maxDlugosc - 3) . '...';
+                }
+                
+                echo "<p>Treść: <span class='entry-content'>" . $tresc . "</span></p>";
             } else {
                 echo "<p>Brak skierowań</p>";
             }
@@ -236,7 +250,14 @@
             if ($lastWynik) {
                 echo "<p>Numer wyniku: " . $lastWynik['id'] . "</p>";
                 echo "<p>Data wyniku: " . $lastWynik['dataWyniku'] . "</p>";
-                echo "<p>Wynik: " . $lastWynik['wynikiBadania'] . "</p>";
+                
+                $tresc = $lastWynik['wynikiBadania'];
+                $maxDlugosc = 100;
+                if (mb_strlen($tresc) > $maxDlugosc) {
+                    $tresc = mb_substr($tresc, 0, $maxDlugosc - 3) . '...';
+                }
+
+                echo "<p>Wynik: <span class='entry-content'>" . $tresc . "</span></p>";
             } else {
                 echo "<p>Brak wyników badań</p>";
             }
@@ -261,7 +282,6 @@
                                 exit;
                             }
     
-                            // Fetch the list of PESELs
                             $mainpesel = $_SESSION['mainpesel'];
                             $result = pg_query_params($conn, 'SELECT "peselOwner" FROM public."SharedPesel" WHERE "peselAllowed" = $1', array($mainpesel));
     
