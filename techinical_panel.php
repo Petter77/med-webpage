@@ -1,10 +1,12 @@
 <?php
     session_start();
-    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
+
+    if (!isset($_SESSION['id']) && $_SESSION['rola'] != "Administrator") {
         header("Location: loginPage.php");
         exit;
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -15,19 +17,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
-    <script>
-        var sessionID = <?php 
-        if(isset($_SESSION["id"]) && !empty($_SESSION["id"])) {
-            echo json_encode($_SESSION['id']); 
-        } else {
-            echo json_encode(null);
-        }
-        ?>;
-        sessionStorage.setItem("sessionID", sessionID);
-        console.log("Session ID:", sessionID); 
-    </script>
 </head>
 <body>
+<div class = "elementDetails">
+                <h2>Dodaj nowe Wyniki</h2>
+                <form action="insert_data_wyniki.php" method="post" enctype="multipart/form-data">
+                    <label for="elementName">Wyniki Badania:</label>
+                    <textarea id="elementDetailsTextarea" name="examinationDetails" maxlength="256"></textarea>
+                    <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
+                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}">
+                    <label for="fileInput">Za³¹cz plik:</label>
+                    <input type="file" id="fileInput" name="plik" accept=".jpg,.jpeg,.png,.pdf">
+                    <button type="submit" class="button">Dodaj</button>
+                </form>
+                </div>
 
 </body>
 </html>
