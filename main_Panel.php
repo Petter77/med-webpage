@@ -82,27 +82,27 @@
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
         <a href="index.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/home.svg" alt=""></span>
             <span class="text">Home</span>
         </a>
         <a href="wpisy.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/wpisy.svg" alt=""></span>
             <span class="text">Wpisy</span>
         </a>
         <a href="recepty.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/recepty.svg" alt=""></span>
             <span class="text">Recepty</span>
         </a>
         <a href="skierowania.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/skierowania.svg" alt=""></span>
             <span class="text">Skierowania</span>
         </a>
         <a href="wyniki.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/wyniki.svg" alt=""></span>
             <span class="text">Wyniki badań</span>
         </a>
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
-            <span class="icon">x</span>
+            <span class="icon"><img src="icons/logout.svg" alt=""></span>
             <span class="text">Logout</span>
         </button>
     </nav>
