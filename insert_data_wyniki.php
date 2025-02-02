@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = pg_query_params($conn, $query, array($peselPacjenta, $idPersonelu, $wynikiBadania, $dataWyniku, $sciezkaDoPliku));
 
     if ($result) {
+        $id = $_SESSION['id'];
         $row = pg_fetch_assoc($result);
         $wynikId = $row['id'];
         $timestamp = date('Y-m-d H:i:s');
@@ -65,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $pesel_numeric = is_numeric($pesel) ? (int)$pesel : NULL;
 
-        $auditResult = pg_query_params($conn, $auditQuery, array($id, $wynikId, $timestamp, $examination, $pesel_numeric));
+        $auditResult = pg_query_params($conn, $auditQuery, array($id, $wynikId, $timestamp, $wynikiBadania, $pesel_numeric));
 
         if ($auditResult) {
              echo json_encode(['success' => true]);
