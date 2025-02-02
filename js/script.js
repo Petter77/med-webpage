@@ -155,15 +155,17 @@ function handleClick(id, rodzaj) {
                                 const sciezka = response.sciezka;
                                 const fileExtension = sciezka.split('.').pop().toLowerCase();
 
-                                let fileContent = `<a href="${sciezka}" target="_blank">Pobierz wynik</a>`;
+                                let fileContent = `<a href="https://studencki-portal-medyczny.pl/getfile.php?file=${sciezka}" target="_blank">Pobierz wynik</a>`;
 
                                 if (["jpg", "jpeg", "png", "gif", "bmp", "webp"].includes(fileExtension)) {
-                                    fileContent += `<img src="${sciezka}" alt="Wynik" style="width: 100%; max-height: 1200px; object-fit: contain;">`;
+                                    fileContent += `<img src="https://studencki-portal-medyczny.pl/getfile.php?file=${sciezka}" alt="Wynik" style="width: 100%; max-height: 600px; object-fit: contain;">`;
                                 } else if (fileExtension === "pdf") {
-                                    fileContent += `<iframe src="${sciezka}" width="100%" height="1200px" style="border: none;"></iframe>`;
+                                    fileContent += `<iframe src="https://studencki-portal-medyczny.pl/getfile.php?file=${sciezka}" width="100%" height="600px" style="border: none;"></iframe>`;
+                                    
                                 } else {
                                     fileContent += `<p>Nieobsługiwany format pliku.</p>`;
                                 }
+                                console.log("xd" + fileContent);
                                 document.getElementById('elementDetails').innerHTML += fileContent;
                             }
                             else {
@@ -462,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
                     <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}">
                     <label for="fileInput">Załącz plik:</label>
-                    <input type="file" id="fileInput" name="file" accept=".jpg,.jpeg,.png,.pdf">
+                    <input type="file" id="fileInput" name="plik" accept=".jpg,.jpeg,.png,.pdf">
                     <div id="fileDateContainer"></div>
                     <button type="submit" class="button">Dodaj</button>
                 </form>

@@ -1,26 +1,34 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
-        header("Location: loginPage.php");
-        exit;
-    }
+require('configLekarz.php');
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $peselPacjenta = $_SESSION['pesel'];
+    $idPersonelu = $_SESSION['id'];
+    $wynikiBadania = $_POST['examinationDetails'];
+    $dataWyniku = $_POST['examinationDate'];
     
-    require('configLekarz.php');
+    if (empty($peselPacjenta) || empty($idPersonelu) || empty($wynikiBadania) || empty($dataWyniku)) {
+        echo "Please fill in all the fields.";
+        exit();
+    }
 
-$id = $_SESSION['id'];
-$pesel = $_SESSION['pesel'];
-$examination = $_POST['examinationDetails'];
-$examinationDate = $_POST['examinationDate'];
+    $sciezkaDoPliku = null;
+    if (isset($_FILES['plik']) && $_FILES['plik']['error'] == 0) {
+        $fileTmpPath = $_FILES['plik']['tmp_name'];
+        $fileName = $_FILES['plik']['name'];
+        $fileSize = $_FILES['plik']['size'];
+        $fileType = $_FILES['plik']['type'];
 
-if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
-    $file = $_FILES['file'];
-    $allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
-    $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-
-    if (!in_array($fileExtension, $allowedExtensions)) {
+        $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+        if (!in_array($fileType, $allowedTypes)) {
+            echo "Invalid file type. Only .jpg, .jpeg, .png, .pdf are allowed.";
+            exit();
+        }
+        if (!in_array($fileExtension, $allowedExtensions)) {
         echo json_encode(['error' => 'Invalid file type. Only JPG, JPEG, PNG, and PDF files are allowed.']);
         exit;
-    } else {
+        } else {
         $filedate = $_POST['fileDate'];
         $uploadDir = 'uploads/';
         $filePath = $uploadDir . basename($file['name']);
@@ -35,6 +43,40 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
             echo json_encode(['error' => 'An error occurred while uploading the file.']);
             exit;
         }
+
+        $uploadUrl = "https://studencki-portal-medyczny.pl/endpoint.php";
+        
+        $ch = curl_init($uploadUrl);
+        
+        $postFields = [
+            'plik' => new CURLFile($fileTmpPath, $fileType, $fileName)
+        ];
+
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+
+        $response = curl_exec($ch);
+        if ($response === false) {
+            echo "Error sending the file to the server: " . curl_error($ch);
+            exit()
+        }
+        curl_close($ch);
+
+        $sciezkaDoPliku = $fileName;
+    }
+
+    $query = 'INSERT INTO public."WynikibadanDiagnostycznych"(
+        "peselPacjenta", "idPersonelu", "wynikiBadania", "dataWyniku", "sciezkaDoPliku") 
+        VALUES ($1, $2, $3, $4, $5)';
+
+    $result = pg_query_params($conn, $query, array($peselPacjenta, $idPersonelu, $wynikiBadania, $dataWyniku, $sciezkaDoPliku));
+
+    if ($result) {
+        echo "Data inserted successfully.";
+    } else {
+        echo "Error: " . pg_last_error($conn);
     }
 } else {
     $filePath = null;
@@ -65,5 +107,6 @@ if ($result1) {
     }
 } else {
     echo json_encode(['error' => 'An error occurred while inserting the result.']);
+
 }
 ?>
