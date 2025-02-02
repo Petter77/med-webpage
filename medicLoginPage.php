@@ -22,7 +22,7 @@
             ON 
                 pm."idRoli" = rp.id
             WHERE 
-                pm."id" = $1 AND pm."haslo" = $2
+                pm."id" = $1 AND pm."haslo" = crypt($2, pm."haslo")
         ';
         $result = pg_query_params($conn, $query, array($id, $password));
 
@@ -32,22 +32,24 @@
             if($aktywny == 't') {
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['rola'] = $row['rola'];
-                $_SESSION['pesel'] = 22222222222;
-                if ($_SESSION['rola'] == "Administrator" &&  $aktywny == 't') {
-                    header("Location: adminpanel.php");
-                } else if ($aktywny == 't') {
-                    header("Location: Pesel_Pickup.php");
-                } else {
-                    $warning = 'Błędny id lub/i Hasło.';
+                $pierwszy = $row['pierwszehaslo'];
+                if ($pierwszy == 't') {
+                    header("Location: first_Login.php");
                 }
+                else if ($_SESSION['rola'] == "Administrator") {
+                    header("Location: adminpanel.php");
+                } 
+                else{
+                    header("Location: Pesel_Pickup.php");
+                } 
             }
             else {
                 $warning = 'Konto nieaktywne';
             }
             pg_close($conn);
-            
         }
         else{
+
             $warning = 'Błędny id lub/i Hasło.';
         }
     }

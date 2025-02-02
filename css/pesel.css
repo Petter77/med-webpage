@@ -68,10 +68,31 @@ form .button {
     transition: background-color 0.3s, color 0.3s; /* Smooth hover transition */
 }
 
-form .button::hover{
+#logoutButton {
+    background-color: red; /* Initial background color */
+    border: 2px solid red; /* Border color matching the background */
+    border-radius: 5px; /* Rounded corners */
+    color: #fff; /* Text color */
+    padding: 8px 16px; /* Padding for better button size */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor to indicate it's clickable */
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover transition */
+}
+
+#logoutButton:active {
+    background-color: rgb(121, 30, 48); /* Background color on hover */
+    border-color: rgb(121, 30, 48); /* Border color on hover */
+}
+
+form .button:hover {
     background-color: #000; /* Changes the background color on hover */
     color: #fff; /* Changes the text color on hover */
 }
+
+form .button:active {
+    background-color: #333; /* Background color on click */
+}
+
 #results {
     margin-left: 2rem;
     display: flex;
