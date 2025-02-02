@@ -203,10 +203,10 @@ function addUser() {
         <h2>Dodaj Nowego Użytkownika</h2>
         <form id="userForm">
             <label for="imie">Imię:</label>
-            <input type="text" id="imie" name="imie" required>
+            <input type="text" id="imie" name="imie" maxlength="50" required >
 
             <label for="nazwisko">Nazwisko:</label>
-            <input type="text" id="nazwisko" name="nazwisko" required>
+            <input type="text" id="nazwisko" name="nazwisko" maxlength="50" required>
 
             <label for="rola">Rola:</label>
             <select id="rola" name="rola" required>
@@ -275,7 +275,7 @@ function editData(id, rodzaj) {
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
-                        <textarea id="editInput">${response.skierowanie}</textarea>
+                        <textarea id="editInput" maxlength="256">${response.skierowanie}</textarea>
                         <div class="edit-buttons">
                             <button class="save-button" onclick="updateData(${id}, 'skierowanie')">Zapisz</button>
                             <button class="cancel-button" onclick="cancelEdit(${id}, 'skierowanie')">Anuluj</button>
@@ -284,7 +284,7 @@ function editData(id, rodzaj) {
                         } else if (rodzaj === 'recepta' && response && response.przypisaneLeki) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Recepta:</h3>
-                        <textarea id="editInput">${response.przypisaneLeki}</textarea>
+                        <textarea id="editInput" maxlength="256">${response.przypisaneLeki}</textarea>
                         <div class="edit-buttons">
                             <button class="save-button" onclick="updateData(${id}, 'recepta')">Zapisz</button>
                             <button class="cancel-button" onclick="cancelEdit(${id}, 'recepta')">Anuluj</button>
@@ -293,7 +293,7 @@ function editData(id, rodzaj) {
                         } else if (rodzaj === 'wpis' && response && response.wpis) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Wpis:</h3>
-                        <textarea id="editInput">${response.wpis}</textarea>
+                        <textarea id="editInput" maxlength="256">${response.wpis}</textarea>
                         <div class="edit-buttons">
                             <button class="save-button" onclick="updateData(${id}, 'wpis')">Zapisz</button>
                             <button class="cancel-button" onclick="cancelEdit(${id}, 'wpis')">Anuluj</button>
@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h2>Dodaj nową receptę</h2>
                 <form action="insert_data_recepty.php" method="post">
                     <label for="elementName">Przypisywane Leki:</label>
-                    <input type="text" id="elementName" name="RecipeInfo">
+                    <input type="text" id="elementName" name="RecipeInfo" maxlength="256">
                     <label for="elementDetailsTextarea">Termin Recepty:</label>
                     <input type="date" id="elementDetailsTextarea" name="RecipeEndDate" value="${today}" min="${today}">
                     <label for="optionalSelect">Recepta Jednorazowa ?:</label>
@@ -447,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h2>Dodaj nowe skierowanie</h2>
                 <form action="insert_data_skierowanie.php" method="post">
                     <label for="elementDetailsTextarea">Skierowanie:</label>
-                    <textarea id="elementDetailsTextarea" name="referralDetails"></textarea>
+                    <textarea id="elementDetailsTextarea" name="referralDetails" maxlength="256"></textarea>
                     <button type="submit" class="button">Dodaj</button>
                 </form>
             `;
@@ -458,7 +458,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h2>Dodaj nowe Wyniki</h2>
                 <form action="insert_data_wyniki.php" method="post" enctype="multipart/form-data">
                     <label for="elementName">Wyniki Badania:</label>
-                    <textarea id="elementDetailsTextarea" name="examinationDetails"></textarea>
+                    <textarea id="elementDetailsTextarea" name="examinationDetails" maxlength="256"></textarea>
                     <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
                     <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}">
                     <label for="fileInput">Załącz plik:</label>
