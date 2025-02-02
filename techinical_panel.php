@@ -19,7 +19,7 @@
     <title>Document</title>
 </head>
 <body>
-<div class = "elementDetails">
+<div class = "modal">
                 <h2>Dodaj nowe Wyniki</h2>
                 <form action="insert_data_wyniki.php" method="post" enctype="multipart/form-data">
                     <label for="elementName">Wyniki Badania:</label>
