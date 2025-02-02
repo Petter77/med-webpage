@@ -20,6 +20,24 @@ body{
     flex-direction: row;
 }
 
+select {
+    width: 100%;
+    padding: 1rem;
+    border: 0.1rem solid var(--accent-colour);
+    border-radius: 0.5rem;
+    background-color: #fff;
+    color: #000;
+    font-family: "Roboto", serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+    border-color: var(--accent-colour-hover);
+    box-shadow: 0 0 0.5rem var(--accent-colour-hover);
+    outline: none;
+}
+
 nav{
     color: #000;
     background-color: var(--accent-colour);
@@ -256,6 +274,7 @@ main {
     justify-content: flex-start;
     align-items: flex-start; 
     width: 35%; 
+    height: auto;
     padding: 2rem;
 }
 
@@ -263,7 +282,7 @@ main {
     background-color: var(--accent-colour);
     color: #fff;
     width: 100%;
-    height: 15rem;
+    height: 20rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -290,6 +309,7 @@ main {
 .info-content {
     text-align: left;
     width: 100%;
+    height: auto;
     padding: 1rem;
 }
 
@@ -297,7 +317,7 @@ main {
     background-color: var(--accent-colour);
     color: #fff;
     width: 100%;
-    height: 15rem; 
+    height: auto; 
     display: flex;
     flex-direction: column;
     align-items: flex-start; 
