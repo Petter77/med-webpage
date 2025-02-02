@@ -465,7 +465,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}">
                     <label for="fileInput">Załącz plik:</label>
                     <input type="file" id="fileInput" name="plik" accept=".jpg,.jpeg,.png,.pdf">
-                    <div id="fileDateContainer"></div>
                     <button type="submit" class="button">Dodaj</button>
                 </form>
             `;
