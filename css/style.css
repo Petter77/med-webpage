@@ -310,7 +310,7 @@ main {
     text-align: left;
     width: 100%;
     height: auto;
-    padding: 1rem;
+    padding-left: 1rem;
 }
 
 .patient-info {
