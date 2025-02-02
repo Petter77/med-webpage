@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $sciezkaDoPliku = null;
-   if (isset($_FILES['plik']) && $_FILES['plik']['error'] == 0) {
+    if (isset($_FILES['plik']) && $_FILES['plik']['error'] == 0) {
         $fileTmpPath = $_FILES['plik']['tmp_name'];
         $fileName = $_FILES['plik']['name'];
         $fileSize = $_FILES['plik']['size'];
@@ -50,34 +50,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $query = 'INSERT INTO public."WynikibadanDiagnostycznych"(
         "peselPacjenta", "idPersonelu", "wynikiBadania", "dataWyniku", "sciezkaDoPliku") 
-        VALUES ($1, $2, $3, $4, $5)';
+        VALUES ($1, $2, $3, $4, $5)  RETURNING "id"';
 
     $result = pg_query_params($conn, $query, array($peselPacjenta, $idPersonelu, $wynikiBadania, $dataWyniku, $sciezkaDoPliku));
 
-}
+    if ($result) {
+        $row = pg_fetch_assoc($result);
+        $wynikId = $row['id'];
+        $timestamp = date('Y-m-d H:i:s');
 
-if ($result) {
-    $row = pg_fetch_assoc($result);
-    $wynikId = $row['id'];
-    $timestamp = date('Y-m-d H:i:s');
-
-    $auditQuery = "INSERT INTO public.\"AuditLog\" (
+        $auditQuery = "INSERT INTO public.\"AuditLog\" (
                       personel_id, operation, target_id, data_type, \"timestamp\", previous_value, new_value, pacjent_id
                    ) VALUES ($1, 'add', $2, 'wynik', $3, NULL, $4, $5)";
 
-    $pesel_numeric = is_numeric($pesel) ? (int)$pesel : NULL;
+        $pesel_numeric = is_numeric($pesel) ? (int)$pesel : NULL;
 
-    $auditResult = pg_query_params($conn, $auditQuery, array($id, $wynikId, $timestamp, $examination, $pesel_numeric));
+        $auditResult = pg_query_params($conn, $auditQuery, array($id, $wynikId, $timestamp, $examination, $pesel_numeric));
 
-   if ($auditResult) {
-        echo json_encode(['success' => true]);
-        header("Location: wyniki.php");
-        exit;
+        if ($auditResult) {
+             echo json_encode(['success' => true]);
+            header("Location: wyniki.php");
+            exit;
+        } else {
+            echo json_encode(['error' => 'An error occurred while inserting into AuditLog.']);
+        }
     } else {
-        echo json_encode(['error' => 'An error occurred while inserting into AuditLog.']);
-    }
-} else {
     echo json_encode(['error' => 'An error occurred while inserting the result.']);
-
+    }
 }
 ?>
