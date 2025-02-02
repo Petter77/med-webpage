@@ -70,8 +70,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($auditResult) {
              echo json_encode(['success' => true]);
-            header("Location: wyniki.php");
-            exit;
+
+        if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
+                echo '<script type="text/javascript">
+                alert("Pomyœlnie dodano wynik!");
+                window.location.href = "techinical_panel.php"; // Redirect after alert
+                </script>';
+                exit; 
+            } else {
+                header("Location: wyniki.php");
+                exit;
+            }
         } else {
             echo json_encode(['error' => 'An error occurred while inserting into AuditLog.']);
         }

@@ -415,7 +415,8 @@ function validateAllergyForm() {
     return true;
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('DOMContentLoaded', function () {
     document.body.addEventListener('click', function(event) {
         if (event.target && event.target.id === 'addDescriptionButton') {
             document.getElementById('elementDetails').innerHTML = `
