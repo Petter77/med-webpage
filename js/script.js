@@ -361,28 +361,6 @@ function updateData(id, rodzaj) {
 }
 
 
-function addFileInputListener() {
-    const fileInput = document.getElementById('fileInput');
-    fileInput.addEventListener('change', function() {
-        const fileDateContainer = document.getElementById('fileDateContainer');
-        if (fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
-            if (!allowedExtensions.exec(file.name)) {
-                alert('Invalid file type. Only JPG, JPEG, PNG, and PDF files are allowed.');
-                fileInput.value = '';
-                fileDateContainer.innerHTML = ''; 
-                return;
-            }
-            fileDateContainer.innerHTML = `
-                <label for="fileDate">Data pliku:</label>
-                <input type="date" id="fileDate" name="fileDate">
-            `;
-        } else {
-            fileDateContainer.innerHTML = '';
-        }
-    });
-}
 
 function checkAllergy() {
     const input = document.getElementById('allergyInput').value;
@@ -417,7 +395,8 @@ function validateAllergyForm() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.body.addEventListener('click', function(event) {
+    document.body.addEventListener('click', function (event) {
+        const today = new Date().toISOString().split('T')[0];
         if (event.target && event.target.id === 'addDescriptionButton') {
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nowy Wpis</h2>
@@ -428,7 +407,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 </form>
             `;
         } else if (event.target && event.target.id === 'addRecipeButton') {
-            const today = new Date().toISOString().split('T')[0];
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nową receptę</h2>
                 <form action="insert_data_recepty.php" method="post">
@@ -463,13 +441,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     <label for="elementName">Wyniki Badania:</label>
                     <textarea id="elementDetailsTextarea" name="examinationDetails" maxlength="256"></textarea>
                     <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
-                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}">
+                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}" max="${today}">
                     <label for="fileInput">Załącz plik:</label>
                     <input type="file" id="fileInput" name="plik" accept=".jpg,.jpeg,.png,.pdf">
                     <button type="submit" class="button">Dodaj</button>
                 </form>
             `;
-            addFileInputListener();
         }
         else if(event.target && event.target.id === 'addAllergiesButton'){
             document.getElementById('elementDetails').innerHTML = `
