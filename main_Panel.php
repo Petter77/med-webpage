@@ -24,7 +24,7 @@
         }
         ?>;
         sessionStorage.setItem("sessionID", sessionID);
-        console.log("Session ID:", sessionID); // Debugging log
+        console.log("Session ID:", sessionID); 
     </script>
 </head>
 <body>

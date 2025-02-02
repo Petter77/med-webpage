@@ -10,7 +10,7 @@ $id = $_SESSION['id'];
 $imie = $_POST['imie'];
 $nazwisko = $_POST['nazwisko'];
 $rola = $_POST['rola'];
-$haslo = "haslo"; // Change this later to a hashed password
+$haslo = "haslo"; 
 
 $haslo = password_hash($haslo, PASSWORD_BCRYPT);
 

@@ -22,7 +22,6 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
         exit;
     } else {
         $filedate = $_POST['fileDate'];
-        // Handle file upload
         $uploadDir = 'uploads/';
         $filePath = $uploadDir . basename($file['name']);
         if (move_uploaded_file($file['tmp_name'], $filePath)) {
@@ -38,7 +37,6 @@ if (isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE) {
         }
     }
 } else {
-    // No file was uploaded
     $filePath = null;
     $query1 = "INSERT INTO \"WynikibadanDiagnostycznych\" (\"peselPacjenta\", \"idPersonelu\", \"wynikiBadania\",
                  \"dataWyniku\") VALUES ($1, $2, $3, $4) RETURNING \"id\"";

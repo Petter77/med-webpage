@@ -60,11 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($pesel) && (empty($imie) + empty($nazwisko) + empty($adres) + empty($data_urodzenia) + empty($typ_krwi) > 3)) {
         echo "Wypełnij minimum 2 pola lub wpisz PESEL.";
     } else {
-        // Database connection
         require('configLekarz.php');
-
-        // Build query
-        // Build query with placeholders
         $query = "SELECT * FROM public.\"Pacjenci\" WHERE 1=1";
         $params = [];
         $paramTypes = [];
@@ -104,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $paramTypes[] = 'text';
         }
 
-        // Prepare and execute the query
         $result = pg_query_params($conn, $query, $params);
         if ($result === false) {
             echo "Query failed: " . pg_last_error($conn);

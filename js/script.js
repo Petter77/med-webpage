@@ -4,19 +4,17 @@ document.getElementById('toggleButton').addEventListener('click', function () {
 
 
 function editRow(button) {
-    const row = button.closest('tr'); // Get the table row
+    const row = button.closest('tr'); 
     const cells = row.querySelectorAll('[contenteditable], [data-column="rola"]');
     const predefinedRoles = ['Lekarz', 'Ratownik', 'Specjalista', 'Administrator'];
-    const checkbox = row.querySelector('.aktywny-checkbox'); // Get the checkbox
+    const checkbox = row.querySelector('.aktywny-checkbox'); 
 
-    // Enable editing for contenteditable cells
     cells.forEach(cell => {
         if (cell.getAttribute('data-column') === 'rola') {
-            // Replace the text with a dropdown for "rola"
+
             const currentValue = cell.textContent.trim();
             const select = document.createElement('select');
 
-            // Add options from predefinedRoles
             predefinedRoles.forEach(role => {
                 const option = document.createElement('option');
                 option.value = role;
@@ -27,51 +25,43 @@ function editRow(button) {
                 select.appendChild(option);
             });
 
-            cell.textContent = ''; // Clear current content
-            cell.appendChild(select); // Add dropdown
+            cell.textContent = ''; 
+            cell.appendChild(select);
         } else {
             cell.contentEditable = true;
         }
     });
 
-    // Enable the checkbox
-    checkbox.disabled = false; // Enable the checkbox for editing
-
-    // Toggle button visibility
-    button.style.display = 'none'; // Hide "Edit" button
-    row.querySelector('.save-button').style.display = 'inline'; // Show "Save" button
+    checkbox.disabled = false; 
+    button.style.display = 'none'; 
+    row.querySelector('.save-button').style.display = 'inline'; 
 }
 
 function saveRow(button) {
-    const row = button.closest('tr'); // Get the table row
+    const row = button.closest('tr'); 
     const cells = row.querySelectorAll('td');
     const data = {};
 
 
-    // Collect data from the row
     cells.forEach(cell => {
         const column = cell.getAttribute('data-column');
         if (column === 'rola') {
-            // Get selected value from the dropdown
             const select = cell.querySelector('select');
             if (select) {
                 data[column] = select.value;
-                cell.textContent = select.value; // Replace dropdown with the selected value
+                cell.textContent = select.value; 
             }
         } else {
             data[column] = cell.textContent.trim();
-            cell.contentEditable = false; // Disable editing
+            cell.contentEditable = false; 
         }
     });
 
-    // Handle the checkbox for "aktywne"
     const checkbox = row.querySelector('.aktywny-checkbox');
     if (checkbox) {
-        // If the checkbox is checked, send true, otherwise send false
         data['aktywne'] = checkbox.checked ? true : false;
     }
 
-    // Send the data to the server via AJAX
     fetch('editAdmin.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -87,10 +77,9 @@ function saveRow(button) {
         })
         .catch(error => console.error('Error:', error));
 
-    // Toggle button visibility
     checkbox.disabled = true;
-    button.style.display = 'none'; // Hide "Save" button
-    row.querySelector('.edit-button').style.display = 'inline'; // Show "Edit" button
+    button.style.display = 'none';
+    row.querySelector('.edit-button').style.display = 'inline';
 }
 
 
@@ -101,31 +90,29 @@ function handleClick(id, rodzaj) {
     var sessionID = sessionStorage.getItem('sessionID');
     switch (rodzaj) {
         case 'skierowanie':
-            url = 'fetch_data_skierowanie.php';  // URL for skierowanie
+            url = 'fetch_data_skierowanie.php'; 
             break;
         case 'recepta':
-            url = 'fetch_data_recepty.php';  // URL for torodzaj
+            url = 'fetch_data_recepty.php'; 
             break;
         case 'wynik':
-            url = 'fetch_data_wyniki.php';  // URL for torodzaj
+            url = 'fetch_data_wyniki.php'; 
             break;
         case 'wpis':
-            url = 'fetch_data_wpisy.php';  // URL for torodzaj
+            url = 'fetch_data_wpisy.php'; 
             break;
     }
 
-            console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
+            console.log("Making AJAX request to:", url, "with id:", id);
             $.ajax({
-                url: url,       // Use the dynamically set URL based on rodzaj
+                url: url,  
                 type: 'GET',
-                data: { id: id},  // Send the ID as a parameter
-                dataType: 'json',   // Expecting JSON response
+                data: { id: id}, 
+                dataType: 'json', 
 
                 success: function (response) {
-                    console.log("Server response:", response);  // Log the response
-
+                    console.log("Server response:", response); 
                     try {
-                        // Handle response based on rodzaj
                         if (rodzaj === 'skierowanie' && response) {
                             document.getElementById('elementDetails').innerHTML = `
                             <h3>Data skierowania</h3>
@@ -204,7 +191,7 @@ function handleClick(id, rodzaj) {
                 },
 
                 error: function (xhr, status, error) {
-                    console.log("AJAX error:", error); // Log any AJAX errors
+                    console.log("AJAX error:", error); 
                     document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
             });
@@ -234,7 +221,7 @@ function addUser() {
     `;
 
     document.getElementById('userForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form from reloading the page
+        event.preventDefault(); 
 
         const formData = new FormData(this);
 
@@ -246,7 +233,7 @@ function addUser() {
             .then(data => {
                 if (data.success) {
                     alert('Użytkownik został dodany!');
-                    location.reload(); // Refresh the page to show the new user
+                    location.reload(); 
                 } else {
                     alert('Błąd: ' + data.error);
                 }
@@ -263,30 +250,28 @@ function editData(id, rodzaj) {
     let url = '';
     switch (rodzaj) {
         case 'skierowanie':
-            url = 'fetch_data_skierowanie.php';  // URL for skierowanie
+            url = 'fetch_data_skierowanie.php';  
             break;
         case 'recepta':
-            url = 'fetch_data_recepty.php';  // URL for recepty
+            url = 'fetch_data_recepty.php'; 
             break;
         case 'wpis':
-            url = 'fetch_data_wpisy.php';  // URL for wpisy
+            url = 'fetch_data_wpisy.php';  
             break;
         case 'wynik':
             url = 'fetch_data_wyniki.php';
             break;
         default: break;
     }
-            console.log("Making AJAX request to:", url, "with id:", id);  // Debugging log
+            console.log("Making AJAX request to:", url, "with id:", id);  
             $.ajax({
-                url: url,       // Use the dynamically set URL based on rodzaj
+                url: url,       
                 type: 'GET',
-                data: { id: id },  // Send the ID as a parameter
-                dataType: 'json',   // Expecting JSON response
+                data: { id: id },  
+                dataType: 'json',   
                 success: function (response) {
-                    console.log("Server response:", response);  // Log the response
-
+                    console.log("Server response:", response);  
                     try {
-                        // Handle response based on rodzaj
                         if (rodzaj === 'skierowanie' && response && response.skierowanie) {
                             document.getElementById('elementDetails').innerHTML = `
                         <h3>Skierowanie:</h3>
@@ -321,7 +306,7 @@ function editData(id, rodzaj) {
                 },
 
                 error: function (xhr, status, error) {
-                    console.log("AJAX error:", error); // Log any AJAX errors
+                    console.log("AJAX error:", error); 
                     document.getElementById('elementDetails').innerHTML = `<p>Error: ${error}</p>`;
                 }
 
@@ -383,8 +368,8 @@ function addFileInputListener() {
             const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.pdf)$/i;
             if (!allowedExtensions.exec(file.name)) {
                 alert('Invalid file type. Only JPG, JPEG, PNG, and PDF files are allowed.');
-                fileInput.value = ''; // Clear the file input
-                fileDateContainer.innerHTML = ''; // Clear the file date container
+                fileInput.value = '';
+                fileDateContainer.innerHTML = ''; 
                 return;
             }
             fileDateContainer.innerHTML = `
@@ -399,7 +384,7 @@ function addFileInputListener() {
 
 function checkAllergy() {
     const input = document.getElementById('allergyInput').value;
-    if (input.length > 2) { // Start searching after 3 characters
+    if (input.length > 2) { 
         fetch(`check_allergy.php?query=${input}`)
             .then(response => response.json())
             .then(data => {
@@ -423,9 +408,9 @@ function validateAllergyForm() {
     const allergyId = document.getElementById('allergyId').value;
     if (!allergyId) {
         alert('Please select a valid allergy from the suggestions.');
-        return false; // Prevent form submission
+        return false; 
     }
-    return true; // Allow form submission
+    return true;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -440,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </form>
             `;
         } else if (event.target && event.target.id === 'addRecipeButton') {
-            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            const today = new Date().toISOString().split('T')[0];
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nową receptę</h2>
                 <form action="insert_data_recepty.php" method="post">
@@ -468,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
         else if (event.target && event.target.id === 'addPapersButton') {
-            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            const today = new Date().toISOString().split('T')[0];
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nowe Wyniki</h2>
                 <form action="insert_data_wyniki.php" method="post" enctype="multipart/form-data">
