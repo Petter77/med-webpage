@@ -70,6 +70,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($auditResult) {
              echo json_encode(['success' => true]);
+
+        if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "technician_panel.php") !== false) {
+    
+         header("Location: technician_panel.php");
+         exit; 
+        }
+
+
             header("Location: wyniki.php");
             exit;
         } else {
