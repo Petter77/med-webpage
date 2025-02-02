@@ -2,7 +2,7 @@
     session_start();
 
     if (!isset($_SESSION['id']) && $_SESSION['rola'] != "Administrator") {
-        header("Location: loginPage.php");
+        header("Location: logout.php");
         exit;
     }
 ?>

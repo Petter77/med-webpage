@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!isset($_SESSION['rola'])) {
-    header("Location: index.php");
+    header("Location: logout.php");
     exit;
 }
 

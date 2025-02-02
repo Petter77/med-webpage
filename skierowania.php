@@ -2,7 +2,11 @@
 
     session_start();
     if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
-        header("Location: loginPage.php");
+        header("Location: logout.php");
+        exit;
+    }
+    if($_SESSION['rola'] == "Specjalista"){
+        header("Location: techinical_panel.php");
         exit;
     }
 ?>

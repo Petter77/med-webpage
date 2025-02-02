@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    if (!isset($_SESSION['id']) && $_SESSION['rola'] != "Administrator") {
-        header("Location: loginPage.php");
+    if (!isset($_SESSION['id']) || $_SESSION['rola'] != "Specjalista") {
+        header("Location: logout.php");
         exit;
     }
 ?>
