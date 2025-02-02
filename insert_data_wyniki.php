@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $sciezkaDoPliku = null;
-    if (isset($_FILES['plik']) && $_FILES['plik']['error'] == 0) {
+   if (isset($_FILES['plik']) && $_FILES['plik']['error'] == 0) {
         $fileTmpPath = $_FILES['plik']['tmp_name'];
         $fileName = $_FILES['plik']['name'];
         $fileSize = $_FILES['plik']['size'];
@@ -25,24 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Invalid file type. Only .jpg, .jpeg, .png, .pdf are allowed.";
             exit();
         }
-        if (!in_array($fileExtension, $allowedExtensions)) {
-        echo json_encode(['error' => 'Invalid file type. Only JPG, JPEG, PNG, and PDF files are allowed.']);
-        exit;
-        } else {
-        $filedate = $_POST['fileDate'];
-        $uploadDir = 'uploads/';
-        $filePath = $uploadDir . basename($file['name']);
-        if (move_uploaded_file($file['tmp_name'], $filePath)) {
-            $query1 = "INSERT INTO \"WynikibadanDiagnostycznych\" (\"peselPacjenta\", \"idPersonelu\", 
-                    \"wynikiBadania\", \"dataWyniku\") VALUES ($1, $2, $3, $4) RETURNING \"id\"";
-            $result1 = pg_query_params($conn, $query1, array($pesel, $id, $examination, $examinationDate));
-            $query2 = "INSERT INTO \"ZdjeciaTechniczne\" (\"peselPacjenta\", \"idPersonelu\", 
-                    \"zdjecieTechniczne\", \"dataZdjecia\") VALUES ($1, $2, $3, $4)";
-            $result2 = pg_query_params($conn, $query2, array($pesel, $id, $filePath, $filedate));
-        } else {
-            echo json_encode(['error' => 'An error occurred while uploading the file.']);
-            exit;
-        }
 
         $uploadUrl = "https://studencki-portal-medyczny.pl/endpoint.php";
         
@@ -52,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'plik' => new CURLFile($fileTmpPath, $fileType, $fileName)
         ];
 
-
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
@@ -60,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $response = curl_exec($ch);
         if ($response === false) {
             echo "Error sending the file to the server: " . curl_error($ch);
-            exit()
+            exit();
         }
         curl_close($ch);
 
@@ -73,20 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $result = pg_query_params($conn, $query, array($peselPacjenta, $idPersonelu, $wynikiBadania, $dataWyniku, $sciezkaDoPliku));
 
-    if ($result) {
-        echo "Data inserted successfully.";
-    } else {
-        echo "Error: " . pg_last_error($conn);
-    }
-} else {
-    $filePath = null;
-    $query1 = "INSERT INTO \"WynikibadanDiagnostycznych\" (\"peselPacjenta\", \"idPersonelu\", \"wynikiBadania\",
-                 \"dataWyniku\") VALUES ($1, $2, $3, $4) RETURNING \"id\"";
-    $result1 = pg_query_params($conn, $query1, array($pesel, $id, $examination, $examinationDate));
 }
 
-if ($result1) {
-    $row = pg_fetch_assoc($result1);
+if ($result) {
+    $row = pg_fetch_assoc($result);
     $wynikId = $row['id'];
     $timestamp = date('Y-m-d H:i:s');
 
