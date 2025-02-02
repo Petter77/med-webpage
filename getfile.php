@@ -1,4 +1,5 @@
 <?php
+
 $directory = '/var/www/private-files/';
 if (isset($_GET['file'])) {
     $fileName = basename($_GET['file']);
@@ -36,7 +37,7 @@ if (isset($_GET['file'])) {
 
         header('Content-Disposition: inline; filename="' . $fileName . '"');
         header('Content-Length: ' . filesize($filePath));
-        
+
         readfile($filePath);
         exit;
     } else {

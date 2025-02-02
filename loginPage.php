@@ -50,7 +50,7 @@
         <label for="pesel">PESEL: </label>
         <input type="text" name="pesel" id="pesel" oninput="validatePesel()" onblur="LoginController()" pattern="\d{11}" maxlength="11" required>
         <label for="password">Hasło: </label>
-        <input type="password" name="password" id="password">
+        <input type="password" name="password" id="password" maxlength="50">
         <button type="submit" class="button">Zaloguj się</button>
         <input type="hidden" name="submitted" value="true">
     </form>
