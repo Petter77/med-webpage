@@ -57,6 +57,7 @@
             $warning = 'Błędny id lub/i Hasło.';
         }
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
