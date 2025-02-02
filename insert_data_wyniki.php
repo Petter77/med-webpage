@@ -71,13 +71,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($auditResult) {
              echo json_encode(['success' => true]);
 
-        if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "technician_panel.php") !== false) {
-    
-         header("Location: technician_panel.php");
-         exit; 
-        }
+        $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'No referer';
+            error_log("HTTP_REFERER: " . $referer); // This logs the referer to the PHP error log
 
+            // Now check if the referer contains "technician_panel.php"
+            if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "technician_panel.php") !== false) {
+                header("Location: technician_panel.php");
+                exit; 
+            }
 
+            // Otherwise, redirect to wyniki.php
             header("Location: wyniki.php");
             exit;
         } else {
