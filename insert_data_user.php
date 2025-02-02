@@ -12,18 +12,27 @@ $nazwisko = $_POST['nazwisko'];
 $rola = $_POST['rola'];
 $haslo = "haslo"; 
 
-$haslo = password_hash($haslo, PASSWORD_BCRYPT);
 
 $query = "INSERT INTO \"PersonelMedyczny\" (\"id\", \"imie\", \"nazwisko\", \"idRoli\", \"haslo\") 
           VALUES (default, $1, $2, (SELECT id FROM \"RolePersonelu\" WHERE \"nazwa\" = $3 LIMIT 1), $4) RETURNING \"id\"";
 
 $result = pg_query_params($conn, $query, array($imie, $nazwisko, $rola, $haslo));
-
+if ($result){
+    $row = pg_fetch_assoc($result);
+    $userId = $row['id'];
+}
+$query = '
+            UPDATE public."PersonelMedyczny"
+            SET "haslo" = crypt($1, gen_salt(\'bf\')), "pierwszehaslo" = true
+            WHERE "id" = $2
+        ';
+$result2 = pg_query_params($conn, $query, array($haslo, $userId));
 
 
 if ($result) {
+    if($result2){
     $row = pg_fetch_assoc($result);
-    $userId = $row['id'];
+
     $timestamp = date('Y-m-d H:i:s');
 
     $auditQuery = "INSERT INTO public.\"AuditLog\" (
@@ -41,6 +50,10 @@ if ($result) {
         echo json_encode(['error' => 'An error occurred while inserting into AuditLog.']);
     }
 } else {
-    echo json_encode(['error' => 'An error occurred while inserting the user.']);
+    echo json_encode(['error' => 'An error occurred with updating the password.']);
+}}
+else {
+	echo json_encode(['error' => 'An error occurred while insterting into PersonelMedyczny.']);
 }
+
 ?>

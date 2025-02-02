@@ -33,8 +33,6 @@
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['rola'] = $row['rola'];
 
-                if ($_SESSION['rola'] == "Administrator" &&  $aktywny == 't') {
-
                 $pierwszy = $row['pierwszehaslo'];
                 if ($pierwszy == 't') {
                     header("Location: first_Login.php");
@@ -57,7 +55,6 @@
             $warning = 'Błędny id lub/i Hasło.';
         }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pl">

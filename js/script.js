@@ -34,7 +34,7 @@ function editRow(button) {
 
     checkbox.disabled = false; 
     button.style.display = 'none'; 
-    row.querySelector('.save-button').style.display = 'inline'; 
+    row.querySelector('.save-button').style.display = 'flex'; 
 }
 
 function saveRow(button) {
@@ -79,7 +79,7 @@ function saveRow(button) {
 
     checkbox.disabled = true;
     button.style.display = 'none';
-    row.querySelector('.edit-button').style.display = 'inline';
+    row.querySelector('.edit-button').style.display = 'flex';
 }
 
 
