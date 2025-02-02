@@ -2,8 +2,11 @@
     session_start();
 
     if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
-        header("Location: loginPage.php");
-        exit;
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Nie masz dostępu do tej strony - wylogowano") . ');
+                window.location.href = "logout.php";
+                </script>';
+                exit;
     }
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
         $_SESSION['pesel'] = $_POST['pesel'];

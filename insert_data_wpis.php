@@ -29,8 +29,10 @@ if ($result) {
     $auditResult = pg_query_params($conn, $auditQuery, array($id, $wpisId, $timestamp, $description, $pesel_numeric));
 
     if ($auditResult) {
-        echo json_encode(['success' => true]);
-        header("Location: wpisy.php");
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Pomyœlnie dodano wpis!") . ');
+                window.location.href = "wpisy.php";
+                </script>';
         exit;
     } else {
         echo json_encode(['error' => 'An error occurred while inserting into AuditLog.']);
