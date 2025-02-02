@@ -20,8 +20,7 @@
         if ($result && pg_num_rows($result) > 0) {
             session_start();
             $_SESSION['pesel'] = $pesel;
-
-
+            $_SESSION['mainpesel'] = $pesel;
             pg_close($conn);
             header("Location: index.php");
             exit;

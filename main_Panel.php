@@ -5,6 +5,11 @@
         header("Location: loginPage.php");
         exit;
     }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
+        $_SESSION['pesel'] = $_POST['pesel'];
+        header("Location: main_Panel.php");
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -114,52 +119,66 @@
     $lastWynik = pg_fetch_assoc($resultWyniki);   
         // Query for Patient Info
         $queryPatientInfo = '
-            SELECT 
-                "Pacjenci".imie, 
-                "Pacjenci".nazwisko, 
-                "Alergeny".nazwa AS alergen
-            FROM 
-                "Pacjenci"
-            JOIN 
-                "SpisAlergii" 
-                ON "Pacjenci".pesel = "SpisAlergii"."peselPacjenta"
-            JOIN 
-                "Alergeny" 
-                ON "SpisAlergii"."idAlergenu" = "Alergeny"."id"
-            WHERE 
-                "Pacjenci".pesel = \'' . $pesel . '\'
-        ';
-        $resultPatientInfo = pg_query($conn, $queryPatientInfo);
+        SELECT 
+            "imie",
+            "nazwisko"
+        FROM 
+            public."Pacjenci"
+        WHERE 
+            "pesel" = $1
+    ';
+    $resultPatientInfo = pg_query_params($conn, $queryPatientInfo, array($pesel));
+    if ($resultPatientInfo) {
         $patient_info = pg_fetch_assoc($resultPatientInfo);
+    }
 
-        pg_close($conn);
+    $queryAllergies = '
+        SELECT 
+            a."nazwa" AS "Alergia"
+        FROM 
+            public."SpisAlergii" sa
+        JOIN 
+            public."Alergeny" a
+        ON 
+            sa."idAlergenu" = a."id"
+        WHERE 
+            sa."peselPacjenta" = $1
+    ';
+    $resultAllergies = pg_query_params($conn, $queryAllergies, array($pesel));
+    if ($resultAllergies) {
+        while ($row = pg_fetch_assoc($resultAllergies)) {
+            $allergies[] = $row['Alergia'];
+        }
+    }
+
+
     ?>
-    <nav id="sidebar">
+     <nav id="sidebar">
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
         <a href="index.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/home.svg" alt=""></span>
             <span class="text">Home</span>
         </a>
         <a href="wpisy.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/wpisy.svg" alt=""></span>
             <span class="text">Wpisy</span>
         </a>
         <a href="recepty.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/recepty.svg" alt=""></span>
             <span class="text">Recepty</span>
         </a>
         <a href="skierowania.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/skierowania.svg" alt=""></span>
             <span class="text">Skierowania</span>
         </a>
         <a href="wyniki.php" class="nav-item">
-            <span class="icon">📄</span>
+            <span class="icon"><img src="icons/wyniki.svg" alt=""></span>
             <span class="text">Wyniki badań</span>
         </a>
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
-            <span class="icon">🚪</span>
+            <span class="icon"><img src="icons/logout.svg" alt=""></span>
             <span class="text">Logout</span>
         </button>
     </nav>
@@ -231,10 +250,37 @@
                 <h2 class="info-title">Informacje o pacjencie</h2>
                 <div class="info-content">
                     <?php 
-                        echo "<p>Pesel: " . $pesel . "</p>";
-                        echo "<p>Imię: " . $patient_info['imie'] . "</p>";
-                        echo "<p>Nazwisko: " . $patient_info['nazwisko'] . "</p>";
-                        echo "<p>Alergie: " . $patient_info['alergen'] . "</p>";
+                         echo "<p>Pesel: " . htmlspecialchars($pesel) . "</p>";
+                         echo "<p>Imię: " . htmlspecialchars($patient_info['imie'] ?? 'N/A') . "</p>";
+                         echo "<p>Nazwisko: " . htmlspecialchars($patient_info['nazwisko'] ?? 'N/A') . "</p>";
+                         echo "<p>Alergie: " . htmlspecialchars(!empty($allergies) ? implode(', ', $allergies) : 'Brak') . "</p>";
+                         if(isset($_SESSION['mainpesel'])) {
+                            echo '<p style="padding-top: 20px;">Konto Pacjenta: </p>';
+                            if (!$conn) {
+                                echo "An error occurred with the connection.\n";
+                                exit;
+                            }
+    
+                            // Fetch the list of PESELs
+                            $mainpesel = $_SESSION['mainpesel'];
+                            $result = pg_query_params($conn, 'SELECT "peselOwner" FROM public."SharedPesel" WHERE "peselAllowed" = $1', array($mainpesel));
+    
+                            if (!$result) {
+                                echo "An error occurred with the query.\n";
+                                exit;
+                            }
+                            echo '<form method="POST" action="">';
+                            echo '<select name="pesel" onchange="this.form.submit()">';
+                            echo '<option value="' . htmlspecialchars($mainpesel) . '">' . htmlspecialchars($mainpesel) . '</option>';
+                            while ($row = pg_fetch_assoc($result)) {
+                                $selected = ($row['peselOwner'] == $_SESSION['pesel']) ? 'selected' : '';
+                                echo '<option value="' . htmlspecialchars($row['peselOwner']) . '" ' . $selected . '>' . htmlspecialchars($row['peselOwner']) . '</option>';
+                            }
+                            echo '</select>';
+                            echo '</form>';
+    
+                            pg_close($conn);
+                        }
                     ?>
                 </div>
             </div>
