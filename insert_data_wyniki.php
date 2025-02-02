@@ -72,11 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              echo json_encode(['success' => true]);
 
         if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
-                // Redirect back to technician_panel.php if the user came from there
-                header("Location: technician_panel.php");
-                exit; // Ensure that no further code is executed
+            echo '<script type="text/javascript">
+            alert("Pomyœlnie dodano wynik!");
+          </script>';
+                header("Location: techinical_panel.php");
+                exit; 
             } else {
-                // Otherwise, proceed to wyniki.php
                 header("Location: wyniki.php");
                 exit;
             }
