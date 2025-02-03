@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idPersonelu = $_SESSION['id'];
     $wynikiBadania = $_POST['examinationDetails'];
     $dataWyniku = $_POST['examinationDate'];
-    $today = date('Y-m-d');
+    $today = date('d-m-Y');
     if ($dataWyniku > $today) {
         echo '<script type="text/javascript">
                 alert("Data przeprowadzenia wyników nie mo¿e byæ w przysz³oœci.");
