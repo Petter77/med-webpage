@@ -24,8 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     if (empty($peselPacjenta) || empty($idPersonelu) || empty($wynikiBadania) || empty($dataWyniku)) {
-        echo "Please fill in all the fields.";
-        exit();
+        if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
+        echo '<script type="text/javascript">
+                alert("Należy uzupełnić wszystkie pola");
+                window.location.href = "techinical_panel.php";
+              </script>';
+              exit;
+              }else { 
+              echo '<script type="text/javascript">
+                alert("Należy uzupełnić wszystkie pola.");
+                window.location.href = "wyniki.php";
+              </script>';
+              }
+        exit;
     }
 
     $sciezkaDoPliku = null;

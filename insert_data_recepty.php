@@ -13,6 +13,16 @@ $pesel = $_SESSION['pesel'];
 $recipe = $_POST['RecipeInfo'];
 $date = $_POST['RecipeEndDate'];
 $onetimerecipe = $_POST['optionalSelect'];
+
+if(empty($id) || empty($pesel) || empty($recipe) || empty($date) || empty($onetimerecipe)){
+    echo '<script type="text/javascript">
+                alert("Należy uzupełnić wszystkie pola");
+                window.location.href = "recepty.php";
+              </script>';
+              exit;
+}
+
+
 if($onetimerecipe == "no"){
     $query = "INSERT INTO \"Recepty\" (\"przypisaneLeki\", \"dataWystawienia\", \"dataWaznosci\", 
           \"peselPacjenta\",\"idPersonelu\",\"odebranieRecepty\")  VALUES ($1, CURRENT_DATE, $2, $3, $4, NULL) RETURNING \"id\"";

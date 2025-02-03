@@ -11,6 +11,13 @@ $id = $_SESSION['id'];
 $pesel = $_SESSION['pesel'];
 $referral = $_POST['referralDetails'];
 
+if(empty($id) || empty($pesel) || empty($referral)){
+    echo '<script type="text/javascript">
+                alert("Należy uzupełnić wszystkie pola");
+                window.location.href = "skierowania.php";
+              </script>';
+              exit;
+}
 $query = "INSERT INTO \"Skierowania\" (\"skierowanie\", \"dataSkierowania\", \"peselPacjenta\", \"idPersonelu\")  
           VALUES ($1, CURRENT_DATE, $2, $3) RETURNING \"id\"";
 

@@ -10,6 +10,13 @@
 $id = $_SESSION['id'];
 $pesel = $_SESSION['pesel'];
 $description = $_POST['DescriptionInfo'];
+if(empty($id) || empty($pesel) || empty($description)){
+    echo '<script type="text/javascript">
+                alert("Należy uzupełnić wszystkie pola");
+                window.location.href = "wpisy.php";
+              </script>';
+              exit;
+}
 
 $query = "INSERT INTO \"WpisyMedyczne\" (\"peselPacjenta\", \"idPersonelu\", \"wpis\", 
           \"dataWpisu\")  VALUES ($1, $2, $3, CURRENT_DATE) RETURNING \"id\"";

@@ -12,7 +12,13 @@ $nazwisko = $_POST['nazwisko'];
 $rola = $_POST['rola'];
 $haslo = "haslo"; 
 
-
+if(empty($id) || empty($imie) || empty($nazwisko) || empty($rola)){
+    echo '<script type="text/javascript">
+                alert("Należy uzupełnić wszystkie pola");
+                window.location.href = "adminpanel.php";
+              </script>';
+              exit;
+}
 $query = "INSERT INTO \"PersonelMedyczny\" (\"id\", \"imie\", \"nazwisko\", \"idRoli\", \"haslo\") 
           VALUES (default, $1, $2, (SELECT id FROM \"RolePersonelu\" WHERE \"nazwa\" = $3 LIMIT 1), $4) RETURNING \"id\"";
 
