@@ -132,9 +132,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
 </body>
 <div style="position: fixed; bottom: 10px; left: 10px;">
-    <button id="logoutButton" class = "logoutButton" width = "100px" onclick="location.href='logout.php'">
-        <span class="icon">x</span>
-        <span class="text">Logout</span>
+    <button id="buttonSpecjalista" class="nav-item" onclick="location.href='logout.php'">
+        <span class="icon"><img src="icons/logout.svg" alt=""></span>
+        <span class="textSpecjalista">Wyloguj</span>
     </button>
 </div>
 </html>

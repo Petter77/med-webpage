@@ -24,8 +24,8 @@
 <body>
     <nav id="sidebar">
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
-            <span class="icon">🚪</span>
-            <span class="text">Logout</span>
+            <span class="icon"><img src="icons/logout.svg" alt=""></span>
+            <span class="text">Wyloguj</span>
         </button>
     </nav>
     <main>

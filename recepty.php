@@ -29,14 +29,22 @@
     <title>Recepty Pacjenta </title>
 </head>
 <body>
-<nav id="sidebar">
+    <nav id="sidebar">
         <button id="toggleButton">
             <img src="icons/three-lines.svg" alt="expand menu">
         </button>
         <a href="index.php" class="nav-item">
             <span class="icon"><img src="icons/home.svg" alt=""></span>
-            <span class="text">Home</span>
+            <span class="text">Panel Główny</span>
         </a>
+        <?php
+            if ($_SESSION['rola'] != "Pacjent" ) {
+                echo '<a href="Pesel_Pickup.php" class="nav-item">';
+                echo '<span class="icon"><img src="icons/wybor.svg" alt=""></span>';
+                echo '<span class="text">Wybór Pacjenta</span>';
+                echo '</a>';
+            }
+        ?>
         <a href="wpisy.php" class="nav-item">
             <span class="icon"><img src="icons/wpisy.svg" alt=""></span>
             <span class="text">Wpisy</span>
@@ -51,11 +59,11 @@
         </a>
         <a href="wyniki.php" class="nav-item">
             <span class="icon"><img src="icons/wyniki.svg" alt=""></span>
-            <span class="text">Wyniki badań</span>
+            <span class="text">Wyniki Badań</span>
         </a>
         <button id="logoutButton" class="nav-item" onclick="location.href='logout.php'">
             <span class="icon"><img src="icons/logout.svg" alt=""></span>
-            <span class="text">Logout</span>
+            <span class="text">Wyloguj</span>
         </button>
     </nav>
     <main>
