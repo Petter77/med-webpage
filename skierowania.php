@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Skierowania</title>
+    <title>Skierowania pacjenta</title>
 </head>
 <body>
     <nav id="sidebar">
