@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h2>Dodaj nową receptę</h2>
                 <form action="insert_data_recepty.php" method="post">
                     <label for="elementName">Przypisywane Leki:</label>
-                    <input type="text" id="elementName" name="RecipeInfo" maxlength="256">
+                    <textarea id="elementName" name="RecipeInfo" maxlength="256"></textarea>
                     <label for="elementDetailsTextarea">Termin Recepty:</label>
                     <input type="date" id="elementDetailsTextarea" name="RecipeEndDate" value="${today}" min="${today}">
                     <label for="optionalSelect">Recepta Jednorazowa ?:</label>
