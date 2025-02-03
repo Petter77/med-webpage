@@ -8,6 +8,24 @@
                 </script>';
                 exit;
     }
+    if(
+    $_SESSION['rola'] == "Administrator") {
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Nie masz dostępu do tej strony - przekierowano") . ');
+                window.location.href = "adminpanel.php";
+                </script>';
+                exit;
+    }
+     if(
+    $_SESSION['rola'] == "Specjalista") {
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Nie masz dostępu do tej strony - przekierowano") . ');
+                window.location.href = "techinical_panel.php";
+                </script>';
+                exit;
+    }
+?>
+?>
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
         $_SESSION['pesel'] = $_POST['pesel'];
         header("Location: main_Panel.php");

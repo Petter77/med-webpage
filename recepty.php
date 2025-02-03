@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id']) || $_SESSION['rola'] == "Specjalista" ) {
+    if (!isset($_SESSION['pesel']) && !isset($_SESSION['id']) ) {
         echo '<script type="text/javascript">
                 alert(' . json_encode("Nie masz dostępu do tej strony - wylogowano") . ');
                 window.location.href = "logout.php";
@@ -11,6 +11,13 @@
         echo '<script type="text/javascript">
                 alert(' . json_encode("Nie masz dostępu do tej strony - przekierowano spowrotem") . ');
                 window.location.href = "techinical_panel.php";
+                </script>';
+                exit;
+    }
+     if($_SESSION['rola'] == "Administrator") {
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Nie masz dostępu do tej strony - przekierowano") . ');
+                window.location.href = "adminpanel.php";
                 </script>';
                 exit;
     }
