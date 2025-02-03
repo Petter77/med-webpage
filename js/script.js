@@ -396,7 +396,6 @@ function validateAllergyForm() {
 
 document.addEventListener('DOMContentLoaded', function () {
     document.body.addEventListener('click', function (event) {
-        const today = new Date().toISOString().split('T')[0];
         if (event.target && event.target.id === 'addDescriptionButton') {
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nowy Wpis</h2>
@@ -407,6 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </form>
             `;
         } else if (event.target && event.target.id === 'addRecipeButton') {
+            const today = new Date().toISOString().split('T')[0];
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nową receptę</h2>
                 <form action="insert_data_recepty.php" method="post">

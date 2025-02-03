@@ -78,7 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </script>';
                 exit; 
             } else {
-                header("Location: wyniki.php");
+                echo '<script type="text/javascript">
+                alert("Pomyœlnie dodano wynik!");
+                window.location.href = "wyniki.php";
+                </script>';
                 exit;
             }
         } else {
