@@ -7,7 +7,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idPersonelu = $_SESSION['id'];
     $wynikiBadania = $_POST['examinationDetails'];
     $dataWyniku = $_POST['examinationDate'];
-    
+    $today = date('Y-m-d');
+    if ($dataWyniku > $today) {
+        echo '<script type="text/javascript">
+                alert("Data przeprowadzenia wyników nie mo¿e byæ w przysz³oœci.");
+              </script>';
+              if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
+                  header("Location: techinical_panel.php");
+              }else { header("Location: wyniki.php");}
+        exit;
+    }
     if (empty($peselPacjenta) || empty($idPersonelu) || empty($wynikiBadania) || empty($dataWyniku)) {
         echo "Please fill in all the fields.";
         exit();

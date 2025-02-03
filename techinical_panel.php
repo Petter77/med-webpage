@@ -28,16 +28,12 @@
                     <label for="elementName">Wyniki Badania:</label>
                     <textarea id="elementDetailsTextarea" name="examinationDetails" maxlength="256"></textarea>
                     <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
-                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}" max="${today}">
+                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d');?>">
                     <label for="fileInput">Za³¹cz plik:</label>
                     <input type="file" id="fileInput" name="plik" accept=".jpg,.jpeg,.png,.pdf">
                     <button type="submit" class="button">Dodaj</button>
                 </form>
                 </div>
 
-<script>
-let today = new Date().toISOString().split('T')[0];
-document.getElementById('dateInput').setAttribute('max', today);
-</script>
 </body>
 </html>
