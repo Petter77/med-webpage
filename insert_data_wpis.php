@@ -30,7 +30,7 @@ if ($result) {
 
     if ($auditResult) {
         echo '<script type="text/javascript">
-                alert(' . json_encode("Pomyúlnie dodano wpis!") . ');
+                alert(' . json_encode("Pomy≈õlnie dodano wpis!") . ');
                 window.location.href = "wpisy.php";
                 </script>';
         exit;

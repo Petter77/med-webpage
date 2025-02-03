@@ -40,7 +40,7 @@ if ($result) {
     if ($auditResult) {
         echo json_encode(['success' => true]);
         echo '<script type="text/javascript">
-                alert(' . json_encode("Pomyœlnie dodano receptê!") . ');
+                alert(' . json_encode("PomyÅ›lnie dodano receptÄ™!") . ');
                 window.location.href = "recepty.php";
                 </script>';
         exit;

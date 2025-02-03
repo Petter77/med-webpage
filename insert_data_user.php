@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['pesel']) && !isset($_SESSION['id'])) {
-    echo json_encode(['error' => 'Nieautoryzowany dost�p.']);
+    echo json_encode(['error' => 'Nieautoryzowany dostęp.']);
     exit;
 }
 
@@ -40,7 +40,7 @@ if ($result) {
                    ) VALUES ($1, 'add', $2, 'user', $3, NULL, $4)";
 
 
-    $auditResult = pg_query_params($conn, $auditQuery, array($id, $userId, $timestamp, "dodano uzytkownika"));
+    $auditResult = pg_query_params($conn, $auditQuery, array($id, $userId, $timestamp, "dodano użytkownika"));
 
     if ($auditResult) {
         echo json_encode(['success' => true]);

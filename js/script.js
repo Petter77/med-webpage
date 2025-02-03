@@ -138,7 +138,7 @@ function handleClick(id, rodzaj) {
                             <h3>Dane Personelu</h3>
                             <p>${response.personel_imie} ${response.personel_nazwisko} </p>
                             <h3>Przypisane leki:</h3>
-                            <p>${response.recepty_przypisaneleki}</p>`;
+                            <p>${response.przypisaneLeki}</p>`;
                             if(sessionID == response.idpersonelu){    
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;
@@ -396,7 +396,6 @@ function validateAllergyForm() {
 
 document.addEventListener('DOMContentLoaded', function () {
     document.body.addEventListener('click', function (event) {
-        const today = new Date().toISOString().split('T')[0];
         if (event.target && event.target.id === 'addDescriptionButton') {
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nowy Wpis</h2>
@@ -407,6 +406,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </form>
             `;
         } else if (event.target && event.target.id === 'addRecipeButton') {
+            const today = new Date().toISOString().split('T')[0];
             document.getElementById('elementDetails').innerHTML = `
                 <h2>Dodaj nową receptę</h2>
                 <form action="insert_data_recepty.php" method="post">
@@ -434,18 +434,21 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
         }
         else if (event.target && event.target.id === 'addPapersButton') {
-            const today = new Date().toISOString().split('T')[0];
+            const awaoe = new Date();
+            const formattedToday = awaoe.toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+
+            // Populate the form with today's date, restricting future dates
             document.getElementById('elementDetails').innerHTML = `
-                <h2>Dodaj nowe Wyniki</h2>
-                <form action="insert_data_wyniki.php" method="post" enctype="multipart/form-data">
-                    <label for="elementName">Wyniki Badania:</label>
-                    <textarea id="elementDetailsTextarea" name="examinationDetails" maxlength="256"></textarea>
-                    <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
-                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}" max="${today}">
-                    <label for="fileInput">Załącz plik:</label>
-                    <input type="file" id="fileInput" name="plik" accept=".jpg,.jpeg,.png,.pdf">
-                    <button type="submit" class="button">Dodaj</button>
-                </form>
+        <h2>Dodaj nowe Wyniki</h2>
+        <form action="insert_data_wyniki.php" method="post" enctype="multipart/form-data">
+            <label for="elementName">Wyniki Badania:</label>
+            <textarea id="elementDetailsTextarea" name="examinationDetails" maxlength="256"></textarea>
+            <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
+            <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${formattedToday}" max="${formattedToday}">
+            <label for="fileInput">Załącz plik:</label>
+            <input type="file" id="fileInput" name="plik" accept=".jpg,.jpeg,.png,.pdf">
+            <button type="submit" class="button">Dodaj</button>
+        </form>
             `;
         }
         else if(event.target && event.target.id === 'addAllergiesButton'){

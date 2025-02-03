@@ -32,7 +32,7 @@ if ($result) {
     if ($auditResult) {
         echo json_encode(['success' => true]);
         echo '<script type="text/javascript">
-                alert(' . json_encode("Pomyúlnie dodano skierowanie!") . ');
+                alert(' . json_encode("Pomy≈õlnie dodano skierowanie!") . ');
                 window.location.href = "skierowania.php";
                 </script>';
         exit;

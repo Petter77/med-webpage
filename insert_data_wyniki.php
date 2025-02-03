@@ -7,7 +7,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idPersonelu = $_SESSION['id'];
     $wynikiBadania = $_POST['examinationDetails'];
     $dataWyniku = $_POST['examinationDate'];
-    
+    $today = date('d-m-Y');
+    if ($dataWyniku > $today) {
+        if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
+        echo '<script type="text/javascript">
+                alert("Data przeprowadzenia wyników nie może byc w przyszłości.");
+                window.location.href = "techinical_panel.php";
+              </script>';
+              exit;
+              }else { 
+              echo '<script type="text/javascript">
+                alert("Data przeprowadzenia wyników nie może być w przyszłości.");
+                window.location.href = "wyniki.php";
+              </script>';
+              }
+        exit;
+    }
     if (empty($peselPacjenta) || empty($idPersonelu) || empty($wynikiBadania) || empty($dataWyniku)) {
         echo "Please fill in all the fields.";
         exit();
@@ -73,12 +88,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
                 echo '<script type="text/javascript">
-                alert("Pomy�lnie dodano wynik!");
+                alert("Pomyślnie dodano wynik!");
                 window.location.href = "techinical_panel.php";
                 </script>';
                 exit; 
             } else {
-                header("Location: wyniki.php");
+                echo '<script type="text/javascript">
+                alert("Pomyślnie dodano wynik!");
+                window.location.href = "wyniki.php";
+                </script>';
                 exit;
             }
         } else {
