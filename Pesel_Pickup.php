@@ -11,7 +11,7 @@ if(!isset($_SESSION['rola'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Search</title>
+    <title>Wybór pacjenta</title>
     <link rel="stylesheet" href="css/pesel.css">
 
     <script src="js/Pesel.js"></script>
