@@ -28,7 +28,7 @@
                     <label for="elementName">Wyniki Badania:</label>
                     <textarea id="elementDetailsTextarea" name="examinationDetails" maxlength="256"></textarea>
                     <label for="elementDetailsTextarea">Data Przeprowadzenia Wyników:</label>
-                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}">
+                    <input type="date" id="elementDetailsTextarea" name="examinationDate" value="${today}" max="${today}">
                     <label for="fileInput">Za³¹cz plik:</label>
                     <input type="file" id="fileInput" name="plik" accept=".jpg,.jpeg,.png,.pdf">
                     <button type="submit" class="button">Dodaj</button>
