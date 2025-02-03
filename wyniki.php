@@ -90,7 +90,7 @@
                     WHERE 
                         Wyniki."peselPacjenta" = ' . $pesel . '
                     ORDER BY 
-                        wyniki_data DESC
+                        Wyniki.id DESC;
                 ';
 
 				$result = pg_query($conn, $query);

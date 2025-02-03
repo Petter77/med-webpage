@@ -94,7 +94,7 @@
                     WHERE 
                         Skierowania."peselPacjenta" = ' . $pesel . '
                     ORDER BY 
-                        skierowanie_data DESC
+                        Skierowania.id DESC;
                 ';
 
 	            

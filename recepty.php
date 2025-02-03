@@ -92,7 +92,7 @@
                     WHERE 
                         Recepty."peselPacjenta" = ' . $pesel . ' 
                     ORDER BY 
-                        Recepty_dataWystawienia DESC
+                        Recepty.id DESC;
                 ';
 
 
