@@ -10,26 +10,33 @@
   - [Do kogo zdresowany jest system](#do-kogo-zdresowany-jest-system)
   - [Zakres systemu](#zakres-systemu)
   - [Wymagania wobec systemu](#wymagania-wobec-systemu)
+- [Tabela CRUD](#tabela-crud)
 - [Przypadki użycia](#przypadki-użycia)
   - [Diagram przypadków użycia](#diagram-przypadków-użycia)
 - [Specyfikacja programu](#specyfikacja-programu)
   - [Panel logowania](#panel-logowania)
-    - [Użytkownik](#użytkownik)
+    - [Pacjent](#pacjent)
     - [Personel](#personel)
   - [Panel główny](#panel-główny)
-    - [Użytkownik](#użytkownik-1)
+    - [Pacjent](#pacjent-1)
     - [Personel](#personel-1)
+  - [Wybór pacjenta](#wybór-pacjenta)
+  - [Panel administratora](#panel-administratora)
+    - [Panel główny administratora](#panel-główny-administratora)
+    - [Edytowanie roli](#edytowanie-roli)
+    - [Dodawanie użytkownika](#dodawanie-użytkownika)
+    - [Dodawanie wyników badań](#dodawanie-wyników-badań)
   - [Wpisy](#wpisy)
-    - [Użytkownik](#użytkownik-2)
+    - [Pacjent](#pacjent-2)
     - [Personel](#personel-2)
   - [Recepty](#recepty)
-    - [Użytkownik](#użytkownik-3)
+    - [Pacjent](#pacjent-3)
     - [Personel](#personel-3)
   - [Skierowania](#skierowania)
-    - [Użytkownik](#użytkownik-4)
+    - [Pacjent](#pacjent-4)
     - [Personel](#personel-4)
   - [Wyniki badań](#wyniki-badań)
-    - [Użytkownik](#użytkownik-5)
+    - [Pacjent](#pacjent-5)
     - [Personel](#personel-5)
 
  # Wprowadzenie
@@ -82,6 +89,16 @@ System służący do gromadzenia wszystkich danych medycznych pacjenta w jednym 
     - **Łatwość użycia:** Interfejs użytkownika musi być intuicyjny i prosty w obsłudze, umożliwiając szybkie i bezproblemowe korzystanie zarówno przez pacjentów, lekarzy, jak i administratorów.
     - **Zgodność z przepisami:** System musi być zgodny z obowiązującymi regulacjamiprawnymi dotyczącymi ochrony danych osobowych, np. RODO, co obejmuje prawo pacjentów do wglądu i usunięcia swoich danych.
 
+# Tabela CRUD
+Tabela CRUD przedstawia wszystkich użytkowników naszego systemu oraz określa, które klasy mogą wykonywać poszczególne funkcje.
+
+Pacjent: -R--\
+Lekarz: CRU-\
+Ratownik: -R--\
+Specjalista: CR--\
+Administrator: CRU-
+
+![alt text](Screenshots/CRUD1.PNG)
 
 # Przypadki użycia
 
@@ -90,41 +107,78 @@ System służący do gromadzenia wszystkich danych medycznych pacjenta w jednym 
 # Specyfikacja programu 
 
 ## Panel logowania 
-### Użytkownik
-W panelu logowania użytkownik loguje się przy pomocy numeru PESEL oraz hasła. Jeśli jedna z tych dwóch danych została wprowadzona nieprawidłowo, system wyświetla komunikat o błędnym numerze PESEL lub haśle. Po poprawnym podaniu numeru PESEL oraz hasła użytkownik zostanie przeniesiony do panelu głównego.
+### Pacjent
+W panelu logowania pacjent loguje się za pomocą numeru PESEL oraz hasła. Jeśli którakolwiek z tych danych została wprowadzona nieprawidłowo lub numer PESEL jest za krótki, system wyświetla komunikat o błędnym numerze PESEL, haśle lub zbyt krótkim numerze PESEL. Po poprawnym wprowadzeniu numeru PESEL oraz hasła pacjent zostanie przeniesiony do panelu głównego.
 
 ![alt text](Screenshots/1.PNG)
 
+![alt text](Screenshots/1.1.PNG)
+
+![alt text](Screenshots/1.2.PNG)
+
 ### Personel
-W panelu logowanie personelu pracownik loguje się przy pomocy ID oraz hasła. Jeśli jedna z tych dwóch danych zostaqła wprowadzona nieprawidłowo, system wyświetla komunikat o błednym numerze ID lub haśle. Po poprawnym podaniu numeru ID oraz hasła użytkownik zostanie przeniesiony do panelu głównego personelu.
+W panelu logowanie personelu pracownik loguje się przy pomocy ID oraz hasła. Jeśli jedna z tych dwóch danych zostaqła wprowadzona nieprawidłowo, system wyświetla komunikat o błednym numerze ID lub haśle. Po poprawnym podaniu numeru ID oraz hasła personel zostanie przeniesiony do panelu głównego personelu.
 
 ![alt text](Screenshots/2.PNG)
 
+![alt text](Screenshots/2.1.PNG)
 
 ## Panel główny 
-### Użytkownik
-Po zalogowaniu użytkownik zobaczy panel główny, w którym znajdują się pola wyświetlające informacje na temat: wpisów, recept, skierowań oraz wyników badań.W prawym górnym rogu wyświetlane są informacje o użytkowniku, takie jak jego numer PESEL, imię, nazwisko, alergie oraz grupa krwi.Po wysunięciu paska z lewej strony widoczne są zakładki: Home, Wpisy, Recepty, Skierowania oraz Wyniki badań. Kliknięcie w zakładkę przenosi użytkownika na dedykowaną jej podstronę, na której znajdują się szczegółowe informacje związane z wybraną zakładką.
+### Pacjent
+Po zalogowaniu pacjent zobaczy panel główny z polami wyświetlającymi informacje o wpisach, receptach, skierowaniach oraz wynikach badań.  
 
-Screenshots
+W prawym górnym rogu znajdą się dane pacjenta, takie jak numer PESEL, imię, nazwisko, alergie oraz grupa krwi.  
 
-### Personel 
-Po zalogowaniu się pracownik zobaczy taki sam panel główny jak użytkownik. Jedynym wyjątkiem jest możliwość dodawania i edytowanie wpisu, recepty lub skierowania.
+Po wysunięciu paska z lewej strony będą widoczne zakładki: **Home, Wpisy, Recepty, Skierowania** oraz **Wyniki badań**. Kliknięcie w zakładkę przeniesie pacjenta na dedykowaną podstronę ze szczegółowymi informacjami.  
 
+Dodatkową funkcją systemu jest możliwość przełączenia się na konto podopiecznego, jeśli pacjent jest jego opiekunem prawnym.
 
-Screenshots
-
-## Wpisy
-### Użytkownik 
-W zakładce "Wpisy" po lewej stronie użytkownik widzi pełną listę wpisów, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrany wpis użytkownik ma pełny podgląd tego wpisu po prawej stronie.
-
-Screenshots
+![alt text](Screenshots/panelgłownyuzytkownik.PNG)
 
 ### Personel
-W zakładce "Wpisy" po lewej stronie użytkownik widzi pełną listę wpisów, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrany wpis użytkownik ma pełny podgląd tego wpisu po prawej stronie.
+Po wybraniu pacjenta lekarz oraz ratownik przenoszeni są do panelu głownego pacjenta.
 
-Screenshots
+![alt text](Screenshots/panelgłownylekarz.PNG)
+## Wybór pacjenta 
+Po zalogowaniu personel będzie mógł wyszukać swojego pacjenta, podając dwie dowolne dane lub numer PESEL, a następnie klikając przycisk „Szukaj”.\
+![alt text](Screenshots/szukajpacjenta.PNG)
 
-Zakładka "Wpisy" dla pracownika różni się od zakładki użytkownika jedynie tym, że pracownik ma dodatkową możliwość edytowania istniejących wpisów oraz dodawania własnych wpisów.\
+![alt text](Screenshots/szukajpacjenta1.PNG)
+
+## Panel administratora
+### Panel główny administratora
+Po zalogowaniu się administarator widzi całą listę uzytkowników systemu.
+
+![alt text](Screenshots/Paneladmin.PNG)
+
+### Edytowanie roli
+Administrator może zmienić rolę personelu, klikając przycisk „Edytuj”, wybierając nową rolę, a następnie zapisując zmiany przyciskiem „Zapisz”.
+
+![alt text](Screenshots/Edytujrole.PNG)
+![alt text](Screenshots/Edycjaroli1.PNG)
+![alt text](Screenshots/Edycjarolikom.PNG)
+
+### Dodawanie użytkownika
+Administrator może dodać nowego użytkownika, klikając przycisk „Dodaj użytkownika”, uzupełniając dane, takie jak imię i nazwisko, wybierając rolę, a następnie zatwierdzając przyciskiem „Dodaj”.\
+![alt text](Screenshots/Dodanieuzytkownika.PNG)
+![alt text](Screenshots/Dodanieuzytkownikakom.PNG)
+### Dodawanie wyników badań
+Specjalista może dodać badania dla wyszukanego wsześniej konkretnego pacjenta poprzez opisanie ich wybranie daty oraz załączenia pliku w odpowiednim formacie :\
+
+![alt text](Screenshots/dodajwynikibadan.PNG)
+ alert 
+## Wpisy
+### Pacjent
+W zakładce "Wpisy" po lewej stronie pacjent widzi pełną listę wpisów, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrany wpis pacjent ma pełny podgląd tego wpisu po prawej stronie.
+
+![alt text](Screenshots/wpisyuzytkownik1.PNG)
+
+### Personel
+W zakładce "Wpisy" po lewej stronie personel widzi pełną listę wpisów, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrany wpis personel ma pełny podgląd tego wpisu po prawej stronie.
+
+![alt text](Screenshots/wpisyuzytkownik.PNG)
+
+Zakładka "Wpisy" dla lekarza różni się od zakładki pacjenta jedynie tym, że lekarz ma dodatkową możliwość edytowania oraz dodawania swoich wpisów.\
 Dodawanie:
 Po kliknięciu przycisku w prawym dolnym rogu ekranu dodaj wpis lekarzowi wyświetli się pole do dodania go \
 ![alt text](Screenshots/dodajwpis1.PNG)
@@ -141,32 +195,48 @@ W zależności od naszego wyboru strona wyświetla komunikat o zapisie edycji na
 ![alt text](Screenshots/edycjakom1.PNG)
 ![alt text](Screenshots/edycjakom2.PNG)
 ## Recepty
-### Użytkownik
-W zakładce "Recepty" po lewej stronie użytkownik widzi pełną listę recept, wraz z ich numerem, datą wystawienia i ważności oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrana receptę użytkownik ma pełny podgląd do recepty po prawej stronie.
+### Pacjent
+W zakładce "Recepty" po lewej stronie pacjent widzi pełną listę recept, wraz z ich numerem, datą wystawienia i ważności oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrana receptę pacjent ma pełny podgląd do recepty po prawej stronie.
 
-Screenshots
+![alt text](Screenshots/receptyuzytkownik.PNG)
 
 ### Personel
-W zakładce "Recepty" po lewej stronie użytkownik widzi pełną listę recept, wraz z ich numerem, datą wystawienia i ważności oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrana receptę użytkownik ma pełny podgląd do recepty po prawej stronie.
+W zakładce "Recepty" po lewej stronie personel widzi pełną listę recept, wraz z ich numerem, datą wystawienia i ważności oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrana receptę personel ma pełny podgląd do recepty po prawej stronie.
 
-Screenshtots
+![alt text](Screenshots/receptylekarz.PNG)
+
+Dodawanie recepty:\
+Lekarz może dodac recepte poprzez podanie nazwy,terminu recepty i czy recepta jest jednorazowa czy nie.
+
+![alt text](Screenshots/dodajrecepte.PNG)
 
 ## Skierowania
-### Użytkownik
-W zakładce "Skierowania" po lewej stronie użytkownik widzi pełną listę skierowań, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrane skierowanie użytkownik ma pełny podgląd do jego szczegółów po prawej stronie.
+### Pacjent
+W zakładce "Skierowania" po lewej stronie pacjent widzi pełną listę skierowań, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrane skierowanie pacjent ma pełny podgląd do jego szczegółów po prawej stronie.
 
-Screenshots
+![alt text](Screenshots/skierowaniauzytkownik.PNG)
 
 ### Personel
-W zakładce "Skierowania" po lewej stronie użytkownik widzi pełną listę skierowań, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrane skierowanie użytkownik ma pełny podgląd do jego szczegółów po prawej stronie.
+W zakładce "Skierowania" po lewej stronie personel widzi pełną listę skierowań, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrane skierowanie personel ma pełny podgląd do jego szczegółów po prawej stronie.
 
+![alt text](Screenshots/skierowanialekarz.PNG)
+
+Dodawanie skierowania:\
+Lekarz może dodać nowe skierowanie wypełniając pole tekstowe i kliknięcie przycisku dodaj.
+
+![alt text](Screenshots/dodajskierowanie.PNG)
 ## Wyniki badań
-### Użytkownik
-W zakładce "Wyniki badań" po lewej stronie użytkownik widzi pełną liste wyników, wraz z ich numerem, datą wykonania oraz personelu wykonujący badanie. Po kliknięciu w wynik po prawej stronie wyświetlą się szczegóły wyniku.
+### Pacjent
+W zakładce "Wyniki badań" po lewej stronie pacjent widzi pełną liste wyników, wraz z ich numerem, datą wykonania oraz personelu wykonujący badanie. Po kliknięciu w wynik po prawej stronie wyświetlą się szczegóły wyniku.
 
-Screenshots
+![alt text](Screenshots/wynikiuzytkownik.PNG)
 
 ### Personel
-W zakładce "Wyniki badań" po lewej stronie użytkownik widzi pełną liste wyników, wraz z ich numerem, datą wykonania oraz personelu wykonujący badanie. Po kliknięciu w wynik po prawej stronie wyświetlą się szczegóły wyniku.
+W zakładce "Wyniki badań" po lewej stronie personel widzi pełną liste wyników, wraz z ich numerem, datą wykonania oraz personelu wykonujący badanie. Po kliknięciu w wynik po prawej stronie wyświetlą się szczegóły wyniku.
 
-Screenshots
+![alt text](Screenshots/wynikilekarz.PNG)
+
+Dodawanie wyniku:\
+Personel może dodać nowe wyniki badań poprzez dodanie opisu, wybrania daty oraz załączenia pliku. 
+
+![alt text](Screenshots/dodajwynik.PNG)
