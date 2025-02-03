@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idPersonelu = $_SESSION['id'];
     $wynikiBadania = $_POST['examinationDetails'];
     $dataWyniku = $_POST['examinationDate'];
-    $today = date('D-M-Y');
+    $today = date('Y-m-d);
     if ($dataWyniku > $today) {
         if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
         echo '<script type="text/javascript">
