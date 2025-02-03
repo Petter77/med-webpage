@@ -14,7 +14,16 @@
                 </script>';
                 exit;
     }
+
+    if($_SESSION['rola'] == "Administrator") {
+        echo '<script type="text/javascript">
+                alert(' . json_encode("Nie masz dostępu do tej strony - przekierowano") . ');
+                window.location.href = "adminpanel.php";
+                </script>';
+                exit;
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
