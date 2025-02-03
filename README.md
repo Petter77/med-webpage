@@ -166,7 +166,7 @@ Administrator może dodać nowego użytkownika, klikając przycisk „Dodaj uży
 Specjalista może dodać badania dla wyszukanego wsześniej konkretnego pacjenta poprzez opisanie ich wybranie daty oraz załączenia pliku w odpowiednim formacie :\
 
 ![alt text](Screenshots/dodajwynikibadan.PNG)
- alert 
+![alt text](Screenshots/Dodaniewynikukom.png)
 ## Wpisy
 ### Pacjent
 W zakładce "Wpisy" po lewej stronie pacjent widzi pełną listę wpisów, wraz z ich numerem, datą wystawienia oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrany wpis pacjent ma pełny podgląd tego wpisu po prawej stronie.
@@ -183,7 +183,7 @@ Dodawanie:
 Po kliknięciu przycisku w prawym dolnym rogu ekranu dodaj wpis lekarzowi wyświetli się pole do dodania go \
 ![alt text](Screenshots/dodajwpis1.PNG)
 ![alt text](Screenshots/dodajwpis.PNG)
-\Komunikat o dodaniu wpisu
+![alt text](Screenshots/Dodaniewpisukom.png)
 
 Edytowanie
 ![alt text](Screenshots/edycjawpisu1.PNG)
@@ -204,11 +204,20 @@ W zakładce "Recepty" po lewej stronie pacjent widzi pełną listę recept, wraz
 W zakładce "Recepty" po lewej stronie personel widzi pełną listę recept, wraz z ich numerem, datą wystawienia i ważności oraz imieniem i nazwiskiem lekarza, który je wystawił. Po kliknięciu na wybrana receptę personel ma pełny podgląd do recepty po prawej stronie.
 
 ![alt text](Screenshots/receptylekarz.PNG)
+![alt text](Screenshots/dodajrecepte1.png)
 
 Dodawanie recepty:\
 Lekarz może dodac recepte poprzez podanie nazwy,terminu recepty i czy recepta jest jednorazowa czy nie.
 
 ![alt text](Screenshots/dodajrecepte.PNG)
+![alt text](Screenshots/Dodaniereceptykom.png)
+![alt text](Screenshots/edycjarecepty1.png)
+![alt text](Screenshots/edycjarecepty2.png)
+
+![alt text](Screenshots/edycjawpisu3.PNG)
+
+![alt text](Screenshots/edycjakom1.PNG)
+![alt text](Screenshots/edycjakom2.PNG)
 
 ## Skierowania
 ### Pacjent
@@ -225,6 +234,12 @@ Dodawanie skierowania:\
 Lekarz może dodać nowe skierowanie wypełniając pole tekstowe i kliknięcie przycisku dodaj.
 
 ![alt text](Screenshots/dodajskierowanie.PNG)
+![alt text](Screenshots/Dodanieskierowaniakom.png)
+![alt text](Screenshots/edycjaskierowania1.png)
+![alt text](Screenshots/edycjaskierowania2.png)
+![alt text](Screenshots/edycjawpisu3.PNG)
+![alt text](Screenshots/edycjakom1.PNG)
+![alt text](Screenshots/edycjakom2.PNG)
 ## Wyniki badań
 ### Pacjent
 W zakładce "Wyniki badań" po lewej stronie pacjent widzi pełną liste wyników, wraz z ich numerem, datą wykonania oraz personelu wykonujący badanie. Po kliknięciu w wynik po prawej stronie wyświetlą się szczegóły wyniku.
