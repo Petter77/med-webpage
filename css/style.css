@@ -513,6 +513,38 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-    .close-button:hover {
-        color: black;
-    }
+.close-button:hover {
+    color: black;
+}
+
+#buttonSpecjalista {
+    background-color: #32d8ae;
+    color: #fff;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 0.1s ease-in-out;
+    border: none;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    width: 11rem;
+    justify-content: flex-start;
+}
+
+#buttonSpecjalista:hover {
+    background-color: #10b68c;
+}
+
+.icon img {
+    display: block;
+    height: 2.5rem;
+}
+
+.textSpecjalista {
+    flex-grow: 1; /* Sprawia, że tekst zajmuje całą dostępną przestrzeń */
+    text-align: left; /* Wyrównanie tekstu do lewej */
+}

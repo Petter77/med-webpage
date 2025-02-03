@@ -21,7 +21,7 @@
             session_start();
             $_SESSION['pesel'] = $pesel;
 
-            $_SESSION['rola'] = "";
+            $_SESSION['rola'] = "Pacjent";
 
             $_SESSION['mainpesel'] = $pesel;
 

@@ -36,4 +36,14 @@
                 </div>
 
 </body>
+<div style="position: fixed; bottom: 10px; left: 10px;">
+    <button id="buttonSpecjalista" class="nav-item" onclick="location.href='Pesel_Pickup.php'">
+        <span class="icon"><img src="icons/wybor.svg" alt=""></span>
+        <span class="textSpecjalista">Wybór Pacjenta</span>
+    </button>
+    <button id="buttonSpecjalista" class="nav-item" onclick="location.href='logout.php'">
+        <span class="icon"><img src="icons/logout.svg" alt=""></span>
+        <span class="textSpecjalista">Wyloguj</span>
+    </button>
+</div>
 </html>
