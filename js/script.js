@@ -434,8 +434,8 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
         }
         else if (event.target && event.target.id === 'addPapersButton') {
-            const this = new Date();
-            const formattedToday = this.toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+            const awaoe = new Date();
+            const formattedToday = awaoe.toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
             // Populate the form with today's date, restricting future dates
             document.getElementById('elementDetails').innerHTML = `
