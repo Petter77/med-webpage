@@ -9,12 +9,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dataWyniku = $_POST['examinationDate'];
     $today = date('d-m-Y');
     if ($dataWyniku > $today) {
+        if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
         echo '<script type="text/javascript">
                 alert("Data przeprowadzenia wyników nie mo¿e byæ w przysz³oœci.");
+                window.location.href = "techinical_panel.php";
               </script>';
-              if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
-                  header("Location: techinical_panel.php");
-              }else { header("Location: wyniki.php");}
+              exit;
+              }else { 
+              echo '<script type="text/javascript">
+                alert("Data przeprowadzenia wyników nie mo¿e byæ w przysz³oœci.");
+                window.location.href = "wyniki.php";
+              </script>';
+              }
         exit;
     }
     if (empty($peselPacjenta) || empty($idPersonelu) || empty($wynikiBadania) || empty($dataWyniku)) {
