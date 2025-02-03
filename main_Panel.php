@@ -24,8 +24,7 @@
                 </script>';
                 exit;
     }
-?>
-?>
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pesel'])) {
         $_SESSION['pesel'] = $_POST['pesel'];
         header("Location: main_Panel.php");
