@@ -11,13 +11,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($dataWyniku > $today) {
         if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
         echo '<script type="text/javascript">
-                alert("Data przeprowadzenia wynikÛw nie moøe byÊ w przysz≥oúci.");
+                alert("Data przeprowadzenia wynik√≥w nie mo≈ºe byc w przysz≈Ço≈õci.");
                 window.location.href = "techinical_panel.php";
               </script>';
               exit;
               }else { 
               echo '<script type="text/javascript">
-                alert("Data przeprowadzenia wynikÛw nie moøe byÊ w przysz≥oúci.");
+                alert("Data przeprowadzenia wynik√≥w nie mo≈ºe byƒá w przysz≈Ço≈õci.");
                 window.location.href = "wyniki.php";
               </script>';
               }
@@ -88,13 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], "https://studencki-portal-medyczny.pl/techinical_panel.php") !== false) {
                 echo '<script type="text/javascript">
-                alert("Pomyúlnie dodano wynik!");
+                alert("Pomy≈õlnie dodano wynik!");
                 window.location.href = "techinical_panel.php";
                 </script>';
                 exit; 
             } else {
                 echo '<script type="text/javascript">
-                alert("Pomyúlnie dodano wynik!");
+                alert("Pomy≈õlnie dodano wynik!");
                 window.location.href = "wyniki.php";
                 </script>';
                 exit;

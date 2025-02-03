@@ -138,7 +138,7 @@ function handleClick(id, rodzaj) {
                             <h3>Dane Personelu</h3>
                             <p>${response.personel_imie} ${response.personel_nazwisko} </p>
                             <h3>Przypisane leki:</h3>
-                            <p>${response.recepty_przypisaneleki}</p>`;
+                            <p>${response.przypisaneLeki}</p>`;
                             if(sessionID == response.idpersonelu){    
                                 document.getElementById('elementDetails').innerHTML +=
                                 `<button class="edit-button" onclick="editData(${id}, 'recepta')">Edytuj</button>`;

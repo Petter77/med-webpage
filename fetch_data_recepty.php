@@ -18,7 +18,7 @@
                     SELECT 
                         Recepty."dataWystawienia" as Recepty_dataWystawienia, 
                         Recepty."dataWaznosci" as Recepty_dataWaznosci,
-                        Recepty."przypisaneLeki" as Recepty_przypisaneLeki,
+                        Recepty."przypisaneLeki",
                         personel.imie AS personel_imie, 
                         personel.nazwisko AS personel_nazwisko,
                         Recepty."idPersonelu" AS idPersonelu
