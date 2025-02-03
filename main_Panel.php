@@ -309,24 +309,53 @@
                                 echo "An error occurred with the connection.\n";
                                 exit;
                             }
-    
+                            
                             $mainpesel = $_SESSION['mainpesel'];
-                            $result = pg_query_params($conn, 'SELECT "peselOwner" FROM public."SharedPesel" WHERE "peselAllowed" = $1', array($mainpesel));
-    
+                            
+                            $mainPeselQuery = '
+                                SELECT 
+                                    "imie", 
+                                    "nazwisko" 
+                                FROM 
+                                    public."Pacjenci"
+                                WHERE 
+                                    "pesel" = $1
+                            ';
+                            $mainPeselResult = pg_query_params($conn, $mainPeselQuery, array($mainpesel));
+                            $mainPeselInfo = pg_fetch_assoc($mainPeselResult);
+                            
+                            $query = '
+                                SELECT 
+                                    "Pacjenci"."pesel", 
+                                    "Pacjenci"."imie", 
+                                    "Pacjenci"."nazwisko" 
+                                FROM 
+                                    public."Pacjenci"
+                                JOIN 
+                                    public."SharedPesel"
+                                ON 
+                                    "Pacjenci"."pesel" = "SharedPesel"."peselOwner"
+                                WHERE 
+                                    "SharedPesel"."peselAllowed" = $1
+                            ';
+                            
+                            $result = pg_query_params($conn, $query, array($mainpesel));
+                            
                             if (!$result) {
                                 echo "An error occurred with the query.\n";
                                 exit;
                             }
+                            
                             echo '<form method="POST" action="">';
                             echo '<select name="pesel" onchange="this.form.submit()">';
-                            echo '<option value="' . htmlspecialchars($mainpesel) . '">' . htmlspecialchars($mainpesel) . '</option>';
+                            echo '<option value="' . htmlspecialchars($mainpesel) . '">' . htmlspecialchars($mainPeselInfo['imie'] . ' ' . $mainPeselInfo['nazwisko']) . '</option>';
                             while ($row = pg_fetch_assoc($result)) {
-                                $selected = ($row['peselOwner'] == $_SESSION['pesel']) ? 'selected' : '';
-                                echo '<option value="' . htmlspecialchars($row['peselOwner']) . '" ' . $selected . '>' . htmlspecialchars($row['peselOwner']) . '</option>';
+                                $selected = ($row['pesel'] == $_SESSION['pesel']) ? 'selected' : '';
+                                echo '<option value="' . htmlspecialchars($row['pesel']) . '" ' . $selected . '>' . htmlspecialchars($row['imie'] . ' ' . $row['nazwisko']) . '</option>';
                             }
                             echo '</select>';
                             echo '</form>';
-    
+                            
                             pg_close($conn);
                         }
                     ?>
